@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.context.CommandContext
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
+import kitowashere.boiled_witchcraft.common.data.handler.blood.SimpleTBContainer
 import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.titanBlood
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -26,18 +27,18 @@ object ChunkBloodCommand: RegistrableCommand {
 
                         .then(
                             Commands.literal("set")
-                                .then(Commands.argument("value", IntegerArgumentType.integer())).executes(::set)
+                                .then(Commands.argument("value", IntegerArgumentType.integer()).executes(::set))
                         )
                         .then(
                             Commands.literal("add")
-                                .then(Commands.argument("amount", IntegerArgumentType.integer())).executes(::add)
+                                .then(Commands.argument("amount", IntegerArgumentType.integer()).executes(::add))
                         )
                         .then(
                             Commands.literal("sub")
-                                .then(Commands.argument("amount", IntegerArgumentType.integer())).executes(::sub)
+                                .then(Commands.argument("amount", IntegerArgumentType.integer()).executes(::sub))
                         )
 
-                        .then(Commands.literal("see")).executes(::see)
+                        .then(Commands.literal("see").executes(::see))
                     )
                 )
         )
@@ -48,48 +49,49 @@ object ChunkBloodCommand: RegistrableCommand {
                 .getChunkAt(BlockPos(Vec3Argument.getVec3(commandContext, "location").toVec3i())).titanBlood
 
         commandContext.source.sendSuccess({
-            Component.translatable(ID + "commands.chunk_blood.see").append(": $blood")
+            Component.translatable("commands.$ID.chunk_blood.see").append(" $blood")
         }, true)
 
-        return blood
+        return blood.get()
     }
 
     private fun set(commandContext: CommandContext<CommandSourceStack>): Int {
-        val chunk = DimensionArgument.getDimension(commandContext, "dimension")
-            .getChunkAt(BlockPos(Vec3Argument.getVec3(commandContext, "location").toVec3i()))
+        val blood = DimensionArgument.getDimension(commandContext, "dimension")
+            .getChunkAt(BlockPos(Vec3Argument.getVec3(commandContext, "location").toVec3i())).titanBlood
 
-        chunk.titanBlood = IntegerArgumentType.getInteger(commandContext, "value")
+        blood.use(blood.get())
+        blood.absorb(SimpleTBContainer(IntegerArgumentType.getInteger(commandContext, "value")))
 
         commandContext.source.sendSuccess({
-            Component.translatable(ID + "commands.chunk_blood.set").append(": ${chunk.titanBlood}")
+            Component.translatable("commands.$ID.chunk_blood.set").append(" ${blood.get()}")
         }, true)
 
-        return chunk.titanBlood
+        return blood.get()
     }
 
     private fun add(commandContext: CommandContext<CommandSourceStack>): Int {
-        val chunk = DimensionArgument.getDimension(commandContext, "dimension")
-            .getChunkAt(BlockPos(Vec3Argument.getVec3(commandContext, "location").toVec3i()))
+        val blood = DimensionArgument.getDimension(commandContext, "dimension")
+            .getChunkAt(BlockPos(Vec3Argument.getVec3(commandContext, "location").toVec3i())).titanBlood
 
-        chunk.titanBlood += IntegerArgumentType.getInteger(commandContext, "amount")
+        blood.absorb(SimpleTBContainer(IntegerArgumentType.getInteger(commandContext, "amount")))
 
         commandContext.source.sendSuccess({
-            Component.translatable(ID + "commands.chunk_blood.add").append(": ${chunk.titanBlood}")
+            Component.translatable("commands.$ID.chunk_blood.add").append(" ${blood.get()}")
         }, true)
 
-        return chunk.titanBlood
+        return blood.get()
     }
 
     private fun sub(commandContext: CommandContext<CommandSourceStack>): Int {
-        val chunk = DimensionArgument.getDimension(commandContext, "dimension")
-            .getChunkAt(BlockPos(Vec3Argument.getVec3(commandContext, "location").toVec3i()))
+        val blood = DimensionArgument.getDimension(commandContext, "dimension")
+            .getChunkAt(BlockPos(Vec3Argument.getVec3(commandContext, "location").toVec3i())).titanBlood
 
-        chunk.titanBlood -= IntegerArgumentType.getInteger(commandContext, "amount")
+        blood.use(IntegerArgumentType.getInteger(commandContext, "amount"))
 
         commandContext.source.sendSuccess({
-            Component.translatable(ID + "commands.chunk_blood.sub").append(": ${chunk.titanBlood}")
+            Component.translatable("commands.$ID.chunk_blood.use").append(" ${blood.get()}")
         }, true)
 
-        return chunk.titanBlood
+        return blood.get()
     }
 }

@@ -1,8 +1,10 @@
 package kitowashere.boiled_witchcraft
 
-import kitowashere.boiled_witchcraft.client.ClientConfig
+import kitowashere.boiled_witchcraft.client.config.ClientConfig
 import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.attachTypes
+import kitowashere.boiled_witchcraft.common.registry.BlockEntityRegistry.blockEntities
 import kitowashere.boiled_witchcraft.common.registry.BlockRegistry.blocks
+import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.glyphTypes
 import net.neoforged.fml.ModLoadingContext
 import net.neoforged.fml.common.Mod
 import net.neoforged.fml.config.ModConfig
@@ -18,7 +20,8 @@ object BoiledWitchcraft {
     val LOGGER: Logger = LogManager.getLogger(ID)
 
     init {
-        listOf(blocks, attachTypes
+        listOf(
+            blocks, blockEntities, attachTypes, glyphTypes
         ).forEach { it.register(MOD_BUS) }
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.spec)

@@ -22,7 +22,7 @@ object ModEventCommon {
      * @see PayloadHandler
      */
     @SubscribeEvent
-    fun registerPackets(event: RegisterPayloadHandlerEvent) {
+    fun onRegisterPackets(event: RegisterPayloadHandlerEvent) {
         val registrar = event.registrar(ID)
 
         listOf(

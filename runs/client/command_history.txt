@@ -1,0 +1,16 @@
+/chunk_blood ~ ~ ~ minecraft:overworld add 10
+/chunk_blood ~ ~ ~ minecraft:overworld add 1000
+/chunk_blood 8.91 56.00 5.17 minecraft:overworld see
+/chunk_blood ~ ~ ~ minecraft:overworld add 1
+/chunk_blood ~ ~ ~ minecraft:overworld see
+/chunk_blood ~ ~ ~ minecraft:overworld set 1
+/chunk_blood ~ ~ ~ minecraft:overworld add 10
+/chunk_blood ~ ~ ~ minecraft:overworld see
+/chunk_blood ~ ~ ~ minecraft:overworld set 10
+/chunk_blood ~ ~ ~ minecraft:overworld sub 10
+/chunk_blood ~ ~ ~ minecraft:overworld add 10
+/chunk_blood ~ ~ ~ minecraft:overworld see
+/chunk_blood ~ ~ ~ minecraft:overworld sub 5
+/chunk_blood ~ ~ ~ minecraft:overworld see
+/chunk_blood ~ ~ ~ minecraft:overworld set 20
+/chunk_blood ~ ~ ~ minecraft:overworld see

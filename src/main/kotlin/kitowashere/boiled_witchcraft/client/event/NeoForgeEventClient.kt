@@ -1,10 +1,7 @@
 package kitowashere.boiled_witchcraft.client.event
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft
-import kitowashere.boiled_witchcraft.client.data.ClientTitanBlood
 import kitowashere.boiled_witchcraft.client.data.ClientTitanBlood.currentChunkTitanBlood
-import kitowashere.boiled_witchcraft.client.gui.overlay.TitanBloodOverlay.neededTokens
-import kitowashere.boiled_witchcraft.client.gui.overlay.TitanBloodOverlay.tokensType
 import kitowashere.boiled_witchcraft.common.network.ChunkBloodPacket
 import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.titanBlood
 import net.minecraft.client.Minecraft
@@ -50,10 +47,5 @@ object NeoForgeEventClient {
         if (player.level().isClientSide && event.entity is Player && Minecraft.getInstance().player!!.`is`(event.entity)) {
             currentChunkTitanBlood = player.level().getChunkAt(player.onPos).titanBlood
         }
-    }
-
-    @SubscribeEvent
-    fun onClientTBChanged(event: ClientTBChangedEvent) {
-        neededTokens = tokensType.filter { it.willBeUsed(ClientTitanBlood.totalTitanBloodAmount) }
     }
 }

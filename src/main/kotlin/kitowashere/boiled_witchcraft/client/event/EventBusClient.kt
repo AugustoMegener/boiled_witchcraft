@@ -1,7 +1,6 @@
 package kitowashere.boiled_witchcraft.client.event
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft
-import kitowashere.boiled_witchcraft.client.gui.overlay.Overlay
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.Mod.EventBusSubscriber
@@ -20,10 +19,10 @@ object EventBusClient {
 
     @SubscribeEvent
     fun onRegisterGuiOverlays(event: RegisterGuiOverlaysEvent) {
-        listOf<Overlay>(
+        /*listOf<>(
 
         ).forEach {
             event.registerAboveAll(it.id, it::render)
-        }
+        }*/
     }
 }
