@@ -4,10 +4,12 @@ import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.world.glyph.type.FireGlyphType
 import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType
 import net.neoforged.neoforge.registries.DeferredRegister
+import net.neoforged.neoforge.registries.RegistryBuilder
 
 object GlyphTypeRegistry {
-    val glyphTypes: DeferredRegister<GlyphType> = DeferredRegister.create(GlyphType.registryKey, ID)
+    val glyphTypeRegistry: DeferredRegister<GlyphType<*>> = DeferredRegister.create(GlyphType.registryKey, ID)
 
-    val fireGlyph = glyphTypes.register("fire_glyph")
-    { -> FireGlyphType() }
+    val fireGlyph = glyphTypeRegistry.register("fire_glyph") { -> FireGlyphType() }
+
+    val glyphTypes = glyphTypeRegistry.makeRegistry { RegistryBuilder(GlyphType.registryKey) }
 }

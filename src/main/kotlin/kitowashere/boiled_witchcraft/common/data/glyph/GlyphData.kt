@@ -8,11 +8,11 @@ import kotlin.reflect.KProperty
 
 abstract class GlyphData : INBTSerializable<CompoundTag> {
 
-    inner class DataField<T>(var value: T) {
+    inner class DataField<T>(var value: T?) {
 
         operator fun getValue(glyphData: GlyphData, property: KProperty<*>) = value
 
-        operator fun setValue(glyphData: GlyphData, property: KProperty<*>, t: T) { value = t
+        operator fun setValue(glyphData: GlyphData, property: KProperty<*>, t: T?) { value = t
             val name = property.name
             when (t)  {
                 is Int                  -> nbt.putInt(name, t)
@@ -32,6 +32,8 @@ abstract class GlyphData : INBTSerializable<CompoundTag> {
                 )
             }
         }
+
+
     }
 
     var owner by DataField<UUID?>(null)
@@ -40,4 +42,7 @@ abstract class GlyphData : INBTSerializable<CompoundTag> {
 
     override fun serializeNBT(): CompoundTag = nbt
     override fun deserializeNBT(nbt: CompoundTag) { this.nbt = nbt }
+
+    @Suppress("UNCHECKED_CAST")
+    fun <T: GlyphData>cast() = this as T
 }

@@ -2,6 +2,7 @@ package kitowashere.boiled_witchcraft.common.network
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.client.data.ClientTitanBlood.currentChunkTitanBlood
+import kitowashere.boiled_witchcraft.common.data.handler.blood.SimpleTBContainer
 import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.titanBlood
 import net.minecraft.client.Minecraft
 import net.minecraft.core.GlobalPos
@@ -26,8 +27,8 @@ data class ChunkBloodPacket(val chunkGlobalPos: GlobalPos, val amount: Int) : Cu
                     if (level.dimension() == data.chunkGlobalPos.dimension()) {
                         val chunk = level.getChunkAt(data.chunkGlobalPos.pos())
 
-                        chunk.titanBlood = data.amount
-                        currentChunkTitanBlood = chunk.titanBlood
+                        chunk.titanBlood.absorb(SimpleTBContainer(data.amount))
+                        currentChunkTitanBlood = chunk.titanBlood.get()
                     }
                 }
             }

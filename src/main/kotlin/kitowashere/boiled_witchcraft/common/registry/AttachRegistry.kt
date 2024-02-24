@@ -15,10 +15,10 @@ import kotlin.math.min
 
 
 object AttachRegistry {
-    val attachTypes: DeferredRegister<AttachmentType<*>> =
+    val attachRegistry: DeferredRegister<AttachmentType<*>> =
         DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ID)
 
-    private val titanBloodAttach: Supplier<AttachmentType<Int>> = attachTypes.register("titan_blood")
+    private val titanBloodAttach: Supplier<AttachmentType<Int>> = attachRegistry.register("titan_blood")
     { -> AttachmentType.builder { -> 0 }.serialize(Codec.INT).build() }
 
 

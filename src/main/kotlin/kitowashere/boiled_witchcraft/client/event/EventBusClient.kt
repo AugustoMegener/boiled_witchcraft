@@ -25,4 +25,5 @@ object EventBusClient {
             event.registerAboveAll(it.id, it::render)
         }*/
     }
+
 }

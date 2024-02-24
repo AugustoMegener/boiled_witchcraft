@@ -1,10 +1,11 @@
 package kitowashere.boiled_witchcraft
 
 import kitowashere.boiled_witchcraft.client.config.ClientConfig
-import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.attachTypes
-import kitowashere.boiled_witchcraft.common.registry.BlockEntityRegistry.blockEntities
-import kitowashere.boiled_witchcraft.common.registry.BlockRegistry.blocks
-import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.glyphTypes
+import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.attachRegistry
+import kitowashere.boiled_witchcraft.common.registry.BlockEntityRegistry.blockEntityRegistry
+import kitowashere.boiled_witchcraft.common.registry.BlockRegistry.blockRegistry
+import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.glyphTypeRegistry
+import kitowashere.boiled_witchcraft.common.registry.ItemRegistry.itemRegistry
 import net.neoforged.fml.ModLoadingContext
 import net.neoforged.fml.common.Mod
 import net.neoforged.fml.config.ModConfig
@@ -21,7 +22,7 @@ object BoiledWitchcraft {
 
     init {
         listOf(
-            blocks, blockEntities, attachTypes, glyphTypes
+            blockRegistry, blockEntityRegistry, attachRegistry, glyphTypeRegistry, itemRegistry
         ).forEach { it.register(MOD_BUS) }
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.spec)

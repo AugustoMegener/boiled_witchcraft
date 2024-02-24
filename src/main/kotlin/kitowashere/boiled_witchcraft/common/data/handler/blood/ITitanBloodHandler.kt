@@ -56,4 +56,5 @@ interface ITitanBloodHandler {
         val value = min(get(), amount)
         if (action.invoke(value)) use(value)
     }
+
 }
