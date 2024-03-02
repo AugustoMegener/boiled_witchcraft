@@ -6,6 +6,7 @@ import kitowashere.boiled_witchcraft.common.registry.BlockEntityRegistry.blockEn
 import kitowashere.boiled_witchcraft.common.registry.BlockRegistry.blockRegistry
 import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.glyphTypeRegistry
 import kitowashere.boiled_witchcraft.common.registry.ItemRegistry.itemRegistry
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip
 import net.neoforged.fml.ModLoadingContext
 import net.neoforged.fml.common.Mod
 import net.neoforged.fml.config.ModConfig

@@ -19,8 +19,5 @@ object NeoForgeEventClient {
         val player = event.entity
 
         if(player.level().isClientSide)currentChunkTitanBlood = player.level().getChunkAt(player.onPos).titanBlood.get()
-
     }
-
-
 }

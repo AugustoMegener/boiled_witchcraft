@@ -21,7 +21,6 @@ object AttachRegistry {
     private val titanBloodAttach: Supplier<AttachmentType<Int>> = attachRegistry.register("titan_blood")
     { -> AttachmentType.builder { -> 0 }.serialize(Codec.INT).build() }
 
-
     /**
      * The chunk's ITitanBloodHandler.
      *

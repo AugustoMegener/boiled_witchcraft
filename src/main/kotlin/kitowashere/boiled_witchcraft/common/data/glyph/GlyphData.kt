@@ -6,13 +6,35 @@ import net.neoforged.neoforge.common.util.INBTSerializable
 import java.util.*
 import kotlin.reflect.KProperty
 
-abstract class GlyphData : INBTSerializable<CompoundTag> {
+abstract class GlyphData(private var nbt: CompoundTag = CompoundTag()) : INBTSerializable<CompoundTag> {
 
-    inner class DataField<T>(var value: T?) {
+    inner class DataField<T>(private val init: T?) {
 
-        operator fun getValue(glyphData: GlyphData, property: KProperty<*>) = value
+        @Suppress("UNCHECKED_CAST")
+        operator fun getValue(glyphData: GlyphData, property: KProperty<*>): T {
+            val name = property.name
+            return when (init) {
+                is Int                  -> nbt.getInt(name)         as T
+                is Boolean              -> nbt.getBoolean(name)     as T
+                is Byte                 -> nbt.getByte(name)        as T
+                is ByteArray            -> nbt.getByteArray(name)   as T
+                is Float                -> nbt.getFloat(name)       as T
+                is IntArray             -> nbt.getIntArray(name)    as T
+                is Long                 -> nbt.getLong(name)        as T
+                is LongArray            -> nbt.getLongArray(name)   as T
+                is Short                -> nbt.getShort(name)       as T
+                is String               -> nbt.getString(name)      as T
+                is UUID                 -> nbt.getUUID(name)        as T
+                is INBTSerializable<*>  -> nbt.get(name)            as T
+                else -> {
+                    setValue(glyphData, property, init)
+                    return getValue(glyphData, property)
+                }
+            }
+        }
 
-        operator fun setValue(glyphData: GlyphData, property: KProperty<*>, t: T?) { value = t
+        operator fun setValue(glyphData: GlyphData, property: KProperty<*>, t: T?) {
+
             val name = property.name
             when (t)  {
                 is Int                  -> nbt.putInt(name, t)
@@ -27,18 +49,15 @@ abstract class GlyphData : INBTSerializable<CompoundTag> {
                 is String               -> nbt.putString(name, t)
                 is UUID                 -> nbt.putUUID(name, t)
                 is INBTSerializable<*>  -> nbt.put(name, t.serializeNBT())
+                null                    -> nbt.remove(name)
                 else -> throw InvalidTypeException(
                     "${t!!::class.simpleName!!} isn't a valid DataField type. Please, read DataField documentation."
                 )
             }
         }
-
-
     }
 
     var owner by DataField<UUID?>(null)
-
-    private var nbt = CompoundTag()
 
     override fun serializeNBT(): CompoundTag = nbt
     override fun deserializeNBT(nbt: CompoundTag) { this.nbt = nbt }

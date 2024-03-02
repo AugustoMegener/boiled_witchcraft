@@ -2,8 +2,8 @@ package kitowashere.boiled_witchcraft.common.world.level.block.entity
 
 import kitowashere.boiled_witchcraft.common.data.glyph.GlyphData
 import kitowashere.boiled_witchcraft.common.registry.BlockEntityRegistry.glyphBlockEntity
-import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.ResourceHelper.fromID
-import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.ResourceHelper.getID
+import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.Util.fromID
+import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.Util.getID
 import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag

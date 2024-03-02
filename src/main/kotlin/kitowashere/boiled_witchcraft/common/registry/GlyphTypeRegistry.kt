@@ -14,15 +14,16 @@ object GlyphTypeRegistry {
 
     val glyphTypes = glyphTypeRegistry.makeRegistry { RegistryBuilder(GlyphType.registryKey) }
 
-    object ResourceHelper {
+    object Util {
+        val primaries: List<GlyphType<*>>; get() = glyphTypes.filter { it.kind == GlyphType.GlyphKind.PRIMARY }
+
         fun fromID(id: String) = glyphTypes.get(ResourceLocation.of(id, ':'))
         fun getID(glyph: GlyphType<*>) = glyphTypes.getResourceKey(glyph).map { it.registry().toString() }.orElseThrow()
 
-        fun getGlyphTexture(glyphType: GlyphType<*>, size: Int = 1, relative: Boolean = false): ResourceLocation {
+        fun getGlyphTexture(glyphType: GlyphType<*>, size: Int = 1): ResourceLocation {
             if (size !in glyphType.sizes) throw Exception("Unavailable size for this glyph :/...")
             return glyphTypes.getKey(glyphType)!!
-                .also { it.takeIf { !relative }?.withPrefix("textures/glyph/") }
-                .withPrefix("${size}x${size}/")
+                .withPrefix("textures/glyph/${size}x${size}/")
                 .withSuffix(".png")
         }
     }
