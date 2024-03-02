@@ -12,6 +12,6 @@ object EventBusServer {
 
     @SubscribeEvent
     private fun onServerSetup(event: FMLDedicatedServerSetupEvent) {
-        BoiledWitchcraft.LOGGER.log(Level.INFO, "Server starting...")
+        BoiledWitchcraft.logger.log(Level.INFO, "Server starting...")
     }
 }

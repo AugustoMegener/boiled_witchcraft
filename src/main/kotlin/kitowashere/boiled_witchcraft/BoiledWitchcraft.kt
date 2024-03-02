@@ -18,7 +18,7 @@ import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 object BoiledWitchcraft {
     const val ID = "boiled_witchcraft"
 
-    val LOGGER: Logger = LogManager.getLogger(ID)
+    val logger: Logger = LogManager.getLogger(ID)
 
     init {
         listOf(

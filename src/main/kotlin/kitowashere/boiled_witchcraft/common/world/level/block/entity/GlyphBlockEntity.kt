@@ -2,11 +2,11 @@ package kitowashere.boiled_witchcraft.common.world.level.block.entity
 
 import kitowashere.boiled_witchcraft.common.data.glyph.GlyphData
 import kitowashere.boiled_witchcraft.common.registry.BlockEntityRegistry.glyphBlockEntity
-import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.glyphTypes
+import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.ResourceHelper.fromID
+import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.ResourceHelper.getID
 import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 
@@ -23,15 +23,12 @@ class GlyphBlockEntity( pos: BlockPos, state: BlockState) : BlockEntity(glyphBlo
 
     override fun load(pTag: CompoundTag) {
         super.load(pTag)
-        glyphType = glyphTypes.get(ResourceLocation.of(pTag.getString("glyph_type"), ':'))
-                    ?: GlyphType.placeholder
+        glyphType = fromID(pTag.getString("glyph_type")) ?: GlyphType.placeholder
         data.deserializeNBT(pTag.getCompound("glyph_data"))
     }
 
     override fun saveAdditional(pTag: CompoundTag) {
-        pTag.putString(
-             "glyph_type", glyphTypes.getResourceKey(glyphType).map { it.registry().toString() }.orElseThrow()
-        )
+        pTag.putString("glyph_type", getID(glyphType))
         pTag.put("glyph_data", data.serializeNBT())
         super.saveAdditional(pTag)
     }

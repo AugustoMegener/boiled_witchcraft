@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap
 import com.mojang.serialization.MapCodec
 import kitowashere.boiled_witchcraft.common.data.Caps
 import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.titanBlood
+import kitowashere.boiled_witchcraft.common.registry.BlockRegistry
 import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType
 import kitowashere.boiled_witchcraft.common.world.level.block.entity.GlyphBlockEntity
 import net.minecraft.core.BlockPos
@@ -18,6 +19,7 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.BaseEntityBlock
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING
@@ -38,6 +40,8 @@ class GlyphBlock(properties: Properties) : BaseEntityBlock(properties) {
         pBuilder.add(FACING)
     }
 
+    @Deprecated("Should not be deprecated :<", ReplaceWith("", ""))
+    override fun getRenderShape(pState: BlockState) = RenderShape.ENTITYBLOCK_ANIMATED
 
     override fun stepOn(pLevel: Level, pPos: BlockPos, pState: BlockState, pEntity: Entity) {
         val blockEntity = getBlockEntity(pLevel, pPos)
@@ -52,8 +56,10 @@ class GlyphBlock(properties: Properties) : BaseEntityBlock(properties) {
     }
 
     @Deprecated("Should not be deprecated >:v", ReplaceWith("", ""))
-    override fun use(pState: BlockState, pLevel: Level, pPos: BlockPos,
-                     pPlayer: Player, pHand: InteractionHand, pHit: BlockHitResult)
+    override fun use(
+        pState: BlockState, pLevel: Level, pPos: BlockPos,
+        pPlayer: Player, pHand: InteractionHand, pHit: BlockHitResult,
+    )
     : InteractionResult
     {
         val blockEntity = getBlockEntity(pLevel, pPos)
@@ -107,6 +113,16 @@ class GlyphBlock(properties: Properties) : BaseEntityBlock(properties) {
             WEST,   box(15.99, 0.0, 0.0, 16.0, 16.0, 16.0),
             EAST,   box(0.0, 0.0, 0.0, 0.01, 16.0, 16.0),
         )
+
+        fun put(glyph: GlyphType<*>, level: Level, pos: BlockPos, facing: Direction, size: Int, author: Player? = null)
+        {
+            level.setBlock(pos, BlockRegistry.glyphBlock.get().defaultBlockState().setValue(FACING, facing), UPDATE_ALL)
+            val be = (level.getBlockEntity(pos) as GlyphBlockEntity)
+
+            be.glyphType = glyph
+            be.size = size
+            be.data.owner = author?.uuid
+        }
     }
 
     override fun codec(): MapCodec<out BaseEntityBlock> { TODO("Block codecs aren't implemented yet") }

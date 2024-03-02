@@ -1,11 +1,9 @@
 package kitowashere.boiled_witchcraft.common.world.glyph.type
 
 import kitowashere.boiled_witchcraft.common.data.glyph.PillarGlyphData
-import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.glyphTypes
 import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType.BlockEventCtx
 import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType.GlyphEventTemplate
 import net.minecraft.core.BlockPos.MutableBlockPos
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Block.UPDATE_ALL
 import net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING
@@ -14,7 +12,6 @@ import kotlin.math.max
 
 
 object Util {
-
     object EventTemplates {
         data class SurfacedPillarConfig(val block: Block, val integerProperty: IntegerProperty?, val max: Int?)
         val surfacedPillar = GlyphEventTemplate<PillarGlyphData, BlockEventCtx, SurfacedPillarConfig>(
@@ -52,14 +49,5 @@ object Util {
                 }
             }
         )
-    }
-
-    object ResourceHelper {
-        fun getGlyphTexture(glyphType: GlyphType<*>, size: Int = 1): ResourceLocation {
-            if (size !in glyphType.sizes) throw Exception("Unavailable size for this glyph :/...")
-            return glyphTypes.getKey(glyphType)!!
-                .withPrefix("textures/glyph/${size}x${size}/")
-                .withSuffix(".png")
-        }
     }
 }

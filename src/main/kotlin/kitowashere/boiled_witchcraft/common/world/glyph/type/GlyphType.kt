@@ -3,7 +3,6 @@ package kitowashere.boiled_witchcraft.common.world.glyph.type
 import jdk.jfr.Experimental
 import kitowashere.boiled_witchcraft.common.data.glyph.GlyphData
 import kitowashere.boiled_witchcraft.common.data.handler.blood.ITitanBloodHandler
-import kitowashere.boiled_witchcraft.common.registry.BlockRegistry.glyphBlock
 import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry
 import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType.GlyphKind
 import kitowashere.boiled_witchcraft.common.world.level.block.entity.GlyphBlockEntity
@@ -16,9 +15,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.Block.UPDATE_ALL
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING
 import net.neoforged.neoforge.registries.DeferredRegister
 
 /**
@@ -40,6 +37,8 @@ abstract class GlyphType<T : GlyphData>(val kind: GlyphKind,
                                         private val data: () -> T,
                                         val sizes: List<Int> = listOf(1, 2, 3))
 {
+    // ignore everything below this, it's horrible, I'll fix it eventually
+
     /**
      * Class representing events coming from the glyph.
      *
@@ -135,17 +134,9 @@ abstract class GlyphType<T : GlyphData>(val kind: GlyphKind,
      */
     abstract val itemUsed: GlyphEvent<Player?>
 
+    // below this is fine ig
 
     fun newData() = data.invoke()
-
-    fun putAsBlock(level: Level, pos: BlockPos, facing: Direction, size: Int, author: Player? = null) {
-        level.setBlock(pos, glyphBlock.get().defaultBlockState().setValue(FACING, facing), UPDATE_ALL)
-        val be = (level.getBlockEntity(pos) as GlyphBlockEntity)
-
-        be.glyphType = this
-        be.size = size
-        be.data.owner = author?.uuid
-    }
 
     companion object {
         val placeholder: FireGlyphType; get() = GlyphTypeRegistry.fireGlyph.get()

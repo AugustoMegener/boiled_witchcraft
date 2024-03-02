@@ -28,7 +28,7 @@ object ModEventCommon {
 
     @SubscribeEvent
     fun onCommonSetup(event: FMLCommonSetupEvent) {
-        BoiledWitchcraft.LOGGER.log(Level.INFO, "Hello! This is working!")
+        BoiledWitchcraft.logger.log(Level.INFO, "Hello! This is working!")
     }
 
     /**
