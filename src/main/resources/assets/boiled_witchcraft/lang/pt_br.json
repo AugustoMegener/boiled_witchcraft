@@ -1,0 +1,14 @@
+{
+  "item.boiled_witchcraft.pencil":            "Lapis",
+  "item.boiled_witchcraft.glyph_on_a_paper":  "Glifo no Papel",
+
+  "commands.boiled_witchcraft.chunk_blood.see": "O sangue de titã na chunk atual é",
+  "commands.boiled_witchcraft.chunk_blood.set": "O sangue de titã da chunk foi definido em",
+  "commands.boiled_witchcraft.chunk_blood.add": "Após a adição, o sangue de titã na chunk atual é",
+  "commands.boiled_witchcraft.chunk_blood.sub": "Após a subtração, o sangue de titã na chunk atual é",
+
+  "glyph.boiled_witchcraft.fire_glyph":   "Glifo de fogo",
+  "glyph.boiled_witchcraft.ice_glyph":    "Glifo de gelo",
+  "glyph.boiled_witchcraft.light_glyph":  "Glifo de luz",
+  "glyph.boiled_witchcraft.plant_glyph":  "Glifo de planta"
+}

@@ -1,4 +1,117 @@
-[02mar.2024 15:15:59.750] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, 20.4.142-beta, --assetIndex, asset-index, --assetsDir, C:\Users\cursotecnico01\.gradle\caches\minecraft\assets\1.20.4, --gameDir, ., --fml.neoForgeVersion, 20.4.142-beta, --fml.fmlVersion, 2.0.11, --fml.mcVersion, 1.20.4, --fml.neoFormVersion, 20231207.154220]
-[02mar.2024 15:15:59.761] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.6 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
-[02mar.2024 15:16:00.212] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
-[02mar.2024 15:16:00.419] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
+[05mar.2024 17:57:03.896] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, 20.4.142-beta, --assetIndex, asset-index, --assetsDir, C:\Users\Usuario\.gradle\caches\minecraft\assets\1.20.4, --gameDir, ., --fml.neoForgeVersion, 20.4.142-beta, --fml.fmlVersion, 2.0.11, --fml.mcVersion, 1.20.4, --fml.neoFormVersion, 20231207.154220]
+[05mar.2024 17:57:03.913] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.5 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[05mar.2024 17:57:04.221] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[05mar.2024 17:57:04.749] [main/INFO] [EARLYDISPLAY/]: Trying GL version 4.6
+[05mar.2024 17:57:06.049] [main/INFO] [EARLYDISPLAY/]: Requested GL version 4.6 got version 4.6
+[05mar.2024 17:57:06.508] [pool-2-thread-1/INFO] [EARLYDISPLAY/]: GL info: AMD Radeon R7 240 Series GL version 4.6.13596 Core Profile Forward-Compatible Context 20.10.35.02 27.20.1034.6, ATI Technologies Inc.
+[05mar.2024 17:57:06.703] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Usuario/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23169!/ Service=ModLauncher Env=CLIENT
+[05mar.2024 17:57:08.668] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "neoforge-20.4.142-beta.jar" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@9fecdf1
+[05mar.2024 17:57:08.669] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "main" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@9fecdf1
+[05mar.2024 17:57:08.669] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "" of type MOD with provider net.neoforged.fml.loading.moddiscovery.MinecraftLocator@9fecdf1
+[05mar.2024 17:57:08.719] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "kotlinforforge-neoforge-4.8.0-all.jar" of type LIBRARY with provider net.neoforged.fml.loading.moddiscovery.ClasspathLocator@7daa61f3
+[05mar.2024 17:57:09.272] [main/ERROR] [net.neoforged.fml.loading.moddiscovery.ModInfo/]: Mod 'kotlinforforge' uses deprecated 'mandatory' field in the dependency declaration for 'minecraft'. Use the 'type' field and 'required'/'optional' instead
+[05mar.2024 17:57:09.561] [main/ERROR] [net.neoforged.fml.loading.moddiscovery.ModInfo/]: Mod 'kotlinforforge' uses deprecated 'mandatory' field in the dependency declaration for 'minecraft'. Use the 'type' field and 'required'/'optional' instead
+[05mar.2024 17:57:09.567] [main/INFO] [net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 4 dependencies adding them to mods collection
+[05mar.2024 17:57:09.567] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "kfflib-4.8.0.jar" of type GAMELIBRARY with provider net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator@25cc7470
+[05mar.2024 17:57:09.568] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "kffmod-4.8.0.jar" of type MOD with provider net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator@25cc7470
+[05mar.2024 17:57:09.568] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "mixinextras-neoforge-0.3.5.jar" of type GAMELIBRARY with provider net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator@25cc7470
+[05mar.2024 17:57:09.569] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "kfflang-4.8.0.jar" of type LANGPROVIDER with provider net.neoforged.fml.loading.moddiscovery.JarInJarDependencyLocator@25cc7470
+[05mar.2024 17:57:09.581] [main/ERROR] [net.neoforged.fml.loading.moddiscovery.ModInfo/]: Mod 'kotlinforforge' uses deprecated 'mandatory' field in the dependency declaration for 'minecraft'. Use the 'type' field and 'required'/'optional' instead
+[05mar.2024 17:57:13.363] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, 20.4.142-beta, --gameDir, ., --assetsDir, C:\Users\Usuario\.gradle\caches\minecraft\assets\1.20.4, --assetIndex, asset-index]
+[05mar.2024 17:57:19.448] [main/WARN] [oshi.driver.windows.perfmon.PerfmonDisabled/]: Invalid registry value type detected for PerfOS counters. Should be REG_DWORD. Ignoring: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PerfOS\Performance\Disable Performance Counters.
+[05mar.2024 17:57:19.653] [main/WARN] [oshi.util.platform.windows.PerfDataUtil/]: Failed to add PDH Counter: \Paging File(_Total)\% Usage, Error code: 0xC0000BB8
+[05mar.2024 17:57:19.654] [main/WARN] [oshi.util.platform.windows.PerfCounterQueryHandler/]: Failed to add counter for PDH counter: \Paging File(_Total)\% Usage
+[05mar.2024 17:57:19.654] [main/WARN] [oshi.util.platform.windows.PerfCounterQuery/]: Disabling further attempts to query Paging File.
+[05mar.2024 17:57:22.644] [main/WARN] [oshi.util.platform.windows.WmiQueryHandler/]: COM exception: Invalid Query: SELECT PERCENTUSAGE FROM Win32_PerfRawData_PerfOS_PagingFile
+[05mar.2024 17:57:38.574] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[05mar.2024 17:57:38.577] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[05mar.2024 17:57:38.581] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[05mar.2024 17:57:38.584] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[05mar.2024 17:57:38.585] [main/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[05mar.2024 17:57:38.877] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/E:/GitHub/boiled_witchcraft/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/20.4.142-beta/neoforge-20.4.142-beta.jar%23193!/assets/.mcassetsroot' uses unexpected schema
+[05mar.2024 17:57:38.879] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/E:/GitHub/boiled_witchcraft/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/20.4.142-beta/neoforge-20.4.142-beta.jar%23193!/data/.mcassetsroot' uses unexpected schema
+[05mar.2024 17:57:38.951] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[05mar.2024 17:57:38.975] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
+[05mar.2024 17:57:39.247] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.3.2+13
+[05mar.2024 17:57:39.560] [Datafixer Bootstrap/INFO] [com.mojang.datafixers.DataFixerBuilder/]: 198 Datafixer optimizations took 9339 milliseconds
+[05mar.2024 17:57:41.248] [modloading-worker-0/INFO] [thedarkcolour.kotlinforforge.neoforge.test.KotlinForForge/]: Kotlin For Forge Enabled!
+[05mar.2024 17:57:41.273] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 20.4.142-beta, for MC 1.20.4 with MCP 20231207.154220
+[05mar.2024 17:57:43.273] [Render thread/INFO] [net.neoforged.neoforge.gametest.GameTestHooks/]: Enabled Gametest Namespaces: []
+[05mar.2024 17:57:43.575] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: vanilla, mod_resources, mod:kotlinforforge, mod:boiled_witchcraft, mod:neoforge
+[05mar.2024 17:57:44.189] [Worker-Main-1/INFO] [net.minecraft.client.gui.font.providers.UnihexProvider/]: Found unifont_all_no_pua-15.1.04.hex, loading
+[05mar.2024 17:57:46.626] [Worker-Main-1/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Exception loading blockstate definition: 'boiled_witchcraft:blockstates/glyph_block.json' missing model for variant: 'boiled_witchcraft:glyph_block#facing=north'
+[05mar.2024 17:57:46.627] [Worker-Main-1/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Exception loading blockstate definition: 'boiled_witchcraft:blockstates/glyph_block.json' missing model for variant: 'boiled_witchcraft:glyph_block#facing=east'
+[05mar.2024 17:57:46.629] [Worker-Main-1/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Exception loading blockstate definition: 'boiled_witchcraft:blockstates/glyph_block.json' missing model for variant: 'boiled_witchcraft:glyph_block#facing=west'
+[05mar.2024 17:57:46.630] [Worker-Main-1/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Exception loading blockstate definition: 'boiled_witchcraft:blockstates/glyph_block.json' missing model for variant: 'boiled_witchcraft:glyph_block#facing=down'
+[05mar.2024 17:57:46.630] [Worker-Main-1/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Exception loading blockstate definition: 'boiled_witchcraft:blockstates/glyph_block.json' missing model for variant: 'boiled_witchcraft:glyph_block#facing=up'
+[05mar.2024 17:57:46.630] [Worker-Main-1/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Exception loading blockstate definition: 'boiled_witchcraft:blockstates/glyph_block.json' missing model for variant: 'boiled_witchcraft:glyph_block#facing=south'
+[05mar.2024 17:57:48.706] [Worker-Main-1/INFO] [boiled_witchcraft/]: Hello! This is working!
+[05mar.2024 17:57:48.722] [Worker-Main-1/INFO] [boiled_witchcraft/]: Initializing client...
+[05mar.2024 17:57:49.116] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:item.goat_horn.play
+[05mar.2024 17:57:49.117] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[05mar.2024 17:57:49.118] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: minecraft:entity.generic.wind_burst
+[05mar.2024 17:57:49.284] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on CABLE Input (VB-Audio Virtual Cable)
+[05mar.2024 17:57:49.286] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
+[05mar.2024 17:57:49.572] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+[05mar.2024 17:57:49.801] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[05mar.2024 17:57:49.806] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[05mar.2024 17:57:49.812] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[05mar.2024 17:57:49.817] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[05mar.2024 17:57:49.864] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[05mar.2024 17:57:49.866] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[05mar.2024 17:57:49.871] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[05mar.2024 17:57:49.874] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[05mar.2024 17:57:50.436] [Render thread/WARN] [net.minecraft.client.renderer.ShaderInstance/]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[05mar.2024 17:57:50.607] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[05mar.2024 17:57:50.622] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[05mar.2024 17:57:50.625] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[05mar.2024 17:57:50.628] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[05mar.2024 17:58:52.846] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[05mar.2024 17:58:53.233] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1271 advancements
+[05mar.2024 17:58:54.244] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.20.4
+[05mar.2024 17:58:54.245] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[05mar.2024 17:58:55.059] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[05mar.2024 17:58:55.958] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[05mar.2024 17:58:55.958] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[05mar.2024 17:58:56.089] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[05mar.2024 17:58:56.586] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[05mar.2024 17:58:57.118] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[05mar.2024 17:58:57.840] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[05mar.2024 17:58:58.477] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[05mar.2024 17:58:58.680] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[05mar.2024 17:58:59.156] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[05mar.2024 17:58:59.589] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[05mar.2024 17:59:00.187] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 3%
+[05mar.2024 17:59:00.620] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 4%
+[05mar.2024 17:59:01.107] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 4%
+[05mar.2024 17:59:01.633] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 9%
+[05mar.2024 17:59:02.176] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 20%
+[05mar.2024 17:59:02.854] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 32%
+[05mar.2024 17:59:03.571] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 32%
+[05mar.2024 17:59:03.671] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 32%
+[05mar.2024 17:59:04.103] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 35%
+[05mar.2024 17:59:04.664] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 49%
+[05mar.2024 17:59:05.087] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 56%
+[05mar.2024 17:59:05.962] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 60%
+[05mar.2024 17:59:06.079] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 63%
+[05mar.2024 17:59:06.370] [progressListener/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 11292 ms
+[05mar.2024 17:59:06.378] [Server thread/INFO] [net.neoforged.neoforge.server.permission.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[05mar.2024 17:59:07.373] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 12, from 10
+[05mar.2024 17:59:07.373] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 12, from 0
+[05mar.2024 17:59:20.131] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:ad29807b] logged in with entity id 4 at (-4.471155281629699, 56.0, 9.147608908574224)
+[05mar.2024 17:59:20.235] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
+[05mar.2024 17:59:21.227] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 4 advancements
+[05mar.2024 18:01:29.476] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!
+[05mar.2024 18:01:29.835] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Disconnected
+[05mar.2024 18:01:29.836] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev left the game
+[05mar.2024 18:01:30.475] [Server thread/INFO] [net.minecraft.server.network.ServerCommonPacketListenerImpl/]: Stopping singleplayer server as player logged out
+[05mar.2024 18:01:30.568] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[05mar.2024 18:01:30.569] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[05mar.2024 18:01:30.569] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[05mar.2024 18:01:32.413] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[eu vou terminar isso no odio]'/minecraft:overworld
+[05mar.2024 18:02:01.338] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[eu vou terminar isso no odio]'/minecraft:the_nether
+[05mar.2024 18:02:01.547] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[eu vou terminar isso no odio]'/minecraft:the_end
+[05mar.2024 18:02:01.947] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (eu vou terminar isso no odio (1)): All chunks are saved
+[05mar.2024 18:02:01.947] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[05mar.2024 18:02:01.947] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[05mar.2024 18:02:01.948] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved

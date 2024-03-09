@@ -1,6 +1,14 @@
 {
-  "commands.boiled_witchcraft.chunk_blood.see": "O sangue de titã na chunk atual é",
-  "commands.boiled_witchcraft.chunk_blood.set": "O sangue de titã da chunk foi definido em",
-  "commands.boiled_witchcraft.chunk_blood.add": "Após a adição, o sangue de titã na chunk atual é",
-  "commands.boiled_witchcraft.chunk_blood.sub": "Após a subtração, o sangue de titã na chunk atual é"
+  "item.boiled_witchcraft.pencil": "Pencil",
+  "item.boiled_witchcraft.glyph_on_a_paper": "Glyph On a Paper",
+
+  "commands.boiled_witchcraft.chunk_blood.see": "Titan blood in the current chunk is",
+  "commands.boiled_witchcraft.chunk_blood.set": "Chunk's Titan Blood was set to",
+  "commands.boiled_witchcraft.chunk_blood.add": "After the sum, the titan blood in the current chunk is",
+  "commands.boiled_witchcraft.chunk_blood.sub": "After subtraction, the titan blood in the current chunk is",
+
+  "glyph.boiled_witchcraft.fire_glyph": "Fire glyph",
+  "glyph.boiled_witchcraft.ice_glyph": "Ice glyph",
+  "glyph.boiled_witchcraft.light_glyph": "Light glyph",
+  "glyph.boiled_witchcraft.plant_glyph": "Plant glyph"
 }

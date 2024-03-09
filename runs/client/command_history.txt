@@ -15,3 +15,5 @@
 /chunk_blood ~ ~ ~ minecraft:overworld set 20
 /chunk_blood ~ ~ ~ minecraft:overworld see
 /give @a boiled_witchcraft:pencil
+/give @a boiled_witchcraft:glyph_on_a_paper
+/give @a boiled_witchcraft:pencil

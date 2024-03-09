@@ -106,12 +106,12 @@ class GlyphBlock(properties: Properties) : BaseEntityBlock(properties) {
         private fun getData(level: Level, pos: BlockPos) = getBlockEntity(level, pos).data
 
         val shapes: ImmutableMap<Direction, VoxelShape> = ImmutableMap.of(
-            DOWN,   box(0.0, 15.99, 0.0, 16.0, 16.0, 16.0),
-            UP,     box(0.0, 0.0, 0.0, 16.0, 0.01, 16.0),
-            NORTH,  box(0.0, 0.0, 15.99, 16.0, 16.0, 16.0),
-            SOUTH,  box(0.0, 0.0, 0.0, 16.0, 16.0, 0.01),
-            WEST,   box(15.99, 0.0, 0.0, 16.0, 16.0, 16.0),
-            EAST,   box(0.0, 0.0, 0.0, 0.01, 16.0, 16.0),
+            DOWN,   box(0.0,    15.99,  0.0,    16.0, 16.0, 16.0),
+            UP,     box(0.0,    0.0,    0.0,    16.0, 0.01, 16.0),
+            NORTH,  box(0.0,    0.0,    15.99,  16.0, 16.0, 16.0),
+            SOUTH,  box(0.0,    0.0,    0.0,    16.0, 16.0, 0.01),
+            WEST,   box(15.99,  0.0,    0.0,    16.0, 16.0, 16.0),
+            EAST,   box(0.0,    0.0,    0.0,    0.01, 16.0, 16.0),
         )
 
         fun put(glyph: GlyphType<*>, level: Level, pos: BlockPos, facing: Direction, size: Int, author: Player? = null)
@@ -120,7 +120,7 @@ class GlyphBlock(properties: Properties) : BaseEntityBlock(properties) {
             val be = (level.getBlockEntity(pos) as GlyphBlockEntity)
 
             be.glyphType = glyph
-            be.size = size
+            be.data.size = size
             be.data.owner = author?.uuid
         }
     }
