@@ -3,6 +3,8 @@ package kitowashere.boiled_witchcraft.common.registry
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.world.glyph.type.FireGlyphType
 import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType
+import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType.GlyphKind
+import net.minecraft.core.Registry
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -14,10 +16,11 @@ object GlyphTypeRegistry {
 
     val fireGlyph = glyphTypeRegistry.register("fire_glyph") { -> FireGlyphType() }
 
-    val glyphTypes = glyphTypeRegistry.makeRegistry { RegistryBuilder(GlyphType.registryKey) }
+    val glyphTypes: Registry<GlyphType> = glyphTypeRegistry.makeRegistry { RegistryBuilder(GlyphType.registryKey) }
 
     object Util {
-        val primaries: List<GlyphType>; get() = glyphTypes.filter { it.kind == GlyphType.GlyphKind.PRIMARY }
+        val primaries       get() = glyphTypes.filter { it.kind == GlyphKind.PRIMARY    }
+        val structurals     get() = glyphTypes.filter { it.kind == GlyphKind.STRUCTURAL }
 
         fun glyphTypeFromID(id: String) = glyphTypes.get(ResourceLocation.of(id, ':'))
 

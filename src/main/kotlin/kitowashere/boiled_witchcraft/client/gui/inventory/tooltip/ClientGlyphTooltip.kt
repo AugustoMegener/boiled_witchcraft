@@ -16,10 +16,10 @@ import org.joml.Matrix4f
 @OnlyIn(Dist.CLIENT)
 class ClientGlyphTooltip(glyphTooltip: GlyphComposingTooltip) : ClientTooltipComponent {
 
-    val composing = glyphTooltip.composing
-    val coreGlyph = composing.coreGlyph
+    private val composing = glyphTooltip.composing
+    private val coreGlyphType = composing.coreGlyph.type
 
-    val renderText get() = coreGlyph.type != null && composing.glyphCount <= 0
+    private val renderText get() = coreGlyphType != null && composing.glyphCount <= 0
 
     override fun getHeight()            = BG_SIZE + 6 + if (renderText) 10 else 0
     override fun getWidth(pFont: Font)  = BG_SIZE
@@ -29,7 +29,7 @@ class ClientGlyphTooltip(glyphTooltip: GlyphComposingTooltip) : ClientTooltipCom
 
     {
         if (renderText) {
-            pFont.drawInBatch(translatableName(coreGlyph.type!!), pMouseX.toFloat(), pMouseY.toFloat(), -1,
+            pFont.drawInBatch(translatableName(coreGlyphType!!), pMouseX.toFloat(), pMouseY.toFloat(), -1,
                               true, pMatrix, pBufferSource, Font.DisplayMode.NORMAL, 0,
                               15728880)
         }
@@ -39,26 +39,27 @@ class ClientGlyphTooltip(glyphTooltip: GlyphComposingTooltip) : ClientTooltipCom
     override fun renderImage(pFont: Font, pX: Int, pY: Int, pGuiGraphics: GuiGraphics) {
         val y = pY + if (renderText) 10 else 0
 
+        // Render Background
         pGuiGraphics.blit(bgTexture, pX, y, 0f, 0f,
                           64, 64,64, 64)
 
-        val size = composing.size * 16
+        val cSize = composing.size * 16
 
-        if (coreGlyph.type != null) {
-            pGuiGraphics.blit(getGlyphTexture(coreGlyph.type), pX + ((BG_SIZE - size) / 2),
-                                              y + ((BG_SIZE - size) / 2), 0f, 0f,
-                                              size, size, size, size)
+        val gX = pX + (BG_SIZE - cSize) / 2
+        val gY =  y + (BG_SIZE - cSize) / 2
+        if (coreGlyphType != null) {
+            // Render core glyph
+            pGuiGraphics.blit(getGlyphTexture(coreGlyphType), gX, gY, 0f,
+                              0f, cSize, cSize, cSize, cSize)
         }
 
         for (i in composing.getGlyphs().filter { it.value.type != null }) {
-            val xx = i.key.x
-            val yy = i.key.y
-
             val glyph = i.value
-            val size2 = glyph.data.size
+            val gSize = glyph.data.size
 
-            pGuiGraphics.blit(getGlyphTexture(glyph.type!!), pX + xx * 16, y + yy * 16,
-                             0f, 0f, size2, size2, size2, size2)
+            // Render other glyphs
+            pGuiGraphics.blit(getGlyphTexture(glyph.type!!), gX + i.key.x * 16, gY + i.key.y * 16,
+                             0f, 0f, gSize, gSize, gSize, gSize)
         }
     }
 

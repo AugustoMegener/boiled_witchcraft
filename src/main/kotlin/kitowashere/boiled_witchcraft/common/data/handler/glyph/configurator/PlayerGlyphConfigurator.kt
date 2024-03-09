@@ -5,7 +5,7 @@ import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry
 import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
 import net.minecraft.world.entity.player.Player
 
-class PlayerGlyphConfigurator(val player: Player) : IGlyphConfiguratorHandler {
+class PlayerGlyphConfigurator(private val player: Player) : IGlyphConfiguratorHandler {
 
     private var glyphIndex = 0
         set(value) {

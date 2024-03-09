@@ -8,6 +8,6 @@ interface IGlyphConfiguratorHandler {
     var fieldIndex: Int
 
     fun wrapGlyph(way: GlyphSelector.WrapWay)
-    fun wrapField(way: GlyphSelector.WrapWay) { fieldIndex += way.value                             }
-    fun editField(way: GlyphSelector.WrapWay) { glyph.getEditors()[fieldIndex].editField(way)  }
+    fun wrapField(way: GlyphSelector.WrapWay) { fieldIndex += way.value }
+    fun editField(way: GlyphSelector.WrapWay) { glyph.data.getEditors(glyph.type)[fieldIndex].editField(way) }
 }

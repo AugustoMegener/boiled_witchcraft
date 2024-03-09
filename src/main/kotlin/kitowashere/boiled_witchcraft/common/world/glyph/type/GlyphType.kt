@@ -9,7 +9,6 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceKey.createRegistryKey
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.ItemStack
 import net.neoforged.neoforge.registries.DeferredRegister
 
 /**
@@ -25,8 +24,7 @@ import net.neoforged.neoforge.registries.DeferredRegister
  *
  * @see GlyphData
  */
-abstract class GlyphType(val kind: GlyphKind, val sizes: List<Int>) {
-
+sealed class GlyphType(val kind: GlyphKind, val sizes: List<Int>) {
 
     abstract fun newData(): GlyphData
     fun newData(nbt: CompoundTag) = newData().deserializeNBT(nbt)
@@ -34,15 +32,21 @@ abstract class GlyphType(val kind: GlyphKind, val sizes: List<Int>) {
     fun default() = Glyph(this)
 
     companion object {
-        init {
-            ItemStack.EMPTY
-        }
-
         val placeholder: GlyphType; get() = primaries[0]
 
         val registryKey: ResourceKey<Registry<GlyphType>> =
             createRegistryKey(ResourceLocation("glyph_types"))
     }
 
-    enum class GlyphKind { PRIMARY, COMPOUND }
+    abstract class PrimaryGlyphType(sizes: List<Int>)       : GlyphType(GlyphKind.PRIMARY,      sizes)
+    abstract class CompoundGlyphType(sizes: List<Int>)      : GlyphType(GlyphKind.COMPOUND,     sizes)
+    abstract class StructuralGlyphType(sizes: List<Int>)    : GlyphType(GlyphKind.STRUCTURAL,   sizes) {
+        final override fun newData() = GlyphData()
+    }
+
+    enum class GlyphKind {
+        PRIMARY,
+        STRUCTURAL,
+        COMPOUND
+    }
 }
