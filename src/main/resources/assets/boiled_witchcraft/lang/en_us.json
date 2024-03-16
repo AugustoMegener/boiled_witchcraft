@@ -1,14 +1,17 @@
 {
-  "item.boiled_witchcraft.pencil": "Pencil",
-  "item.boiled_witchcraft.glyph_on_a_paper": "Glyph On a Paper",
+  "item.boiled_witchcraft.pencil":            "Pencil",
+  "item.boiled_witchcraft.glyph_on_a_paper":  "Glyph On a Paper",
 
   "commands.boiled_witchcraft.chunk_blood.see": "Titan blood in the current chunk is",
   "commands.boiled_witchcraft.chunk_blood.set": "Chunk's Titan Blood was set to",
   "commands.boiled_witchcraft.chunk_blood.add": "After the sum, the titan blood in the current chunk is",
   "commands.boiled_witchcraft.chunk_blood.sub": "After subtraction, the titan blood in the current chunk is",
 
-  "glyph.boiled_witchcraft.fire_glyph": "Fire glyph",
-  "glyph.boiled_witchcraft.ice_glyph": "Ice glyph",
-  "glyph.boiled_witchcraft.light_glyph": "Light glyph",
-  "glyph.boiled_witchcraft.plant_glyph": "Plant glyph"
+  "glyph.boiled_witchcraft.fire_glyph":   "Fire glyph",
+  "glyph.boiled_witchcraft.ice_glyph":    "Ice glyph",
+  "glyph.boiled_witchcraft.light_glyph":  "Light glyph",
+  "glyph.boiled_witchcraft.plant_glyph":  "Plant glyph",
+
+  "glyph.group.boiled_witchcraft.primaries":    "Primaries",
+  "glyph.group.boiled_witchcraft.structurals":  "structurals"
 }

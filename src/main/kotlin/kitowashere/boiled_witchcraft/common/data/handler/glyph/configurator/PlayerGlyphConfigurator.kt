@@ -1,25 +1,33 @@
 package kitowashere.boiled_witchcraft.common.data.handler.glyph.configurator
 
-import kitowashere.boiled_witchcraft.common.data.handler.glyph.GlyphSelector
-import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry
-import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
+import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.GlyphGroup.Companion.primaries
+import kitowashere.boiled_witchcraft.common.registry.GlyphTypeRegistry.GlyphGroup.Companion.structurals
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.entity.player.Player
 
 class PlayerGlyphConfigurator(private val player: Player) : IGlyphConfiguratorHandler {
+    private var nbt: CompoundTag
+        get()       = player.serializeNBT().getCompound("editing_glyph")
+        set(value)  = player.deserializeNBT(player.serializeNBT().also { it.put("editing_glyph", value) })
 
-    private var glyphIndex = 0
-        set(value) {
-            field = value;
-            glyph = GlyphTypeRegistry.Util.primaries[field].default()
-        }
 
-    override var glyph = Glyph.newFromNBT(player.serializeNBT().getCompound("editing_glyph"))
-        set(value) {
-            field = value
-            player.deserializeNBT(player.serializeNBT().also { it.put("editing_glyph", field.serializeNBT()) })
-        }
+    override val groups = arrayOf(primaries, structurals)
 
-    override var fieldIndex = 0
+    override var group = groups[nbt.getInt("group")]
+        set(value) { field = value; nbt = nbt.also { it.putInt("group", groups.indexOf(value)) } }
 
-    override fun wrapGlyph(way: GlyphSelector.WrapWay) { glyphIndex += way.value }
+    override var glyphIndex
+        get() = nbt.getInt("glyph_index")
+        set(value) { nbt = nbt.also { it.putInt("glyph_index", value) } }
+
+    override var glyph = group[glyphIndex].default().also { if (nbt.contains("glyph"))
+                                                            it.deserializeNBT(nbt.getCompound("glyph")) }
+        set(value) { field = value; nbt = nbt.also { it.put("glyph", glyph.serializeNBT()) } }
+
+    override var fieldIndex = nbt.getInt("field_index")
+        set(value) { field = value; nbt = nbt.also { it.putInt("field_index", value) }}
+
+    companion object {
+        val Player.glyphConfigurator get() = PlayerGlyphConfigurator(this)
+    }
 }

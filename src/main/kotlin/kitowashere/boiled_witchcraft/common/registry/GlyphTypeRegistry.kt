@@ -19,8 +19,6 @@ object GlyphTypeRegistry {
     val glyphTypes: Registry<GlyphType> = glyphTypeRegistry.makeRegistry { RegistryBuilder(GlyphType.registryKey) }
 
     object Util {
-        val primaries       get() = glyphTypes.filter { it.kind == GlyphKind.PRIMARY    }
-        val structurals     get() = glyphTypes.filter { it.kind == GlyphKind.STRUCTURAL }
 
         fun glyphTypeFromID(id: String) = glyphTypes.get(ResourceLocation.of(id, ':'))
 
@@ -36,6 +34,19 @@ object GlyphTypeRegistry {
             Component.translatable(getGlyphLocation(glyph)!!.toLanguageKey("glyph"))
 
         private fun getGlyphLocation(glyphType: GlyphType) = glyphTypes.getKey(glyphType)
+
+    }
+
+    data class GlyphGroup(val location: ResourceLocation, private val filter: (GlyphType) -> Boolean) {
+        val glyphs get() = glyphTypes.filter(filter)
+        val name = location.toLanguageKey("glyph.group")
+
+        operator fun get(i: Int): GlyphType = glyphs[i]
+
+        companion object {
+            val primaries   = GlyphGroup(ResourceLocation(ID, "primaries"))   { it.kind == GlyphKind.PRIMARY    }
+            val structurals = GlyphGroup(ResourceLocation(ID, "structurals")) { it.kind == GlyphKind.STRUCTURAL }
+        }
     }
 }
 

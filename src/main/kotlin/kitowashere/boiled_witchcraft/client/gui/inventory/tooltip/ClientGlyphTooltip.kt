@@ -26,14 +26,12 @@ class ClientGlyphTooltip(glyphTooltip: GlyphComposingTooltip) : ClientTooltipCom
 
     override fun renderText(pFont: Font, pMouseX: Int, pMouseY: Int, pMatrix: Matrix4f,
                             pBufferSource: MultiBufferSource.BufferSource)
-
     {
         if (renderText) {
             pFont.drawInBatch(translatableName(coreGlyphType!!), pMouseX.toFloat(), pMouseY.toFloat(), -1,
                               true, pMatrix, pBufferSource, Font.DisplayMode.NORMAL, 0,
                               15728880)
         }
-
     }
 
     override fun renderImage(pFont: Font, pX: Int, pY: Int, pGuiGraphics: GuiGraphics) {
