@@ -10,5 +10,8 @@
   "glyph.boiled_witchcraft.fire_glyph":   "Glifo de fogo",
   "glyph.boiled_witchcraft.ice_glyph":    "Glifo de gelo",
   "glyph.boiled_witchcraft.light_glyph":  "Glifo de luz",
-  "glyph.boiled_witchcraft.plant_glyph":  "Glifo de planta"
+  "glyph.boiled_witchcraft.plant_glyph":  "Glifo de planta",
+
+  "glyph.group.boiled_witchcraft.primaries":    "Primários",
+  "glyph.group.boiled_witchcraft.structurals":  "Estruturais"
 }
