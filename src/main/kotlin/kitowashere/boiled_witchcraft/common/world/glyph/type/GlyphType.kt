@@ -24,7 +24,7 @@ import net.neoforged.neoforge.registries.DeferredRegister
  *
  * @see GlyphData
  */
-sealed class GlyphType(val kind: GlyphKind, val sizes: List<Int>) {
+abstract class GlyphType(val kind: GlyphKind, val sizes: List<Int>) {
 
     abstract fun newData(): GlyphData
     fun newData(nbt: CompoundTag) = newData().deserializeNBT(nbt)
@@ -36,12 +36,6 @@ sealed class GlyphType(val kind: GlyphKind, val sizes: List<Int>) {
 
         val registryKey: ResourceKey<Registry<GlyphType>> =
             createRegistryKey(ResourceLocation("glyph_types"))
-    }
-
-    abstract class PrimaryGlyphType(sizes: List<Int>)       : GlyphType(GlyphKind.PRIMARY,      sizes)
-    abstract class CompoundGlyphType(sizes: List<Int>)      : GlyphType(GlyphKind.COMPOUND,     sizes)
-    abstract class StructuralGlyphType(sizes: List<Int>)    : GlyphType(GlyphKind.STRUCTURAL,   sizes) {
-        final override fun newData() = GlyphData()
     }
 
     enum class GlyphKind {

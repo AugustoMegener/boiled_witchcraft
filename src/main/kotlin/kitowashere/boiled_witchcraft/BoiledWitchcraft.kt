@@ -22,9 +22,8 @@ object BoiledWitchcraft {
     val logger: Logger = LogManager.getLogger(ID)
 
     init {
-        listOf(
-            blockRegistry, blockEntityRegistry, attachRegistry, glyphTypeRegistry, itemRegistry
-        ).forEach { it.register(MOD_BUS) }
+        listOf(blockRegistry, blockEntityRegistry, attachRegistry, glyphTypeRegistry, itemRegistry)
+              .forEach { it.register(MOD_BUS) }
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.spec)
     }
