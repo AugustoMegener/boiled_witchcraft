@@ -8,7 +8,7 @@ import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType.GlyphKind
 import net.minecraft.nbt.CompoundTag
 import net.neoforged.neoforge.common.util.INBTSerializable
 
-class Glyph(val type: GlyphType?) : INBTSerializable<CompoundTag> {
+class Glyph(val type: GlyphType? = null) : INBTSerializable<CompoundTag> {
 
     val isEmpty      = this == empty
     val isStructural = type?.kind == GlyphKind.STRUCTURAL

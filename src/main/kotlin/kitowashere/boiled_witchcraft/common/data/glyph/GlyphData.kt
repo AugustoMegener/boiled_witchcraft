@@ -17,6 +17,7 @@ open class GlyphData : INBTSerializable<CompoundTag> {
     private var nbt: CompoundTag = CompoundTag()
 
     private val editorBuilders = ArrayList<(Glyph) -> FieldEditor<*>>()
+    val editorAmount get() = editorBuilders.size
 
 
     inner class DataField<T>(private val name: String,

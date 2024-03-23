@@ -1,7 +1,6 @@
 package kitowashere.boiled_witchcraft.common.data.handler.blood
 
 open class SourcedTBContainer : ArrayList<() -> ITitanBloodHandler>(), ITitanBloodHandler {
-
     override fun get(): Int = sumOf { it.invoke().get() }
 
     override fun use(value: Int): Int {

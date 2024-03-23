@@ -42,6 +42,7 @@ object GlyphTypeRegistry {
         val name = location.toLanguageKey("glyph.group")
 
         operator fun get(i: Int): GlyphType = glyphs[i]
+        operator fun contains(i: GlyphType?) = i != null && i in glyphs
 
         companion object {
             val primaries   = GlyphGroup(ResourceLocation(ID, "primaries"))   { it.kind == GlyphKind.PRIMARY    }
