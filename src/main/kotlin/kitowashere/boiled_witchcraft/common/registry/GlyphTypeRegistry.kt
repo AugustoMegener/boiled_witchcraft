@@ -6,6 +6,7 @@ import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType
 import kitowashere.boiled_witchcraft.common.world.glyph.type.GlyphType.GlyphKind
 import net.minecraft.core.Registry
 import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.registries.DeferredRegister
 import net.neoforged.neoforge.registries.RegistryBuilder
@@ -30,8 +31,9 @@ object GlyphTypeRegistry {
                                                 .withSuffix(".png")
         }
 
-        fun translatableName(glyph: GlyphType) =
-            Component.translatable(getGlyphLocation(glyph)!!.toLanguageKey("glyph"))
+        fun translatableName(glyph: GlyphType?): MutableComponent =
+            if (glyph != null)  Component.translatable(getGlyphLocation(glyph)!!.toLanguageKey("glyph"))
+            else                Component.translatable("glyph.$ID.empty")
 
         private fun getGlyphLocation(glyphType: GlyphType) = glyphTypes.getKey(glyphType)
 
@@ -39,7 +41,7 @@ object GlyphTypeRegistry {
 
     data class GlyphGroup(val location: ResourceLocation, private val filter: (GlyphType) -> Boolean) {
         val glyphs get() = glyphTypes.filter(filter)
-        val name = location.toLanguageKey("glyph.group")
+        val name = Component.translatable(location.toLanguageKey("glyph.group"))
 
         operator fun get(i: Int): GlyphType = glyphs[i]
         operator fun contains(i: GlyphType?) = i != null && i in glyphs

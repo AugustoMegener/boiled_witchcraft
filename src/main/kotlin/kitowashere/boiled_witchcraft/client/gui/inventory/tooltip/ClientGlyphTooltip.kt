@@ -15,7 +15,7 @@ import org.joml.Matrix4f
 
 @OnlyIn(Dist.CLIENT)
 class ClientGlyphTooltip(glyphTooltip: GlyphComposingTooltip) : ClientTooltipComponent {
-
+/*
     private val composing = glyphTooltip.composing
     private val coreGlyphType = composing.coreGlyph.type
 
@@ -66,4 +66,6 @@ class ClientGlyphTooltip(glyphTooltip: GlyphComposingTooltip) : ClientTooltipCom
 
         const val BG_SIZE = 64
     }
+
+ */
 }

@@ -25,18 +25,26 @@ abstract class GlyphEditor(private val glyphHandler: IGlyphHandler) {
 
     var fieldIndex: Int = 0; private set
 
+    fun setGlyph(newGlyph: Glyph) {
+        groups.filter { newGlyph.type in it }.getOrNull(0)?.run {
+            group = this
+            glyph = newGlyph
+        }
+    }
+
     fun wrapGroup(way: WrapWay) { group = groups[getIndex(groups.size, groups.indexOf(group)+way.value)] }
 
     fun wrapGlyph(way: WrapWay) {
         glyph = group[getIndex(group.glyphs.size, group.glyphs.indexOf(glyph.type)+way.value)].default()
     }
 
-    fun wrapField(way: WrapWay) {
-        fieldIndex = getIndex(glyph.data.editorAmount, fieldIndex+way.value)
-    }
+    fun wrapField(way: WrapWay) { fieldIndex = getIndex(glyph.data.editorAmount, fieldIndex+way.value) }
+
+    fun editField(way: WrapWay) { glyph.data.getEditors(glyph)[fieldIndex].editField(way) }
 
     companion object {
-        private fun getIndex(size: Int, index: Int) =   if      (index < 0     ) size-1
+        @JvmStatic
+        protected fun getIndex(size: Int, index: Int) = if      (index < 0     ) size-1
                                                         else if (index > size-1) 0
                                                         else                     index
     }

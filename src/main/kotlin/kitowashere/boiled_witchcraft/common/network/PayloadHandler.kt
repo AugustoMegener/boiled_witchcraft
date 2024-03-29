@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.cast
 
 /**
- * Class that helps to deal with custom packets, this class hybridizes the data class and the handler class,
+ * Class that helps to handle with custom packets, this class hybridizes the data class and the handler class,
  * the class must extend [CustomPacketPayload] and the companion object this class.
  * @param T The type of packet that will be handled.
  * @param packet The class of packet that will be handled.

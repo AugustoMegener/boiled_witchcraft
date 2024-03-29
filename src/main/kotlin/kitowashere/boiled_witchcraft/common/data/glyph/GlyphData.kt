@@ -1,6 +1,9 @@
 package kitowashere.boiled_witchcraft.common.data.glyph
 
 import com.sun.jdi.InvalidTypeException
+import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
+import kitowashere.boiled_witchcraft.client.gui.glyph.field.FieldRenderer
+import kitowashere.boiled_witchcraft.client.gui.glyph.field.IntFieldRenderer
 import kitowashere.boiled_witchcraft.common.data.glyph.editor.FieldEditor
 import kitowashere.boiled_witchcraft.common.data.glyph.editor.IntFieldEditor
 import kitowashere.boiled_witchcraft.common.data.util.WrapWay.NEXT
@@ -8,6 +11,7 @@ import kitowashere.boiled_witchcraft.common.data.util.WrapWay.PRIOR
 import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.Tag
+import net.minecraft.network.chat.Component
 import net.neoforged.neoforge.common.util.INBTSerializable
 import java.util.*
 import kotlin.reflect.KProperty
@@ -17,12 +21,15 @@ open class GlyphData : INBTSerializable<CompoundTag> {
     private var nbt: CompoundTag = CompoundTag()
 
     private val editorBuilders = ArrayList<(Glyph) -> FieldEditor<*>>()
-    val editorAmount get() = editorBuilders.size
+    private val rendererBuilders = ArrayList<(Glyph) -> FieldRenderer<*>>()
 
+    val editorAmount get() = editorBuilders.size
+    val rendererAmount get() = rendererBuilders.size
 
     inner class DataField<T>(private val name: String,
                              private val init: T,
-                             editor: ((DataField<T>, Glyph) -> FieldEditor<T>)? = null)
+                             editor: ((DataField<T>, Glyph) -> FieldEditor<T>)? = null,
+                             renderer: ((DataField<T>, Glyph) -> FieldRenderer<T>)? = null)
     {
         private var data: T = init
             set(value) {
@@ -51,6 +58,7 @@ open class GlyphData : INBTSerializable<CompoundTag> {
 
         init {
             editor?.let { e -> editorBuilders.add { e.invoke(this, it) } }
+            renderer?.let { e -> rendererBuilders.add { e.invoke(this, it) } }
 
             @Suppress("UNCHECKED_CAST")
             data = if (nbt.contains(name))
@@ -79,19 +87,27 @@ open class GlyphData : INBTSerializable<CompoundTag> {
             if (data == null) { setValue(obj, property, init); getValue(obj, property) } else data
 
         operator fun setValue(obj: Any, property: KProperty<*>, t: T) { data = t }
+
+
     }
 
 
     var owner   by DataField("owner", UUID(0L, 0L))
-    var size    by DataField("size", 1)
-                { field, glyph -> IntFieldEditor(field, glyph) { fGlyph, value, way -> when(way) {
-                    NEXT    -> fGlyph.type!!.sizes.maxBy { it - value }
-                    PRIOR   -> fGlyph.type!!.sizes.minBy { it - value }
-                } } }
+    var size    by DataField("size", 1,
+                            { field, glyph -> IntFieldEditor(field, glyph)
+                            { fGlyph, value, way -> when(way) {
+                              NEXT    -> fGlyph.type!!.sizes.maxBy { it - value }
+                              PRIOR   -> fGlyph.type!!.sizes.minBy { it - value } } } },
+                            { field, glyph -> IntFieldRenderer(Component.translatable("field.name.$ID.size"),
+                                                               field, glyph) })
+
 
 
     fun getEditors(glyph: Glyph) = if (glyph.type != null) editorBuilders.map { it.invoke(glyph) }.toTypedArray()
                                    else emptyArray()
+
+    fun getRenderers(glyph: Glyph) = if (glyph.type != null) rendererBuilders.map { it.invoke(glyph) }.toTypedArray()
+                                     else emptyArray()
 
     override fun serializeNBT(): CompoundTag = nbt
     override fun deserializeNBT(nbt: CompoundTag) { this.nbt = nbt }

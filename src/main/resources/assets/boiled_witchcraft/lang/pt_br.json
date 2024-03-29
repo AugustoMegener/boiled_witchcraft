@@ -7,6 +7,7 @@
   "commands.boiled_witchcraft.chunk_blood.add": "Após a adição, o sangue de titã na chunk atual é",
   "commands.boiled_witchcraft.chunk_blood.sub": "Após a subtração, o sangue de titã na chunk atual é",
 
+  "glyph.boiled_witchcraft.empty":        "Nenhum glifo",
   "glyph.boiled_witchcraft.fire_glyph":   "Glifo de fogo",
   "glyph.boiled_witchcraft.ice_glyph":    "Glifo de gelo",
   "glyph.boiled_witchcraft.light_glyph":  "Glifo de luz",

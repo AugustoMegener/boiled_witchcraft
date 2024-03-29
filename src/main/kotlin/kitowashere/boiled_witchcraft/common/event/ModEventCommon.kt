@@ -6,12 +6,15 @@ import kitowashere.boiled_witchcraft.common.data.Caps
 import kitowashere.boiled_witchcraft.common.data.handler.blood.EntityTBContainer
 import kitowashere.boiled_witchcraft.common.data.handler.glyph.AttachedGlyphHandler
 import kitowashere.boiled_witchcraft.common.data.handler.glyph.composing.ItemGlyphComposing
+import kitowashere.boiled_witchcraft.common.network.EditGlyphPacket
 import kitowashere.boiled_witchcraft.common.registry.ItemRegistry.glyphOnAPaper
 import net.minecraft.world.entity.EntityType
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.Mod
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent
+import net.neoforged.neoforge.network.handling.IPlayPayloadHandler
 import org.apache.logging.log4j.Level
 
 
@@ -22,15 +25,18 @@ object ModEventCommon {
         BoiledWitchcraft.logger.log(Level.INFO, "Hello! This is working!")
     }
 
-    /*
+
     /**
      * @see PayloadHandler
      */
     @SubscribeEvent
     fun onRegisterPackets(event: RegisterPayloadHandlerEvent) {
-        val registrar = event.registrar(ID)
+        val registrar = event.registrar(ID).optional()
+
+        listOf(
+            EditGlyphPacket
+        ).forEach { registrar.play(it.id, it, it) }
     }
-    */
 
 
     @SubscribeEvent
