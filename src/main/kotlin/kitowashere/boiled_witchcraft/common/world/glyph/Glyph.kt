@@ -5,9 +5,8 @@ import org.joml.Vector2i
 
 abstract class Glyph(val sizes: Array<Int>) {
 
-    open val signal = HashMap<Vector2i, Boolean>()
-
     abstract fun newData(): GlyphData
+    open fun getSignal(data: GlyphData) = HashMap<Vector2i, Boolean>()
 
     companion object {
         val placeholder = FireGlyph
