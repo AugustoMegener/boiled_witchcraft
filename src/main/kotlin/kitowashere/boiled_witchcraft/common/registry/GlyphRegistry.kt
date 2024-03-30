@@ -1,0 +1,40 @@
+package kitowashere.boiled_witchcraft.common.registry
+
+import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
+import kitowashere.boiled_witchcraft.common.world.glyph.FireGlyph
+import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
+import net.minecraft.core.Registry
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.MutableComponent
+import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
+import net.neoforged.neoforge.registries.DeferredRegister
+import net.neoforged.neoforge.registries.RegistryBuilder
+
+object GlyphRegistry {
+    val registryKey: ResourceKey<Registry<Glyph>> = ResourceKey.createRegistryKey(ResourceLocation("glyphs"))
+    val glyphRegistry: DeferredRegister<Glyph> = DeferredRegister.create(registryKey, ID)
+
+    val fireGlyph = glyphRegistry.register("fire_glyph") { -> FireGlyph }
+
+    val glyphTypes: Registry<Glyph> = glyphRegistry.makeRegistry { RegistryBuilder(registryKey) }
+
+    object Util {
+        fun glyphFromID(id: String) = glyphTypes.get(ResourceLocation.of(id, ':'))
+
+        val Glyph.id get() = glyphTypes.getKey(this)!!.toString()
+
+        fun getGlyphTexture(glyphType: Glyph, size: Int = 1): ResourceLocation {
+            if (size !in glyphType.sizes) throw Exception("Unavailable size for this glyph :/...")
+            return getGlyphLocation(glyphType)!!.withPrefix("textures/glyph/${size}x${size}/")
+                .withSuffix(".png")
+        }
+
+        fun glyphTranslatableName(glyph: Glyph?): MutableComponent =
+            if (glyph != null)  Component.translatable(getGlyphLocation(glyph)!!.toLanguageKey("glyph"))
+            else                Component.translatable("glyph.$ID.empty")
+
+        private fun getGlyphLocation(glyphType: Glyph) = glyphTypes.getKey(glyphType)
+
+    }
+}
