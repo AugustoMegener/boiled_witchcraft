@@ -44,9 +44,8 @@ object GlyphRegistry {
                 .withSuffix(".png")
         }
 
-        fun glyphTranslatableName(glyph: Glyph?): MutableComponent =
-            if (glyph != null)  Component.translatable(getGlyphLocation(glyph)!!.toLanguageKey("glyph"))
-            else                Component.translatable("glyph.$ID.empty")
+        val Glyph.translatableName get(): MutableComponent =
+            Component.translatable(getGlyphLocation(this)!!.toLanguageKey("glyph"))
 
         private fun getGlyphLocation(glyphType: Glyph) = glyphTypes.getKey(glyphType)
     }

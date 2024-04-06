@@ -6,9 +6,10 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.Tag
 import net.neoforged.neoforge.common.util.INBTSerializable
 
-open class GlyphData() : INBTSerializable<CompoundTag> {
+open class GlyphData : INBTSerializable<CompoundTag> {
 
     private val fields = ArrayList<DataField<*, in Tag>>()
+    val dataFields get() = fields.toTypedArray()
 
     var size by IntField("size", 0).saveData()
 
