@@ -24,6 +24,8 @@ object AttachRegistry {
             player.setData(glyphStackAttach, glyphStack)
         }
     }
+
+    val glyphStack
 }
 
 

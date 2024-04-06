@@ -1,4 +1,4 @@
-package kitowashere.boiled_witchcraft.common.world.glyph.data.cofigurator
+package kitowashere.boiled_witchcraft.common.world.glyph.data.editor
 
 import kitowashere.boiled_witchcraft.common.util.WrapWay
 import kitowashere.boiled_witchcraft.common.util.Wrapable

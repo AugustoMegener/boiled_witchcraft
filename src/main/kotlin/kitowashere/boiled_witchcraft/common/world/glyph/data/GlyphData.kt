@@ -1,12 +1,13 @@
 package kitowashere.boiled_witchcraft.common.world.glyph.data
 
+import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
 import kitowashere.boiled_witchcraft.common.world.glyph.data.field.DataField
 import kitowashere.boiled_witchcraft.common.world.glyph.data.field.IntField
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.Tag
 import net.neoforged.neoforge.common.util.INBTSerializable
 
-open class GlyphData : INBTSerializable<CompoundTag> {
+open class GlyphData(glyph: Glyph) : INBTSerializable<CompoundTag> {
 
     private val fields = ArrayList<DataField<*, in Tag>>()
     val dataFields get() = fields.toTypedArray()

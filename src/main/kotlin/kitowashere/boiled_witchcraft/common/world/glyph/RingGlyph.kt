@@ -5,7 +5,7 @@ import org.joml.Vector2i
 import kotlin.math.abs
 
 object RingGlyph : Glyph(Array(8) { it + 2}) {
-    override fun newData() = GlyphData()
+    override fun newData() = GlyphData(this)
 
     override fun getSignal(data: GlyphData) = HashMap<Vector2i, Boolean>().also {
         val size = data.size

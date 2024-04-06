@@ -5,7 +5,7 @@ import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.GlyphCategory
 import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.GlyphCategory.Companion.structurals
 import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.Util.translatableName
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
-import kitowashere.boiled_witchcraft.common.world.glyph.data.cofigurator.GlyphEditor
+import kitowashere.boiled_witchcraft.common.world.glyph.data.editor.GlyphEditor
 import net.minecraft.world.entity.player.Player
 
 class PlayerGlyphEditorHandler(val player: Player) : GlyphEditorHandler {

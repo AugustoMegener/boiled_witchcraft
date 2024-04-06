@@ -1,0 +1,6 @@
+package kitowashere.boiled_witchcraft.common.inventory.tooltip
+
+import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
+import net.minecraft.world.inventory.tooltip.TooltipComponent
+
+@JvmInline value class GlyphStackTooltip(val stack: GlyphStack) : TooltipComponent
