@@ -1,4 +1,4 @@
-package kitowashere.boiled_witchcraft.common.inventory.tooltip
+package kitowashere.boiled_witchcraft.common.world.inventory.tooltip
 
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
 import net.minecraft.world.inventory.tooltip.TooltipComponent

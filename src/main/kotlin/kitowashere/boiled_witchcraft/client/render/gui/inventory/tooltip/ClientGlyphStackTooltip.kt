@@ -1,6 +1,6 @@
 package kitowashere.boiled_witchcraft.client.render.gui.inventory.tooltip
 
-import kitowashere.boiled_witchcraft.common.inventory.tooltip.GlyphStackTooltip
+import kitowashere.boiled_witchcraft.common.world.inventory.tooltip.GlyphStackTooltip
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 

@@ -2,6 +2,7 @@ package kitowashere.boiled_witchcraft.common.registry
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
+import net.minecraft.nbt.IntTag
 import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -24,8 +25,4 @@ object AttachRegistry {
             player.setData(glyphStackAttach, glyphStack)
         }
     }
-
-    val glyphStack
 }
-
-
