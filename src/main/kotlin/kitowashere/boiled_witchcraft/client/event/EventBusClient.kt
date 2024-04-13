@@ -1,34 +1,18 @@
 package kitowashere.boiled_witchcraft.client.event
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft
-import kitowashere.boiled_witchcraft.client.Keybinding
-import kitowashere.boiled_witchcraft.client.gui.inventory.tooltip.ClientGlyphTooltip
-import kitowashere.boiled_witchcraft.common.world.inventory.tooltip.GlyphComposingTooltip
+import kitowashere.boiled_witchcraft.client.render.gui.inventory.tooltip.ClientGlyphStackTooltip
+import kitowashere.boiled_witchcraft.common.world.inventory.tooltip.GlyphStackTooltip
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.Mod.EventBusSubscriber
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
-import net.neoforged.neoforge.client.event.InputEvent
+import net.neoforged.fml.common.Mod
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
-import org.apache.logging.log4j.Level
 
-
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = BoiledWitchcraft.ID, value = [Dist.CLIENT])
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = BoiledWitchcraft.ID, value = [Dist.CLIENT])
 object EventBusClient {
 
     @SubscribeEvent
-    fun onClientSetup(event: FMLClientSetupEvent) {
-        BoiledWitchcraft.logger.log(Level.INFO, "Initializing client...")
-    }
-
-    @SubscribeEvent
     fun onRegisterClientTooltipComponentFactories(event: RegisterClientTooltipComponentFactoriesEvent) {
-        event.register(GlyphComposingTooltip::class.java) { ClientGlyphTooltip(it) }
-    }
-
-    @SubscribeEvent
-    fun onRegisterKeyMappingEvent(event: RegisterKeyMappingsEvent) {
-        Keybinding.keyMappings.forEach { event.register(it) }
+        event.register(GlyphStackTooltip::class.java) { ClientGlyphStackTooltip(it) }
     }
 }
