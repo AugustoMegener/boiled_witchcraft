@@ -38,18 +38,24 @@ object GlyphStackCanvasManager :
                     json.asJsonObject["size"].asInt,
                     json.asJsonObject["texture"].asString.split(":")
                                                          .dropLastWhile { it.isEmpty() }
-                                                         .run { ResourceLocation(this[0], this[1]) } )
+                                                         .run { ResourceLocation(this[0], this[1]) },
+                    json.asJsonObject["textureSize"].asInt
+                    )
             } catch (exc: JsonParseException) { skipDebug(location, exc)
             } catch (exc: IllegalArgumentException) { skipDebug(location, exc) }
         }
     }
 
-    data class GlyphCanvasData(val size: Int, @OnlyIn(Dist.CLIENT) val texture: ResourceLocation)
+    data class GlyphCanvasData(val size: Int, @OnlyIn(Dist.CLIENT) val texture: ResourceLocation,
+                                              @OnlyIn(Dist.CLIENT) val textureSize: Int)
 
     val Item.canvasSize     get() = resources[this]?.size
 
     @get:OnlyIn(Dist.CLIENT)
     val Item.canvasTexture  get() = resources[this]?.texture
+
+    @get:OnlyIn(Dist.CLIENT)
+    val Item.canvasTextureSize  get() = resources[this]?.textureSize
 
     private fun skipDebug(resourceLocation: ResourceLocation, exc: RuntimeException) {
         logger.debug("Skipping loading recipe $resourceLocation as it's conditions were not met", exc)

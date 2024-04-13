@@ -1,4 +1,5 @@
 {
   "size": 3,
-  "texture": "boiled_witchcraft:gui/sprites/item_canvas/"
+  "texture": "boiled_witchcraft:gui/sprites/item_canvas/",
+  "textureSize": 32
 }

@@ -60,4 +60,8 @@ class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INB
             }
         } }
     }
+
+    companion object {
+        val empty = GlyphStack()
+    }
 }

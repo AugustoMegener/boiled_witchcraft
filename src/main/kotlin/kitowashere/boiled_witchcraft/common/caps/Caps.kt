@@ -18,6 +18,7 @@ object Caps {
     }
 
     object Item {
+        @JvmStatic
         val itemGlyphStack: ItemCapability<GlyphStackHandler, Void> =
             ItemCapability.create(ResourceLocation(ID, "glyph_stack_item"),
                                   GlyphStackHandler::class.java, Void::class.java)
