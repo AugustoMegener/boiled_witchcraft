@@ -7,35 +7,37 @@ import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.neoforged.neoforge.client.settings.KeyConflictContext
 
+typealias IsEnabledInput    = (LocalPlayer) -> Boolean
+typealias ClientActionInput = (LocalPlayer) -> Unit
+typealias SyncPacketInput   = (LocalPlayer) -> CustomPacketPayload
+
 object Keymapping {
 
-    val isEnabledInput = HashMap<KeyMapping, (LocalPlayer) -> Boolean>()
-    val clientActionInput = HashMap<KeyMapping, (LocalPlayer) -> Unit>()
-    val syncPacketInput = HashMap<KeyMapping, (LocalPlayer) -> CustomPacketPayload>()
+    private const val CATEGORY = "key.categories.$ID"
 
-    internal val keyBuilders = ArrayList<() -> Unit>()
-    internal val keyMappings = ArrayList<Lazy<KeyMapping>>()
-    private val category = "key.categories.$ID"
-
-
-    operator fun invoke(description: String, input: Int, builder: KeyMapBuilder.() -> Unit) =
-        KeyMapBuilder(KeyMapping("key.$ID.$description", KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM, input, category))
-            .also(builder).build()
+    internal val keyMappings = ArrayList<KeyMapping>()
+    val inputsData = HashMap<KeyMapping, InputData>()
 
     fun new(description: String, input: Int, builder: KeyMapBuilder.() -> Unit) =
             KeyMapBuilder(KeyMapping("key.$ID.$description", KeyConflictContext.IN_GAME,
-                                            InputConstants.Type.KEYSYM, input, category))
-                         .also(builder).build().register()
+                                     InputConstants.Type.KEYSYM, input, CATEGORY)).also(builder)
+                                                                                  .register()
 
-    fun KeyMapping.register() = this.also { keyMappings.add(lazy { it }) }
 
     class KeyMapBuilder(private val keyMapping: KeyMapping) {
+        private var isEnable:       IsEnabledInput?     = null
+        private var clientAction:   ClientActionInput?  = null
+        private var syncPacket:     SyncPacketInput?    = null
 
-        fun isEnabled(predicate: (LocalPlayer) -> Boolean) { isEnabledInput[keyMapping] = predicate }
-        fun clientAction(action: (LocalPlayer) -> Unit) { clientActionInput[keyMapping] = action }
-        fun syncPacket(builder: (LocalPlayer) -> CustomPacketPayload) {  syncPacketInput[keyMapping] = builder }
+        fun isEnabled(predicate: IsEnabledInput)    { isEnable      = predicate }
+        fun clientAction(action: ClientActionInput) { clientAction  = action    }
+        fun syncPacket(builder: SyncPacketInput)    { syncPacket    = builder   }
 
-        fun build() = keyMapping
+        fun register() { keyMappings += keyMapping
+                         inputsData[keyMapping] = InputData(isEnable, clientAction, syncPacket) }
     }
+
+    data class InputData(val isEnabledInput:    IsEnabledInput?,
+                         val clientActionInput: ClientActionInput?,
+                         val syncPacketInput:   SyncPacketInput?)
 }

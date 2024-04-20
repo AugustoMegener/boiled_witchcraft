@@ -6,7 +6,9 @@ import org.joml.Vector2i
 abstract class Glyph(val sizes: Array<Int>) {
 
     abstract fun newData(): GlyphData
+
     open fun getSignal(data: GlyphData) = HashMap<Vector2i, Boolean>()
+    open fun isHollow(data: GlyphData) = false
 
     companion object {
         val placeholder = FireGlyph

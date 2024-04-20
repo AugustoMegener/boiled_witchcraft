@@ -9,6 +9,7 @@ import kitowashere.boiled_witchcraft.common.world.glyph.NoneGlyph
 import net.minecraft.nbt.CompoundTag
 import net.neoforged.neoforge.common.util.INBTSerializable
 import org.joml.Vector2i
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ValueException
 
 class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INBTSerializable<CompoundTag> {
 
@@ -21,21 +22,23 @@ class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INB
     val children: Map<Vector2i, GlyphStack> get() = ImmutableMap.copyOf(glyphStacks)
 
     val isEmpty get() = glyph == NoneGlyph
+    val isHollow get() = glyph.isHollow(data)
 
-    fun canSetInnerStack(stack: GlyphStack) = !isEmpty && stack.data.size < data.size
+    fun canSetInnerStack(stack: GlyphStack) =
+        isHollow && !isEmpty && stack.data.size < data.size && stack.data.size % 2 == data.size % 2
 
-    fun setInnerStack(stack: GlyphStack?): Boolean {
-        if (stack == null) { innerStack = null; return true }
-        else if (!canSetInnerStack(stack)) return false
-        else innerStack = stack; return true
+    fun setInnerStack(stack: GlyphStack?) {
+        if (stack == null) { innerStack = null }
+        else if (!canSetInnerStack(stack)) throw ValueException("$stack can't be inner stack of $this")
+        else innerStack = stack
     }
 
     fun canPut(pos: Vector2i, stack: GlyphStack) =
         !isEmpty && stack.data.size < data.size && !glyphStacks.containsKey(pos) && glyph.getSignal(data)[pos] ?: false
 
-    fun put(pos: Vector2i, stack: GlyphStack): Boolean {
-        if (!canPut(pos, stack))  return false
-        glyphStacks[pos] = stack; return true
+    fun put(pos: Vector2i, stack: GlyphStack) {
+        if (!canPut(pos, stack)) throw ValueException("$stack can't be member of $this")
+        glyphStacks[pos] = stack
     }
 
     override fun serializeNBT(): CompoundTag = if (isEmpty) CompoundTag() else CompoundTag().also {

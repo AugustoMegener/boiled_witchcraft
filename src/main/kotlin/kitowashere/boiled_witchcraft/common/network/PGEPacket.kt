@@ -10,9 +10,7 @@ import net.neoforged.neoforge.network.handling.PlayPayloadContext
 
 class PGEPacket(val way: WrapWay, val editing: Boolean) : CustomPacketPayload {
 
-    override fun write(buf: FriendlyByteBuf) {
-        buf.writeEnum(way)
-    }
+    override fun write(buf: FriendlyByteBuf) { buf.writeEnum(way) }
 
     override fun id() = id
 
@@ -23,8 +21,8 @@ class PGEPacket(val way: WrapWay, val editing: Boolean) : CustomPacketPayload {
 
         override fun handle(packet: PGEPacket, ctx: PlayPayloadContext) {
             ctx.player.ifPresent {
-                if (packet.editing) it.glyphEditor!!.editor.edit(packet.way)
-                else it.glyphEditor!!.editor.wrap(packet.way)
+                if (packet.editing) it.glyphEditor.editor.edit(packet.way)
+                else                it.glyphEditor.editor.wrap(packet.way)
             }
         }
     }

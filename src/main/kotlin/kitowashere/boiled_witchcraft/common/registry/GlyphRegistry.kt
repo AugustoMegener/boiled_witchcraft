@@ -38,16 +38,7 @@ object GlyphRegistry {
 
         val Glyph.id get() = glyphTypes.getKey(this)!!.toString()
 
-        fun getGlyphTexture(glyphType: Glyph, size: Int = 1): ResourceLocation {
-            if (size !in glyphType.sizes) throw Exception("Unavailable size for this glyph :/...")
-            return getGlyphLocation(glyphType)!!.withPrefix("textures/glyph/${size}x${size}/")
-                .withSuffix(".png")
-        }
-
-        val Glyph.translatableName get(): MutableComponent =
-            Component.translatable(getGlyphLocation(this)!!.toLanguageKey("glyph"))
-
-        private fun getGlyphLocation(glyphType: Glyph) = glyphTypes.getKey(glyphType)
+        fun getGlyphLocation(glyphType: Glyph) = glyphTypes.getKey(glyphType)
     }
 
     data class GlyphCategory(val location: ResourceLocation) {

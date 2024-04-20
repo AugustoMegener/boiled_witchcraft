@@ -6,7 +6,9 @@ import net.minecraft.nbt.IntTag
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 
-class IntField(name: String, value: Int, val range: IntRange? = null) : DataField<Int, IntTag>(name, value) {
+class IntField(name: String, value: Int, private val validator: ((Int) -> Int)? = null)
+    : DataField<Int, IntTag>(name, value)
+{
     override var wrappedIndex = 0
 
     override val nameComponent: MutableComponent = Component.translatable("field.name.$ID.$name")
@@ -17,9 +19,8 @@ class IntField(name: String, value: Int, val range: IntRange? = null) : DataFiel
 
     override fun wrap(way: WrapWay) {
         super.wrap(way)
-        if (range != null) {
-            wrappedIndex = wrappedIndex.coerceIn(range)
-        }
+        wrappedIndex = validator?.let { it(wrappedIndex) } ?: wrappedIndex
+
         value = wrappedIndex
     }
 }

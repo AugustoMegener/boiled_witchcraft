@@ -16,6 +16,7 @@ import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactori
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
 
+
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = BoiledWitchcraft.ID, value = [Dist.CLIENT])
 object EventBusClient {
 
@@ -34,6 +35,6 @@ object EventBusClient {
     @SubscribeEvent
     fun onRegisterKeyMappings(event: RegisterKeyMappingsEvent) {
         listOf(WrapKeys).forEach { it.keyBuilder(Keymapping) }
-        keyMappings.forEach { event.register(it.value) }
+        keyMappings.forEach { event.register(it) }
     }
 }

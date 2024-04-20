@@ -7,15 +7,15 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.Tag
 import net.neoforged.neoforge.common.util.INBTSerializable
 
-open class GlyphData(glyph: Glyph) : INBTSerializable<CompoundTag> {
+open class GlyphData(val glyph: Glyph) : INBTSerializable<CompoundTag> {
 
     private val fields = ArrayList<DataField<*, in Tag>>()
     val dataFields get() = fields.toTypedArray()
 
-    var size by IntField("size", 0).saveData()
+    var size by IntField("size", 0) { n -> glyph.sizes.minBy { it - n } } .persistent()
 
     @Suppress("UNCHECKED_CAST")
-    protected fun <T> DataField<T, *>.saveData(): DataField<T, *> = also { fields.add(it as DataField<T, in Tag>) }
+    protected fun <T> DataField<T, *>.persistent() = also { fields.add(it as DataField<T, in Tag>) }
 
     override fun serializeNBT() = CompoundTag().also { tag -> fields.forEach { tag.put(it.name,
         it.serializeNBT() as Tag) } }

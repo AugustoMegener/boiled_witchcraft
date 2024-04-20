@@ -19,12 +19,12 @@ object NeoForgedEventClient {
             val player = Minecraft.getInstance().player
 
             if (player != null) {
-                for (i in Keymapping.isEnabledInput) {
-                    val b = i.value(player)
-                    b
-                    if (b) {
-                        Keymapping.clientActionInput[i.key] ?.let { it(player) }
-                        Keymapping.syncPacketInput[i.key]   ?.let { it(player) }
+                for (i in Keymapping.inputsData) {
+                    val data = i.value
+
+                    if (data.isEnabledInput?.let { it(player) } == true) {
+                        data.clientActionInput?.let { it(player) }
+                        data.syncPacketInput  ?.let { it(player) }
                     }
                 }
             }

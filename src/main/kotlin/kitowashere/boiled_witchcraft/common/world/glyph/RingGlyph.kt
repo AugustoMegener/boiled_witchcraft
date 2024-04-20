@@ -7,6 +7,8 @@ import kotlin.math.abs
 object RingGlyph : Glyph(Array(8) { it + 2}) {
     override fun newData() = GlyphData(this)
 
+    override fun isHollow(data: GlyphData) = true
+
     override fun getSignal(data: GlyphData) = HashMap<Vector2i, Boolean>().also {
         val size = data.size
         val radius = size / 2
