@@ -1,6 +1,7 @@
 package kitowashere.boiled_witchcraft.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import kitowashere.boiled_witchcraft.common.resource.GlyphStackCanvasManager;
 import kitowashere.boiled_witchcraft.common.world.inventory.tooltip.GlyphStackTooltip;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
@@ -10,8 +11,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.Optional;
-
-import static kitowashere.boiled_witchcraft.common.caps.Caps.Item;
 
 @Mixin(GuiGraphics.class)
 public class GuiGraphicsMixin {
@@ -24,8 +23,7 @@ public class GuiGraphicsMixin {
     public Optional<TooltipComponent> renderTooltip(Optional<TooltipComponent> component,
                                                     @Local(argsOnly = true) ItemStack stack)
     {
-        return Optional.ofNullable(stack.getCapability(Item.getItemGlyphStack()))
-                .<TooltipComponent>map(h -> !h.getStack().isEmpty() ?
-                                       new GlyphStackTooltip(stack.getItem(), h.getStack()) : null).or(() -> component);
+        return Optional.ofNullable(GlyphStackCanvasManager.INSTANCE.getGlyphCanvas(stack))
+                .<TooltipComponent>map(h -> !h.getGlyphStack().isEmpty() ? new GlyphStackTooltip(h) : null).or(() -> component);
     }
 }

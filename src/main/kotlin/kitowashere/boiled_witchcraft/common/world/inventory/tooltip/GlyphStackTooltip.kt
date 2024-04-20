@@ -1,9 +1,6 @@
 package kitowashere.boiled_witchcraft.common.world.inventory.tooltip
 
-import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
+import kitowashere.boiled_witchcraft.common.resource.GlyphStackCanvasManager
 import net.minecraft.world.inventory.tooltip.TooltipComponent
-import net.minecraft.world.item.Item
 
-data class GlyphStackTooltip(val item: Item, val stack: GlyphStack) : TooltipComponent {
-
-}
+data class GlyphStackTooltip(val canvas: GlyphStackCanvasManager.GlyphCanvas) : TooltipComponent

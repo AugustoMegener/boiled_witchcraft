@@ -2,11 +2,11 @@ package kitowashere.boiled_witchcraft
 
 import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.attachRegistry
 import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.glyphRegistry
-import net.minecraft.client.gui.GuiGraphics
+import kitowashere.boiled_witchcraft.common.registry.ItemRegistry.itemRegistry
 import net.neoforged.fml.common.Mod
-import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 
 @Mod(BoiledWitchcraft.ID)
 object BoiledWitchcraft {
@@ -15,6 +15,6 @@ object BoiledWitchcraft {
     val logger: Logger = LogManager.getLogger(ID)
 
     init {
-        listOf(glyphRegistry, attachRegistry).forEach { it.register(MOD_BUS) }
+        listOf(glyphRegistry, attachRegistry, itemRegistry).forEach { it.register(MOD_BUS) }
     }
 }
