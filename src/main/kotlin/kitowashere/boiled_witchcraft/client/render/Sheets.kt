@@ -1,7 +1,7 @@
 package kitowashere.boiled_witchcraft.client.render
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
-import kitowashere.boiled_witchcraft.client.core.glyph.Util.getTexture
+import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.Util.getTexture
 import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
 import net.minecraft.client.renderer.RenderType

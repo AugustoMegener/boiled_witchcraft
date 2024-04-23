@@ -39,6 +39,12 @@ object GlyphRegistry {
         val Glyph.id get() = glyphTypes.getKey(this)!!.toString()
 
         fun getGlyphLocation(glyphType: Glyph) = glyphTypes.getKey(glyphType)
+
+        fun Glyph.getTexture(size: Int = 1): ResourceLocation {
+            if (size !in sizes) throw Exception("Unavailable size for this glyph :/...")
+            return getGlyphLocation(this)!!.withPrefix("textures/glyph/${size}x${size}/")
+                .withSuffix(".png")
+        }
     }
 
     data class GlyphCategory(val location: ResourceLocation) {

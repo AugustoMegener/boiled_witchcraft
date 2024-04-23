@@ -1,7 +1,5 @@
 package kitowashere.boiled_witchcraft.client.render.gui.inventory.tooltip
 
-import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.Util.translatableName
-
 import kitowashere.boiled_witchcraft.common.world.inventory.tooltip.GlyphStackTooltip
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
