@@ -19,9 +19,12 @@ object Keymapping {
     val inputsData = HashMap<KeyMapping, InputData>()
 
     fun new(description: String, input: Int, builder: KeyMapBuilder.() -> Unit) =
-            KeyMapBuilder(KeyMapping("key.$ID.$description", KeyConflictContext.IN_GAME,
-                                     InputConstants.Type.KEYSYM, input, CATEGORY)).also(builder)
-                                                                                  .register()
+        KeyMapBuilder(
+            KeyMapping(
+                "key.$ID.$description", KeyConflictContext.IN_GAME,
+                InputConstants.Type.KEYSYM, input, CATEGORY
+            )
+        ).also(builder).register()
 
 
     class KeyMapBuilder(private val keyMapping: KeyMapping) {

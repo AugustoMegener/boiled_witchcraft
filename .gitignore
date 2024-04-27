@@ -23,3 +23,5 @@ run
 runs
 runs/*
 *.log
+*.log
+*.gz

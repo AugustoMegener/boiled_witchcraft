@@ -26,4 +26,6 @@ public class GuiGraphicsMixin {
         return Optional.ofNullable(GlyphStackCanvasManager.INSTANCE.getGlyphCanvas(stack))
                 .<TooltipComponent>map(h -> !h.getGlyphStack().isEmpty() ? new GlyphStackTooltip(h) : null).or(() -> component);
     }
+
+
 }

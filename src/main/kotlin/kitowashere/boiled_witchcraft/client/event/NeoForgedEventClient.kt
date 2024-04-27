@@ -22,7 +22,7 @@ object NeoForgedEventClient {
                 for (i in Keymapping.inputsData) {
                     val data = i.value
 
-                    if (data.isEnabledInput?.let { it(player) } == true) {
+                    if (i.key.consumeClick() && data.isEnabledInput?.let { it(player) } == true) {
                         data.clientActionInput?.let { it(player) }
                         data.syncPacketInput  ?.let { it(player) }
                     }

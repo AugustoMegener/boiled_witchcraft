@@ -3,7 +3,7 @@ package kitowashere.boiled_witchcraft.client.keymapping
 import com.mojang.blaze3d.platform.InputConstants
 import kitowashere.boiled_witchcraft.common.caps.Caps.Entity.glyphEditor
 import kitowashere.boiled_witchcraft.common.network.PGEPacket
-import kitowashere.boiled_witchcraft.common.tags.ItemTags
+import kitowashere.boiled_witchcraft.common.tags.TagItems
 import kitowashere.boiled_witchcraft.common.util.WrapWay
 import net.minecraft.client.player.LocalPlayer
 
@@ -17,13 +17,14 @@ object WrapKeys : KeyRegister() {
     }
 
     private fun getEditor(isEditor: Boolean, way: WrapWay): Keymapping.KeyMapBuilder.() -> Unit = {
-        isEnabled { p: LocalPlayer -> p.handSlots.any { ItemTags.glyphEditorTag in it.tags.toList() } }
+        isEnabled { p: LocalPlayer -> p.handSlots.any { it.`is`(TagItems.glyphEditorTag) } }
 
         clientAction {
             when (isEditor) { true  -> it.glyphEditor.editor::edit
-                              false -> it.glyphEditor.editor::wrap }(way)
+                              false -> it.glyphEditor.editor::wrap } (way)
 
-            it.sendSystemMessage(it.glyphEditor.editor.info)
+            it.sendSystemMessage(when (isEditor) { true  -> it.glyphEditor.editor.info
+                                                   false -> it.glyphEditor.editor.name } )
         }
         syncPacket { _ -> PGEPacket(way, isEditor) }
     }
