@@ -1,4 +1,4 @@
-package kitowashere.boiled_witchcraft.common.tags
+package kitowashere.boiled_witchcraft.common.util.tags
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import net.minecraft.core.registries.Registries
