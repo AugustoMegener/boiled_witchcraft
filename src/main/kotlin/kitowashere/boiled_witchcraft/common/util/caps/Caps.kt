@@ -1,7 +1,7 @@
-package kitowashere.boiled_witchcraft.common.caps
+package kitowashere.boiled_witchcraft.common.util.caps
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
-import kitowashere.boiled_witchcraft.common.caps.handlers.glyph.GlyphEditorHandler
+import kitowashere.boiled_witchcraft.common.util.caps.handlers.glyph.GlyphEditorHandler
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.capabilities.EntityCapability

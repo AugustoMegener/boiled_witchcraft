@@ -1,4 +1,4 @@
-package kitowashere.boiled_witchcraft.common.caps.handlers.glyph
+package kitowashere.boiled_witchcraft.common.util.caps.handlers.glyph
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.client.core.glyph.Util.translatableName

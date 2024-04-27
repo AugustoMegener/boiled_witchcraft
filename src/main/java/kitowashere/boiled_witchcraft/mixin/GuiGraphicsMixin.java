@@ -1,7 +1,7 @@
 package kitowashere.boiled_witchcraft.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import kitowashere.boiled_witchcraft.common.resource.GlyphStackCanvasManager;
+import kitowashere.boiled_witchcraft.common.resource.canvas.ItemGlyphCanvas;
 import kitowashere.boiled_witchcraft.common.world.inventory.tooltip.GlyphStackTooltip;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
@@ -15,6 +15,7 @@ import java.util.Optional;
 @Mixin(GuiGraphics.class)
 public class GuiGraphicsMixin {
 
+    private static final ItemGlyphCanvas.Companion CANVAS = ItemGlyphCanvas.Companion;
 
     @ModifyArg(method = "renderTooltip(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;II)V",
                at = @At(value = "INVOKE",
@@ -23,8 +24,10 @@ public class GuiGraphicsMixin {
     public Optional<TooltipComponent> renderTooltip(Optional<TooltipComponent> component,
                                                     @Local(argsOnly = true) ItemStack stack)
     {
-        return Optional.ofNullable(GlyphStackCanvasManager.INSTANCE.getGlyphCanvas(stack))
-                .<TooltipComponent>map(h -> !h.getGlyphStack().isEmpty() ? new GlyphStackTooltip(h) : null).or(() -> component);
+        return Optional.ofNullable(
+               Optional.ofNullable(CANVAS.getGlyphCanvas(stack))
+                       .map(c -> (TooltipComponent) new GlyphStackTooltip(c))
+                       .orElse(component.orElse(null)));
     }
 
 

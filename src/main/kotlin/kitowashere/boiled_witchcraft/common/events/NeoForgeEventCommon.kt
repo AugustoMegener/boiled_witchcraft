@@ -1,7 +1,7 @@
 package kitowashere.boiled_witchcraft.common.events
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft
-import kitowashere.boiled_witchcraft.common.resource.GSCManager
+import kitowashere.boiled_witchcraft.common.resource.canvas.GSCManager
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.Mod
 import net.neoforged.neoforge.event.AddReloadListenerEvent

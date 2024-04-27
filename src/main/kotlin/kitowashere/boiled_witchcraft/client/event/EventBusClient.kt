@@ -6,7 +6,7 @@ import kitowashere.boiled_witchcraft.client.keymapping.Keymapping.keyMappings
 import kitowashere.boiled_witchcraft.client.keymapping.WrapKeys
 import kitowashere.boiled_witchcraft.client.render.gui.inventory.decorator.GlyphItemDecorator
 import kitowashere.boiled_witchcraft.client.render.gui.inventory.tooltip.ClientGlyphStackTooltip
-import kitowashere.boiled_witchcraft.common.tags.TagItems
+import kitowashere.boiled_witchcraft.common.tags.ItemTags
 import kitowashere.boiled_witchcraft.common.world.inventory.tooltip.GlyphStackTooltip
 import net.minecraft.core.registries.BuiltInRegistries
 import net.neoforged.api.distmarker.Dist
@@ -27,7 +27,7 @@ object EventBusClient {
 
     @SubscribeEvent
     fun onRegisterItemDecorations(event: RegisterItemDecorationsEvent) {
-        BuiltInRegistries.ITEM.filter { it.defaultInstance.`is`(TagItems.glyphCanvasTag) }.forEach {
+        BuiltInRegistries.ITEM.filter { it.defaultInstance.`is`(ItemTags.glyphCanvasTag) }.forEach {
             event.register(it, GlyphItemDecorator())
         }
     }

@@ -24,8 +24,7 @@ object ModEventCommon {
 
     @SubscribeEvent
     fun onAttachCap(event: RegisterCapabilitiesEvent) {
-        event.registerEntity(Caps.Entity.entityGlyphEditor, EntityType.PLAYER) { p,_ ->
-            PlayerGlyphEditorHandler.playerEditorCache.computeIfAbsent(p) { PlayerGlyphEditorHandler(p) }
-        }
+        // Entities
+        event.registerEntity(Caps.Entity.entityGlyphEditor, EntityType.PLAYER) { p,_ -> PlayerGlyphEditorHandler(p) }
     }
 }

@@ -1,7 +1,7 @@
 package kitowashere.boiled_witchcraft.client.render.gui.inventory.decorator
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
-import kitowashere.boiled_witchcraft.common.resource.GlyphStackCanvasManager.glyphCanvas
+import kitowashere.boiled_witchcraft.common.resource.canvas.GlyphCanvasManager.glyphCanvas
 
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
