@@ -1,8 +1,8 @@
 package kitowashere.boiled_witchcraft.common.network
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
-import kitowashere.boiled_witchcraft.common.caps.Caps.Entity.glyphEditor
 import kitowashere.boiled_witchcraft.common.util.WrapWay
+import kitowashere.boiled_witchcraft.common.util.caps.Caps.Entity.glyphEditor
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.resources.ResourceLocation

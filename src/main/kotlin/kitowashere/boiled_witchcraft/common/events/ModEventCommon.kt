@@ -1,8 +1,8 @@
 package kitowashere.boiled_witchcraft.common.events
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
-import kitowashere.boiled_witchcraft.common.caps.Caps
-import kitowashere.boiled_witchcraft.common.caps.handlers.glyph.PlayerGlyphEditorHandler
+import kitowashere.boiled_witchcraft.common.util.caps.Caps
+import kitowashere.boiled_witchcraft.common.util.caps.handlers.glyph.PlayerGlyphEditorHandler
 import kitowashere.boiled_witchcraft.common.network.PGEPacket
 import net.minecraft.world.entity.EntityType
 import net.neoforged.bus.api.SubscribeEvent
@@ -25,6 +25,6 @@ object ModEventCommon {
     @SubscribeEvent
     fun onAttachCap(event: RegisterCapabilitiesEvent) {
         // Entities
-        event.registerEntity(Caps.Entity.entityGlyphEditor, EntityType.PLAYER) { p,_ -> PlayerGlyphEditorHandler(p) }
+        event.registerEntity(Caps.Entity.entityGlyphEditor, EntityType.PLAYER) { p, _ -> PlayerGlyphEditorHandler(p) }
     }
 }

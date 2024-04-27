@@ -1,9 +1,9 @@
 package kitowashere.boiled_witchcraft.client.keymapping
 
 import com.mojang.blaze3d.platform.InputConstants
-import kitowashere.boiled_witchcraft.common.caps.Caps.Entity.glyphEditor
+import kitowashere.boiled_witchcraft.common.util.caps.Caps.Entity.glyphEditor
 import kitowashere.boiled_witchcraft.common.network.PGEPacket
-import kitowashere.boiled_witchcraft.common.tags.ItemTags
+import kitowashere.boiled_witchcraft.common.util.tags.ItemTags
 import kitowashere.boiled_witchcraft.common.util.WrapWay
 import net.minecraft.client.player.LocalPlayer
 
