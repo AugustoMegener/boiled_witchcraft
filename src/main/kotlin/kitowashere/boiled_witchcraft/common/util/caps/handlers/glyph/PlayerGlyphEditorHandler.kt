@@ -12,26 +12,20 @@ import net.minecraft.world.entity.player.Player
 
 class PlayerGlyphEditorHandler(val player: Player) : GlyphEditorHandler {
 
-    override val glyphCategories = arrayOf(primaries, structurals)
-    override var glyphCategory = glyphCategories[0]
-    override var fieldIndex = 0; set(value) { field = value.coerceIn(0..<stages.size) }
-
-    private fun stageName(name: String) = Component.translatable("editor.stages.$ID.$name")
-
     val stages = arrayListOf<GlyphEditor.StageBuilder.() -> Unit>(
 
         // Category wrapper
         { name(stageName("category"))
-          info   { _, _     -> glyphCategory.name                     }
-          action { _, i, _  -> glyphCategory = glyphCategories[i]     } },
+          info   { _, _     -> glyphCategory.name                                                }
+          action { _, i, _  -> glyphCategory = glyphCategories[clamped(i, glyphCategories.size)] } },
 
         // Glyph wrapper
         { name(stageName("glyph") )
-          info   { g, _     -> g.stack.glyph.translatableName         }
-          action { g, i, _  -> g.stack = GlyphStack(glyphCategory[i]) } },
+          info   { g, _     -> g.stack.glyph.translatableName                                        }
+          action { g, i, _  -> g.stack = GlyphStack(glyphCategory[clamped(i, glyphCategory.size)]) } },
 
         // Field wrapper
-        { name (stageName("fiel") )
+        { name (stageName("field") )
           info   { g, _    -> g.stack.data.dataFields[fieldIndex].nameComponent }
           action { _, i, _ -> fieldIndex = i                                    } },
 
@@ -41,11 +35,22 @@ class PlayerGlyphEditorHandler(val player: Player) : GlyphEditorHandler {
           action { g, _, w -> g.stack.data.dataFields[fieldIndex].wrap(w)        } }
     )
 
-    override val editor = object : GlyphEditor(stages, player.glyphStack) {
-        override fun onChanged() { player.glyphStack = stack }
-    }
+    override val editor =
+        object : GlyphEditor(stages, player.glyphStack) {
+            override fun onChanged() { player.glyphStack = stack }
+        }
+
+    private val fieldAmount = editor.stack.data.dataFields.size
+
+    override val glyphCategories = arrayOf(primaries, structurals)
+    override var glyphCategory = glyphCategories[0]; set(value) { field = value; editor.stack = GlyphStack(value[0]) }
+    override var fieldIndex = 0; set(value) { field = value.coerceIn(0..<fieldAmount) }
+
 
     companion object {
         val playerEditorCache = HashMap<Player, PlayerGlyphEditorHandler>()
+
+        private fun clamped(value: Int, limit: Int) = if (value >= limit) 0 else if (value < 0) limit else value
+        private fun stageName(name: String) = Component.translatable("editor.stages.$ID.$name")
     }
 }

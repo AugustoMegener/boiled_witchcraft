@@ -12,7 +12,7 @@ open class GlyphEditor(stages: MutableList<StageBuilder.() -> Unit>,
     private val stages = stages.map { GlyphEditorStage(StageBuilder().also { s -> it(s) }) }
     private var stage = this.stages[0]
     val info get() = stage.info(this, wrappedIndex)
-    val name = stage.name
+    val name get() = stage.name
 
     override var wrappedIndex = 0
         set(value) {

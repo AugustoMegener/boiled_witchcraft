@@ -1,7 +1,7 @@
 package kitowashere.boiled_witchcraft.common.events
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft
-import kitowashere.boiled_witchcraft.common.resource.canvas.GSCManager
+import kitowashere.boiled_witchcraft.common.resource.canvas.GlyphCanvasManager
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.Mod
 import net.neoforged.neoforge.event.AddReloadListenerEvent
@@ -11,6 +11,6 @@ object NeoForgeEventCommon {
 
     @SubscribeEvent
     fun onAddReloadListener(event: AddReloadListenerEvent) {
-        event.addListener(GSCManager)
+        event.addListener(GlyphCanvasManager)
     }
 }

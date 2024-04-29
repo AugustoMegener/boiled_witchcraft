@@ -8,7 +8,7 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 
 class ClientGlyphStackTooltip(tooltip: GlyphStackTooltip) : ClientTooltipComponent {
 
-    private val stack = tooltip.canvas.glyphStack
+    private val stack = tooltip.stack
     private val background = tooltip.canvas.texture
     private val backgroundSize = tooltip.canvas.textureSize
 

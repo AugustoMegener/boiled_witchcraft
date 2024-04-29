@@ -1,7 +1,9 @@
 package kitowashere.boiled_witchcraft.client.render.gui.inventory.decorator
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
-import kitowashere.boiled_witchcraft.common.resource.canvas.GlyphCanvasManager.glyphCanvas
+import kitowashere.boiled_witchcraft.common.resource.canvas.ItemGlyphCanvas.Companion.glyphCanvas
+import kitowashere.boiled_witchcraft.common.resource.canvas.ItemGlyphCanvas.Companion.glyphStack
+
 
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
@@ -15,7 +17,7 @@ class GlyphItemDecorator : IItemDecorator {
     override fun render(guiGraphics: GuiGraphics, font: Font, stack: ItemStack, xOffset: Int, yOffset: Int): Boolean {
         if (shouldRender) { guiGraphics.blit(texture, xOffset, yOffset, 0, 0, 16, 16) }
 
-        (stack.glyphCanvas?.run    { this.glyphStack.isEmpty        } ?: false)
+        (stack.glyphCanvas?.run    { stack.glyphStack?.isEmpty ?: false } ?: false)
                            .takeIf { it != shouldRender             }
                           ?.let    { shouldRender = it; return true }
         return false

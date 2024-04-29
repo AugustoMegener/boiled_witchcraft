@@ -19,6 +19,7 @@ data class ItemGlyphCanvas(val markers: List<GlyphCanvasMarker>, val size: Int,
 
         var ItemStack.glyphStack: GlyphStack?
             get() = if (glyphCanvas != null) getData(AttachRegistry.glyphStackAttach) else null
+
             set(value) {
                 if (glyphStack == null) return
 
