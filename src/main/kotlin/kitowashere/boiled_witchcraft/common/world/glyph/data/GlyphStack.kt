@@ -52,8 +52,9 @@ class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INB
     }
 
     override fun deserializeNBT(nbt: CompoundTag) {
-        glyph = glyphFromID(nbt.getString("glyph")) ?: placeholder
+        glyph = glyphFromID(nbt.getString("glyph")) ?: NoneGlyph
         data = glyph.newData().also { it.deserializeNBT(nbt.getCompound("data")) }
+
         setInnerStack(nbt.getCompound("inner_stack").takeIf { nbt.contains("inner_stack") }
                                                          ?.run { GlyphStack().also { it.deserializeNBT(this) } })
         glyphStacks.clear()

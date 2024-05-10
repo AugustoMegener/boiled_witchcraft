@@ -20,8 +20,7 @@ object AttachRegistry {
     var Player.glyphStack: GlyphStack by object {
         operator fun getValue(player: Player, property: KProperty<*>) = player.getData(glyphStackAttach)
 
-        operator fun setValue(player: Player, property: KProperty<*>, glyphStack: GlyphStack) {
-            player.setData(glyphStackAttach, glyphStack)
-        }
+        operator fun setValue(player: Player, property: KProperty<*>, glyphStack: GlyphStack)
+            { player.setData(glyphStackAttach, glyphStack) }
     }
 }

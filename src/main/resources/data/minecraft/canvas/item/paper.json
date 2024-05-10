@@ -1,11 +1,11 @@
 {
-  "markers": [],
+  "markers": ["MATERIAL_GRIND"],
 
   "item": {
     "size": 3,
 
     "texture": {
-      "src": "boiled_witchcraft:gui/sprites/item_canvas/paper_background.png",
+      "src": "boiled_witchcraft:textures/gui/sprites/item_canvas/paper_background.png",
       "size": 32
     }
   }
