@@ -1,16 +1,22 @@
 package kitowashere.boiled_witchcraft.client.render.glyph
 
-import kitowashere.boiled_witchcraft.client.render.Sheets.glyphMaterial
+import kitowashere.boiled_witchcraft.client.render.atlas.GlyphAtlas.sprite
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
-import net.minecraft.client.resources.model.Material
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import org.joml.Vector2i
 
-abstract class GlyphRenderBase(glyphStack: GlyphStack = GlyphStack.empty) {
+abstract class GlyphRenderBase {
 
-    private var glyphStack = glyphStack
+    var glyphStack: GlyphStack = GlyphStack.empty
+        set(value) { field = value
+                     updateSprites() }
+
+
+    data class GlyphSprite(val sprite: TextureAtlasSprite, val size: Int, val pos: Vector2i)
 
     private val spriteList = ArrayList<GlyphSprite>()
     val sprites get() = spriteList.toTypedArray()
+
 
     private fun updateSprites() {
         spriteList.clear()
@@ -21,15 +27,11 @@ abstract class GlyphRenderBase(glyphStack: GlyphStack = GlyphStack.empty) {
 
         val offset = Vector2i(spriteList.minOf { it.pos.x }, spriteList.minOf { it.pos.y })
 
-        for (i in sprites.map { it.pos }) {
-            i.add(offset)
-        }
-
-
+        spriteList.map { it.pos } .forEach { it.add(offset) }
     }
 
     private fun putStackSprites(stack: GlyphStack, pos: Vector2i = Vector2i()) {
-        spriteList.add(GlyphSprite(stack.glyphMaterial, stack.data.size, pos))
+        spriteList.add(GlyphSprite(stack.sprite, stack.data.size, pos))
 
         glyphStack.children.forEach {
             val child = it.value
@@ -37,16 +39,5 @@ abstract class GlyphRenderBase(glyphStack: GlyphStack = GlyphStack.empty) {
             putStackSprites(child, pos.add(it.key.also { p -> p.x -= child.data.size / 2
                                                               p.y -= child.data.size / 2 } ))
         }
-    }
-
-    fun getGlyphStack() = glyphStack
-
-    fun setGlyphStack(stack: GlyphStack) { glyphStack = stack
-                                           updateSprites()    }
-
-    data class GlyphSprite(val material: Material, val size: Int, val pos: Vector2i)
-
-    companion object {
-
     }
 }

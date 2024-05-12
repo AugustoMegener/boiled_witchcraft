@@ -34,17 +34,11 @@ object GlyphRegistry {
     val glyphTypes: Registry<Glyph> = glyphRegistry.makeRegistry { RegistryBuilder(registryKey) }
 
     object Util {
-        fun glyphFromID(id: String) = glyphTypes.get(ResourceLocation.of(id, ':'))
+        fun glyphFromID(id: String) = glyphTypes[ResourceLocation.of(id, ':')]
 
         val Glyph.id get() = glyphTypes.getKey(this)!!.toString()
 
         fun getGlyphLocation(glyphType: Glyph) = glyphTypes.getKey(glyphType)
-
-        fun Glyph.getTexture(size: Int = 1): ResourceLocation {
-            if (size !in sizes) throw Exception("Unavailable size for this glyph :/...")
-            return getGlyphLocation(this)!!.withPrefix("textures/glyph/${size}x${size}/")
-                .withSuffix(".png")
-        }
     }
 
     data class GlyphCategory(val location: ResourceLocation) {
