@@ -1,17 +1,22 @@
 package kitowashere.boiled_witchcraft.common.world.glyph.data
 
+import com.mojang.serialization.Codec
+import com.mojang.serialization.Keyable
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import kitowashere.boiled_witchcraft.common.util.WrapWay.*
 import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
 import kitowashere.boiled_witchcraft.common.world.glyph.data.field.DataField
 import kitowashere.boiled_witchcraft.common.world.glyph.data.field.IntField
+import net.minecraft.core.HolderLookup
+import net.minecraft.core.component.DataComponentHolder
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.Tag
 import net.neoforged.neoforge.common.util.INBTSerializable
 import kotlin.math.abs
 
-open class GlyphData(val glyph: Glyph) : INBTSerializable<CompoundTag> {
+open class GlyphData(val glyph: Glyph) {
 
-    private val fields = ArrayList<DataField<*, in Tag>>()
+    private val fields = ArrayList<DataField<*>>()
     val dataFields get() = fields.toTypedArray()
 
     var size by IntField("size", 0) {
@@ -20,13 +25,19 @@ open class GlyphData(val glyph: Glyph) : INBTSerializable<CompoundTag> {
                                                                     PRIOR -> s.filter { it<=n }.minOrNull() ?: s.min() }
                                                 } .persistent()
 
-    @Suppress("UNCHECKED_CAST")
-    protected fun <T> DataField<T, *>.persistent() = also { fields.add(it as DataField<T, in Tag>) }
+    protected fun <T> DataField<T>.persistent() = also { fields.add(it) }
 
-    override fun serializeNBT() = CompoundTag().also { tag -> fields.forEach { tag.put(it.name,
-        it.serializeNBT() as Tag) } }
-
-    override fun deserializeNBT(nbt: CompoundTag) {
-        nbt.allKeys.withIndex().forEach { fields[it.index].deserializeNBT(nbt.get(it.value)!!) }
+    companion object {
+        val codec: Codec<GlyphData> = RecordCodecBuilder.create {
+            it.group(
+                Glyph.codec.fieldOf("glyph").forGetter(GlyphData::glyph),
+                Codec.STRING.listOf().fieldOf("names").forGetter { g -> g.fields.map { f -> f.name } },
+                Codec.INT.listOf().fieldOf("indexes").forGetter { g -> g.fields.map { f -> f.wrappedIndex } }
+            ).apply(it) { g, n, i ->
+                n.zip(i).toMap().run {
+                    g.newData().also { d -> d.fields.forEach { f -> this[f.name]?.let { i -> f.wrappedIndex = i } } }
+                }
+            }
+        }
     }
 }

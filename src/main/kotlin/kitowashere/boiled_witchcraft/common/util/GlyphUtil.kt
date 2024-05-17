@@ -1,6 +1,6 @@
 package kitowashere.boiled_witchcraft.common.util
 
-import kitowashere.boiled_witchcraft.common.registry.AttachRegistry
+import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.glyphStackData
 import kitowashere.boiled_witchcraft.common.resource.CanvasRegistry.ItemCanvas.glyphCanvas
 import kitowashere.boiled_witchcraft.common.resource.mosh.MohsRegistry.ItemMohs.mohs
 import kitowashere.boiled_witchcraft.common.util.GameUtil.opposite
@@ -14,7 +14,7 @@ object GlyphUtil {
     var ItemStack.glyphStack: GlyphStack?
         get() =
             if (glyphCanvas != null)
-                getData(AttachRegistry.glyphStackAttach)
+                getOrDefault(glyphStackData, GlyphStack.empty)
             else
                 null
 
@@ -23,7 +23,7 @@ object GlyphUtil {
                 throw ValueException("Canvas is too small for GlyphStack")
 
             if (glyphStack != null)
-                setData(AttachRegistry.glyphStackAttach, value ?: GlyphStack.empty)
+                set(glyphStackData, value ?: GlyphStack.empty)
         }
 
     val Player.canWriteGlyphOn get() = InteractionHand.entries.associateWith {

@@ -7,20 +7,20 @@ import kitowashere.boiled_witchcraft.common.util.caps.handlers.glyph.PlayerGlyph
 import kitowashere.boiled_witchcraft.common.util.caps.handlers.glyph.PlayerGlyphEditorHandler.Companion.playerEditorCache
 import net.minecraft.world.entity.EntityType
 import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.Mod
+import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ID)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = ID)
 object ModEventCommon {
 
     @SubscribeEvent
-    fun onRegisterPackets(event: RegisterPayloadHandlerEvent) {
+    fun onRegisterPackets(event: RegisterPayloadHandlersEvent) {
         val registrar = event.registrar(ID).optional()
 
         listOf(
             PGEPacket
-        ).forEach { registrar.play(it.id, it, it) }
+        ).forEach { registrar.playToClient(it.type, it.codec, it) }
     }
 
     @SubscribeEvent

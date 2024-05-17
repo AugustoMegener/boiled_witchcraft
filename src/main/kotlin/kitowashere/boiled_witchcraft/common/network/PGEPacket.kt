@@ -1,29 +1,34 @@
 package kitowashere.boiled_witchcraft.common.network
 
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.util.WrapWay
-import kitowashere.boiled_witchcraft.common.util.caps.Caps.Entity.glyphEditor
-import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.resources.ResourceLocation
-import net.neoforged.neoforge.network.handling.PlayPayloadContext
+import net.minecraft.world.item.ItemStack
+import net.neoforged.neoforge.network.handling.IPayloadContext
 
-class PGEPacket(val way: WrapWay, val editing: Boolean) : CustomPacketPayload {
+data class PGEPacket(val way: WrapWay, val editing: Boolean) : CustomPacketPayload {
 
-    override fun write(buf: FriendlyByteBuf) { buf.writeEnum(way) }
+    companion object : PayloadHandler<PGEPacket>() {
 
-    override fun id() = id
+        override val type = CustomPacketPayload.Type<PGEPacket>(ResourceLocation(ID, "player_glyph_edit"))
 
-    companion object : PlayPayloadHandler<PGEPacket>() {
-        override val id = ResourceLocation(ID, "player_glyph_editor_packet")
+        override val codec: StreamCodec<RegistryFriendlyByteBuf, PGEPacket> = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8, { it.way.toString() },
+            ByteBufCodecs.BOOL, { it.editing },
+            { w, e -> PGEPacket(WrapWay.valueOf(w), e) }
+        )
 
-        override fun apply(buf: FriendlyByteBuf) = PGEPacket(buf.readEnum(WrapWay::class.java), buf.readBoolean())
 
-        override fun handle(packet: PGEPacket, ctx: PlayPayloadContext) {
-            ctx.player.ifPresent {
-                if (packet.editing) it.glyphEditor.editor.edit(packet.way)
-                else                it.glyphEditor.editor.wrap(packet.way)
-            }
+        override fun handle(p0: PGEPacket, p1: IPayloadContext) {
+            TODO("Not yet implemented")
         }
     }
+
+    override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> = type
 }

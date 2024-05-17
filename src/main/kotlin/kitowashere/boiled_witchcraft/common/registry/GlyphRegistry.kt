@@ -31,14 +31,14 @@ object GlyphRegistry {
         glyphRegistry.register("ring_glyph") { -> RingGlyph.onCategories(structurals) }
 
 
-    val glyphTypes: Registry<Glyph> = glyphRegistry.makeRegistry { RegistryBuilder(registryKey) }
+    val glyphs: Registry<Glyph> = glyphRegistry.makeRegistry { RegistryBuilder(registryKey) }
 
     object Util {
-        fun glyphFromID(id: String) = glyphTypes[ResourceLocation.of(id, ':')]
+        fun glyphFromID(id: String) = glyphs[ResourceLocation.of(id, ':')]
 
-        val Glyph.id get() = glyphTypes.getKey(this)!!.toString()
+        val Glyph.id get() = glyphs.getKey(this)!!.toString()
 
-        fun getGlyphLocation(glyphType: Glyph) = glyphTypes.getKey(glyphType)
+        fun getGlyphLocation(glyphType: Glyph) = glyphs.getKey(glyphType)
     }
 
     data class GlyphCategory(val location: ResourceLocation) {

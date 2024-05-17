@@ -5,27 +5,24 @@ import kitowashere.boiled_witchcraft.client.keymapping.Keymapping
 import net.minecraft.client.Minecraft
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.Mod
-import net.neoforged.neoforge.event.TickEvent
-import net.neoforged.neoforge.event.TickEvent.Phase
+import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.client.event.ClientTickEvent
 
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = BoiledWitchcraft.ID, value = [Dist.CLIENT])
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = BoiledWitchcraft.ID, value = [Dist.CLIENT])
 object NeoForgedEventClient {
 
     @SubscribeEvent
-    fun onClientTick(event: TickEvent.ClientTickEvent) {
-        if (event.phase == Phase.END) {
-            val player = Minecraft.getInstance().player
+    fun onClientTick(event: ClientTickEvent.Post) {
+        val player = Minecraft.getInstance().player
 
-            if (player != null) {
-                for (i in Keymapping.inputsData) {
-                    val data = i.value
+        if (player != null) {
+            for (i in Keymapping.inputsData) {
+                val data = i.value
 
-                    if (i.key.consumeClick() && data.isEnabledInput?.let { it(player) } == true) {
-                        data.clientActionInput?.let { it(player) }
-                        data.syncPacketInput  ?.let { it(player) }
-                    }
+                if (i.key.consumeClick() && data.isEnabledInput?.let { it(player) } == true) {
+                    data.clientActionInput?.let { it(player) }
+                    data.syncPacketInput  ?.let { it(player) }
                 }
             }
         }

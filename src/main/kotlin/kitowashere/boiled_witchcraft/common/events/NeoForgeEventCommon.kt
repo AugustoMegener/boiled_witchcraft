@@ -13,11 +13,11 @@ import kitowashere.boiled_witchcraft.common.util.GlyphUtil.canWriteGlyphOn
 import kitowashere.boiled_witchcraft.common.util.GlyphUtil.glyphStack
 import net.minecraft.world.item.ItemStack
 import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.Mod
+import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.AddReloadListenerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = BoiledWitchcraft.ID)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = BoiledWitchcraft.ID)
 object NeoForgeEventCommon {
 
     @SubscribeEvent
@@ -43,7 +43,7 @@ object NeoForgeEventCommon {
 
             if ((isCanvasGrind && canvasMohs <= writerMohs) || (isMaterialGrind && canvasMohs >= writerMohs)) {
                 if ((isCanvasGrind && canvasMohs == writerMohs) || isMaterialGrind)
-                    writerItem.hurtAndBreak(1, player) {}
+                    writerItem.hurtAndBreak(1, event.level.random, player) {}
 
                 player.addItem(ItemStack(canvasItem.run  { val i = item; shrink(1); i } )
                                                    .also { it.glyphStack = player.glyphStack     } )

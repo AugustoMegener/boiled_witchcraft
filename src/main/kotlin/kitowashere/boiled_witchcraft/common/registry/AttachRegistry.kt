@@ -2,6 +2,7 @@ package kitowashere.boiled_witchcraft.common.registry
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
+import net.minecraft.core.component.DataComponentType
 import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -11,6 +12,9 @@ import kotlin.reflect.KProperty
 
 
 object AttachRegistry {
+    val glyphStackData: DataComponentType<GlyphStack> =
+        DataComponentType.builder<GlyphStack>().persistent(GlyphStack.codec).build()
+
     val attachRegistry: DeferredRegister<AttachmentType<*>> =
         DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, ID)
 
