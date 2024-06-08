@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.util.WrapWay
+import kitowashere.boiled_witchcraft.common.util.caps.Caps.Entity.glyphEditor
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
@@ -24,9 +25,8 @@ data class PGEPacket(val way: WrapWay, val editing: Boolean) : CustomPacketPaylo
             { w, e -> PGEPacket(WrapWay.valueOf(w), e) }
         )
 
-
-        override fun handle(p0: PGEPacket, p1: IPayloadContext) {
-            TODO("Not yet implemented")
+        override fun handle(packet: PGEPacket, ctx: IPayloadContext) {
+            ctx.player().glyphEditor.editor.run { if (packet.editing) ::edit else ::wrap } (packet.way)
         }
     }
 

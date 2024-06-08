@@ -3,8 +3,8 @@ package kitowashere.boiled_witchcraft.common.util.caps.handlers.glyph
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.client.core.glyph.Util.translatableName
 import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.glyphStack
-import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.GlyphCategory.Companion.primaries
-import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.GlyphCategory.Companion.structurals
+import kitowashere.boiled_witchcraft.common.world.glyph.GlyphCategory.Companion.primaries
+import kitowashere.boiled_witchcraft.common.world.glyph.GlyphCategory.Companion.structurals
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
 import kitowashere.boiled_witchcraft.common.world.glyph.data.editor.GlyphEditor
 import net.minecraft.network.chat.Component

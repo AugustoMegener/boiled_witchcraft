@@ -1,6 +1,6 @@
 package kitowashere.boiled_witchcraft.common.util
 
-import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.glyphStackData
+import kitowashere.boiled_witchcraft.common.registry.DataComponentRegistry.glyphStackData
 import kitowashere.boiled_witchcraft.common.resource.CanvasRegistry.ItemCanvas.glyphCanvas
 import kitowashere.boiled_witchcraft.common.resource.mosh.MohsRegistry.ItemMohs.mohs
 import kitowashere.boiled_witchcraft.common.util.GameUtil.opposite

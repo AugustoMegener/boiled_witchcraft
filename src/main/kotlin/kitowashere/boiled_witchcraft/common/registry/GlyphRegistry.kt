@@ -1,15 +1,16 @@
 package kitowashere.boiled_witchcraft.common.registry
 
+import com.mojang.serialization.Codec
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
-import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.GlyphCategory.Companion.onCategories
-import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.GlyphCategory.Companion.primaries
-import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.GlyphCategory.Companion.structurals
+import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.Util.id
 import kitowashere.boiled_witchcraft.common.world.glyph.FireGlyph
 import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
+import kitowashere.boiled_witchcraft.common.world.glyph.GlyphCategory.Companion.onCategories
+import kitowashere.boiled_witchcraft.common.world.glyph.GlyphCategory.Companion.primaries
+import kitowashere.boiled_witchcraft.common.world.glyph.GlyphCategory.Companion.structurals
+import kitowashere.boiled_witchcraft.common.world.glyph.NoneGlyph
 import kitowashere.boiled_witchcraft.common.world.glyph.RingGlyph
 import net.minecraft.core.Registry
-import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -24,6 +25,9 @@ object GlyphRegistry {
     val glyphRegistry: DeferredRegister<Glyph> = DeferredRegister.create(registryKey, ID)
 
 
+    val noneGlyph: DeferredHolder<Glyph, NoneGlyph> =
+        glyphRegistry.register("none_glyph") { -> NoneGlyph.onCategories(primaries) }
+
     val fireGlyph: DeferredHolder<Glyph, FireGlyph> =
         glyphRegistry.register("fire_glyph") { -> FireGlyph.onCategories(primaries) }
 
@@ -34,30 +38,10 @@ object GlyphRegistry {
     val glyphs: Registry<Glyph> = glyphRegistry.makeRegistry { RegistryBuilder(registryKey) }
 
     object Util {
-        fun glyphFromID(id: String) = glyphs[ResourceLocation.of(id, ':')]
+        fun glyphFromID(id: String) = glyphs[ResourceLocation(id)]
 
         val Glyph.id get() = glyphs.getKey(this)!!.toString()
 
-        fun getGlyphLocation(glyphType: Glyph) = glyphs.getKey(glyphType)
-    }
-
-    data class GlyphCategory(val location: ResourceLocation) {
-        private val glyphs = ArrayList<Glyph>()
-
-        val name: MutableComponent = Component.translatable(location.toLanguageKey("glyph.group"))
-        val size get() = glyphs.size
-
-        operator fun get(i: Int): Glyph = glyphs[i]
-        operator fun contains(i: Glyph?) = i != null && i in glyphs
-
-        companion object {
-            val primaries   = GlyphCategory(ResourceLocation(ID, "primaries"))
-            val structurals = GlyphCategory(ResourceLocation(ID, "structurals"))
-
-            fun <T: Glyph> T.onCategories(vararg categories: GlyphCategory): T {
-                categories.forEach { it.glyphs += this }
-                return this
-            }
-        }
+        fun getGlyphLocation(glyphType: Glyph) = glyphs.getKey(glyphType)!!
     }
 }

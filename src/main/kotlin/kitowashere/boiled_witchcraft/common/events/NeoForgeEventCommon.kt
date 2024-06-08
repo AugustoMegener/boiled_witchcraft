@@ -11,8 +11,10 @@ import kitowashere.boiled_witchcraft.common.resource.mosh.MohsRegistry.ItemMohs.
 import kitowashere.boiled_witchcraft.common.util.GameUtil.opposite
 import kitowashere.boiled_witchcraft.common.util.GlyphUtil.canWriteGlyphOn
 import kitowashere.boiled_witchcraft.common.util.GlyphUtil.glyphStack
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.ItemStack
 import net.neoforged.bus.api.SubscribeEvent
+import net.neoforged.fml.LogicalSide
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.AddReloadListenerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
@@ -45,8 +47,9 @@ object NeoForgeEventCommon {
                 if ((isCanvasGrind && canvasMohs == writerMohs) || isMaterialGrind)
                     writerItem.hurtAndBreak(1, event.level.random, player) {}
 
-                player.addItem(ItemStack(canvasItem.run  { val i = item; shrink(1); i } )
-                                                   .also { it.glyphStack = player.glyphStack     } )
+                player.addItem(canvasItem.split(1).also {  it.glyphStack = player.glyphStack } )
+
+                event.cancellationResult = InteractionResult.SUCCESS
             }
         }
     }

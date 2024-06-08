@@ -12,6 +12,8 @@ import net.minecraft.world.item.ItemStack
 import net.neoforged.neoforge.common.util.INBTSerializable
 import org.joml.Vector2i
 import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ValueException
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.jvm.optionals.getOrNull
 
 class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INBTSerializable<CompoundTag> {
@@ -45,7 +47,7 @@ class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INB
     }
 
     override fun serializeNBT(provider: HolderLookup.Provider) =
-        codec.encode(this, provider.createSerializationContext(NbtOps.INSTANCE), CompoundTag()) as CompoundTag
+        codec.encode(this, provider.createSerializationContext(NbtOps.INSTANCE), CompoundTag()).result().get() as CompoundTag
 
     override fun deserializeNBT(provider: HolderLookup.Provider, nbt: CompoundTag) {
         (codec.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).result().getOrNull() ?: return).also {
@@ -56,17 +58,41 @@ class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INB
         }
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as GlyphStack
+
+        if (glyph != other.glyph) return false
+        if (data != other.data) return false
+        if (innerStack != other.innerStack) return false
+        if (glyphStacks != other.glyphStacks) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = glyph.hashCode()
+        result = 31 * result + data.hashCode()
+        result = 31 * result + (innerStack?.hashCode() ?: 0)
+        result = 31 * result + glyphStacks.hashCode()
+        return result
+    }
+
+
     companion object {
         val codec: Codec<GlyphStack> = Codec.recursive("glyph_stack") { c ->
             RecordCodecBuilder.create {
                 it.group(
                     Glyph.codec.fieldOf("glyph").forGetter(GlyphStack::glyph),
                     GlyphData.codec.fieldOf("data").forGetter(GlyphStack::data),
-                    c.fieldOf("inner_stack").forGetter(GlyphStack::innerStack),
+                    c.optionalFieldOf("inner_stack").forGetter { g -> Optional.ofNullable(g.innerStack) },
                     inPosCodec.listOf().fieldOf("stacks").forGetter
                         { s -> s.glyphStacks.entries.map { e -> Pair(e.key, e.value) } }
                 ).apply(it) { g, d, i, p ->
-                    GlyphStack(g, i).also { s ->
+
+                    GlyphStack(g, i.getOrNull()).also { s ->
                         p.forEach { v -> if (s.canPut(v.first, v.second)) s.put(v.first, v.second) }
                     } .also { s -> s.data = d }
                 }

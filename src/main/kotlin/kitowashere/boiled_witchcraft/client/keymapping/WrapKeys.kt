@@ -23,7 +23,6 @@ object WrapKeys : KeyRegister() {
                 (if (isEditor) ::edit else ::wrap)(way)
                 it.sendSystemMessage(if (isEditor) info else name)
             }
-
         }
         syncPacket { _ -> PGEPacket(way, isEditor) }
     }

@@ -1,6 +1,7 @@
 package kitowashere.boiled_witchcraft.common.registry
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
+import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.world.entity.player.Player
@@ -12,14 +13,12 @@ import kotlin.reflect.KProperty
 
 
 object AttachRegistry {
-    val glyphStackData: DataComponentType<GlyphStack> =
-        DataComponentType.builder<GlyphStack>().persistent(GlyphStack.codec).build()
 
     val attachRegistry: DeferredRegister<AttachmentType<*>> =
         DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, ID)
 
     val glyphStackAttach: DeferredHolder<AttachmentType<*>, AttachmentType<GlyphStack>> =
-        attachRegistry.register("glyph_stack") { -> AttachmentType.serializable { -> GlyphStack() }.build() }
+        attachRegistry.register("glyph_stack") { -> AttachmentType.serializable { -> GlyphStack(Glyph.placeholder) } .build() }
 
     var Player.glyphStack: GlyphStack by object {
         operator fun getValue(player: Player, property: KProperty<*>) = player.getData(glyphStackAttach)
