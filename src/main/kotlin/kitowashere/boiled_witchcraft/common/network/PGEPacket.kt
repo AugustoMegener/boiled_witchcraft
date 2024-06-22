@@ -1,7 +1,5 @@
 package kitowashere.boiled_witchcraft.common.network
 
-import com.mojang.serialization.Codec
-import com.mojang.serialization.codecs.RecordCodecBuilder
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.util.WrapWay
 import kitowashere.boiled_witchcraft.common.util.caps.Caps.Entity.glyphEditor
@@ -9,15 +7,14 @@ import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
-import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.ItemStack
+import net.minecraft.resources.ResourceLocation.parse
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
 data class PGEPacket(val way: WrapWay, val editing: Boolean) : CustomPacketPayload {
 
     companion object : PayloadHandler<PGEPacket>() {
 
-        override val type = CustomPacketPayload.Type<PGEPacket>(ResourceLocation(ID, "player_glyph_edit"))
+        override val type = CustomPacketPayload.Type<PGEPacket>(parse(("$ID:player_glyph_edit")))
 
         override val codec: StreamCodec<RegistryFriendlyByteBuf, PGEPacket> = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8, { it.way.toString() },

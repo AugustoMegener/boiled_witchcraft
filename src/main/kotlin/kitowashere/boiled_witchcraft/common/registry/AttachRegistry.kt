@@ -18,12 +18,13 @@ object AttachRegistry {
         DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, ID)
 
     val glyphStackAttach: DeferredHolder<AttachmentType<*>, AttachmentType<GlyphStack>> =
-        attachRegistry.register("glyph_stack") { -> AttachmentType.serializable { -> GlyphStack(Glyph.placeholder) } .build() }
+        attachRegistry.register("glyph_stack") { ->
+            AttachmentType.builder { -> GlyphStack(Glyph.placeholder) } .serialize(GlyphStack.codec) .build() }
 
-    var Player.glyphStack: GlyphStack by object {
-        operator fun getValue(player: Player, property: KProperty<*>) = player.getData(glyphStackAttach)
-
-        operator fun setValue(player: Player, property: KProperty<*>, glyphStack: GlyphStack)
-            { player.setData(glyphStackAttach, glyphStack) }
-    }
+    var Player.glyphStack: GlyphStack
+        get() {
+            val x = getData(glyphStackAttach)
+            return x
+        }
+        set(value) { setData(glyphStackAttach, value) }
 }

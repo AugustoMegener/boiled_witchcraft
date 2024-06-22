@@ -37,7 +37,9 @@ class PlayerGlyphEditorHandler(val player: Player) : GlyphEditorHandler {
 
     override val editor =
         object : GlyphEditor(stages, player.glyphStack) {
-            override fun onChanged() { player.glyphStack = stack }
+            override fun onChanged() {
+                player.glyphStack = stack
+            }
         }
 
     private val fieldAmount = editor.stack.data.dataFields.size

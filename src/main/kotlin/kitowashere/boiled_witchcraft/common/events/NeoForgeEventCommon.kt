@@ -1,6 +1,7 @@
 package kitowashere.boiled_witchcraft.common.events
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft
+import kitowashere.boiled_witchcraft.common.data.PlayerData.consumeWiringAction
 import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.glyphStack
 import kitowashere.boiled_witchcraft.common.resource.CanvasRegistry
 import kitowashere.boiled_witchcraft.common.resource.CanvasRegistry.CanvasMarkerType.CANVAS_GRIND
@@ -11,6 +12,8 @@ import kitowashere.boiled_witchcraft.common.resource.mosh.MohsRegistry.ItemMohs.
 import kitowashere.boiled_witchcraft.common.util.GameUtil.opposite
 import kitowashere.boiled_witchcraft.common.util.GlyphUtil.canWriteGlyphOn
 import kitowashere.boiled_witchcraft.common.util.GlyphUtil.glyphStack
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.ItemStack
 import net.neoforged.bus.api.SubscribeEvent
@@ -30,6 +33,9 @@ object NeoForgeEventCommon {
 
     @SubscribeEvent
     fun onRightClickItem(event: PlayerInteractEvent.RightClickItem) {
+        if (event.hand == InteractionHand.OFF_HAND) return // workaround due to canWriteGlyphOn checking both hands
+
+        val level = event.level.also { if (it.isClientSide) return }
         val player = event.entity
 
         player.canWriteGlyphOn?.run {
@@ -44,13 +50,16 @@ object NeoForgeEventCommon {
             val isMaterialGrind = MATERIAL_GRIND in canvas.markers
 
             if ((isCanvasGrind && canvasMohs <= writerMohs) || (isMaterialGrind && canvasMohs >= writerMohs)) {
-                if ((isCanvasGrind && canvasMohs == writerMohs) || isMaterialGrind)
-                    writerItem.hurtAndBreak(1, event.level.random, player) {}
+                if (((isCanvasGrind && canvasMohs == writerMohs) || isMaterialGrind) && level is ServerLevel)
+                    writerItem.hurtAndBreak(1, level, player) {}
 
                 player.addItem(canvasItem.split(1).also {  it.glyphStack = player.glyphStack } )
 
-                event.cancellationResult = InteractionResult.SUCCESS
-            }
+                listOf(writerItem, canvasItem).forEach { player.cooldowns.addCooldown(it.item, 40) }
+
+                event.cancellationResult = InteractionResult.CONSUME
+                event.isCanceled = true
+            } else event.cancellationResult = InteractionResult.FAIL
         }
     }
 }

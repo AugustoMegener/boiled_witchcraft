@@ -16,19 +16,6 @@ abstract class Glyph(val sizes: Array<Int>) {
     open fun getSignal(data: GlyphData) = HashMap<Vector2i, Boolean>()
     open fun isHollow(data: GlyphData) = false
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is Glyph) return false
-
-        if (!sizes.contentEquals(other.sizes)) return false
-        if (location != other.location) return false
-
-        return true
-    }
-
-    override fun hashCode() = 31 * sizes.contentHashCode() + location.hashCode()
-
-
     companion object {
         val placeholder = FireGlyph
 

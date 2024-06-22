@@ -4,6 +4,7 @@ import com.google.gson.JsonElement
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.ResourceLocation.parse
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.Block
@@ -39,7 +40,7 @@ sealed class CanvasRegistry  <T, R>(registry: Registry<T>, dir: String)
             val texture = obj.asJsonObject["texture"]
             val size = obj.asJsonObject["size"]
 
-            return ItemCanvasData(markers, size.asInt, ResourceLocation(texture.asJsonObject["src"].asString),
+            return ItemCanvasData(markers, size.asInt, parse(texture.asJsonObject["src"].asString),
                 texture.asJsonObject["size"].asInt)
         }
     }

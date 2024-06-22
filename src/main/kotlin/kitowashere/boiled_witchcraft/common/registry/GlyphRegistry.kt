@@ -12,7 +12,7 @@ import kitowashere.boiled_witchcraft.common.world.glyph.NoneGlyph
 import kitowashere.boiled_witchcraft.common.world.glyph.RingGlyph
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.ResourceLocation.parse
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 import net.neoforged.neoforge.registries.RegistryBuilder
@@ -20,7 +20,7 @@ import net.neoforged.neoforge.registries.RegistryBuilder
 object GlyphRegistry {
 
     private val registryKey: ResourceKey<Registry<Glyph>> =
-        ResourceKey.createRegistryKey(ResourceLocation("glyphs"))
+        ResourceKey.createRegistryKey(parse("$ID:glyphs"))
 
     val glyphRegistry: DeferredRegister<Glyph> = DeferredRegister.create(registryKey, ID)
 
@@ -38,7 +38,7 @@ object GlyphRegistry {
     val glyphs: Registry<Glyph> = glyphRegistry.makeRegistry { RegistryBuilder(registryKey) }
 
     object Util {
-        fun glyphFromID(id: String) = glyphs[ResourceLocation(id)]
+        fun glyphFromID(id: String) = glyphs[parse(id)]
 
         val Glyph.id get() = glyphs.getKey(this)!!.toString()
 

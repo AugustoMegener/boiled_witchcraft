@@ -8,10 +8,9 @@ import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite
 import net.minecraft.client.resources.TextureAtlasHolder
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.ResourceLocation.parse
 
-object GlyphAtlas : TextureAtlasHolder(Minecraft.getInstance().textureManager, glyphSheet,
-                                       ResourceLocation(ID, "glyphs")) {
+object GlyphAtlas : TextureAtlasHolder(Minecraft.getInstance().textureManager, glyphSheet, parse(("$ID:glyphs"))) {
 
     val atlas = textureAtlas
 

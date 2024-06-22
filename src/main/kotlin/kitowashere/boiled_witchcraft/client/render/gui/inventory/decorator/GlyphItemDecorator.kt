@@ -8,6 +8,7 @@ import kitowashere.boiled_witchcraft.common.util.GlyphUtil.glyphStack
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.ResourceLocation.parse
 import net.minecraft.world.item.ItemStack
 import net.neoforged.neoforge.client.IItemDecorator
 
@@ -26,5 +27,5 @@ class GlyphItemDecorator : IItemDecorator {
         return false
     }
 
-    companion object { val texture = ResourceLocation(ID, "textures/item/decorator/glyphed.png") }
+    companion object { val texture: ResourceLocation = parse(("$ID:textures/item/decorator/glyphed.png")) }
 }
