@@ -6,11 +6,14 @@
   "glyph.boiled_witchcraft.light_glyph":  "Light glyph",
   "glyph.boiled_witchcraft.plant_glyph":  "Plant glyph",
 
+  "glyph.boiled_witchcraft.ring_glyph":   "Ring",
+
   "field.name.boiled_witchcraft.size": "Glyph Size",
 
-  "editor.stages.boiled_witchcraft.field": "Field",
-  "editor.stages.boiled_witchcraft.glyph": "Glyph",
-  "editor.stages.boiled_witchcraft.group": "Group",
+  "editor.stages.boiled_witchcraft.category": "Category",
+  "editor.stages.boiled_witchcraft.glyph":    "Glyph",
+  "editor.stages.boiled_witchcraft.field":    "Field",
+  "editor.stages.boiled_witchcraft.value":    "Value",
 
   "glyph.group.boiled_witchcraft.primaries":    "Primaries",
   "glyph.group.boiled_witchcraft.structurals":  "Structurals"

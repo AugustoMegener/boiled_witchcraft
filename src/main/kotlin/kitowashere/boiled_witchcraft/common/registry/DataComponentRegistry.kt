@@ -1,15 +1,10 @@
 package kitowashere.boiled_witchcraft.common.registry
 
-import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
 import net.minecraft.core.component.DataComponentType
-import net.neoforged.neoforge.registries.DeferredRegister
+import net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE
 
-object DataComponentRegistry {
-    val dataComponentRegistry: DeferredRegister.DataComponents = DeferredRegister.createDataComponents(ID)
+object DataComponentRegistry : Register<DataComponentType<*>>(DATA_COMPONENT_TYPE) {
 
-    val glyphStackData = dataComponentRegistry.register("glyph") { ->
-        DataComponentType.builder<GlyphStack>().persistent(GlyphStack.codec).build()
-    }
-
+    val glyphStackData = "glyph" by { DataComponentType.builder<GlyphStack>().persistent(GlyphStack.codec).build() }
 }

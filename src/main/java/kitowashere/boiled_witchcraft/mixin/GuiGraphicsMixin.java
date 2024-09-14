@@ -19,11 +19,13 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Mixin(GuiGraphics.class)
 public class GuiGraphicsMixin {
 
+    // TODO: remove this and implement with RenderTooltipEvent
     @WrapOperation(
             method = "renderTooltip(Lnet/minecraft/client/gui/Font;Ljava/util/List;Ljava/util/Optional;II)V",
             at = @At(
@@ -55,7 +57,7 @@ public class GuiGraphicsMixin {
         var glyphCanvas = CanvasRegistry.ItemCanvas.INSTANCE;
         var canvas = glyphCanvas.getGlyphCanvas(stack);
 
-        if (canvas != null) list.add(new ClientGlyphStackTooltip(canvas, GlyphUtil.INSTANCE.getGlyphStack(stack)));
+        if (canvas != null) list.add(new ClientGlyphStackTooltip(canvas, Objects.requireNonNull(GlyphUtil.INSTANCE.getGlyphStack(stack))));
 
         return list;
     }

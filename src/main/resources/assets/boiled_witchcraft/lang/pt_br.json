@@ -6,11 +6,15 @@
   "glyph.boiled_witchcraft.light_glyph": "Glifo de luz",
   "glyph.boiled_witchcraft.plant_glyph": "Glifo de planta",
 
-  "editor.stages.boiled_witchcraft.field": "Campo",
-  "editor.stages.boiled_witchcraft.glyph": "Glifo",
-  "editor.stages.boiled_witchcraft.group": "Grupo",
+  "glyph.boiled_witchcraft.ring_glyph": "Anel",
+
+  "editor.stages.boiled_witchcraft.category": "Categoria",
+  "editor.stages.boiled_witchcraft.glyph":    "Glifo",
+  "editor.stages.boiled_witchcraft.field":    "Campo",
+  "editor.stages.boiled_witchcraft.value":    "Valor",
 
   "glyph.group.boiled_witchcraft.primaries": "Primários",
   "glyph.group.boiled_witchcraft.structurals": "Estruturais",
+
   "tooltip.boiled_witchcraft.glyphable": "Glifável!"
 }

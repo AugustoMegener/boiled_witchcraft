@@ -1,11 +1,9 @@
-package kitowashere.boiled_witchcraft.common.world.glyph
+package kitowashere.boiled_witchcraft.common.world.glyph.type
 
-import com.mojang.serialization.Codec
-import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry
 import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.Util.id
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphData
-import net.minecraft.world.item.ItemStack
 import org.joml.Vector2i
+
 
 abstract class Glyph(val sizes: Array<Int>) {
 
@@ -18,7 +16,5 @@ abstract class Glyph(val sizes: Array<Int>) {
 
     companion object {
         val placeholder = FireGlyph
-
-        val codec: Codec<Glyph> = GlyphRegistry.glyphs.byNameCodec()
     }
 }

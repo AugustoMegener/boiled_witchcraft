@@ -1,4 +1,4 @@
-package kitowashere.boiled_witchcraft.common.util.tags
+package kitowashere.boiled_witchcraft.common.tags
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import net.minecraft.resources.ResourceLocation.parse

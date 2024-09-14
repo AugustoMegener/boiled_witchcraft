@@ -1,6 +1,6 @@
 package kitowashere.boiled_witchcraft.client.event
 
-import kitowashere.boiled_witchcraft.BoiledWitchcraft
+import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.client.keymapping.Keymapping
 import net.minecraft.client.Minecraft
 import net.neoforged.api.distmarker.Dist
@@ -9,7 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.client.event.ClientTickEvent
 
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = BoiledWitchcraft.ID, value = [Dist.CLIENT])
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = ID, value = [Dist.CLIENT])
 object NeoForgedEventClient {
 
     @SubscribeEvent

@@ -2,7 +2,7 @@ package kitowashere.boiled_witchcraft.common.network
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.util.WrapWay
-import kitowashere.boiled_witchcraft.common.util.caps.Caps.Entity.glyphEditor
+import kitowashere.boiled_witchcraft.common.capabilities.Caps.Entity.glyphEditor
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec

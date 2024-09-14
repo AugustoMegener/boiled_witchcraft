@@ -14,7 +14,7 @@ class GuiGlyphRender(glyphStack: GlyphStack) : GlyphRenderBase() {
             val pos = it.pos
             val size = it.size * 16
 
-            guiGraphics.blit(x + pos.x, y + pos.y, 1, size, size, it.sprite)
+            guiGraphics.blit(x + pos.x + size / 4, y + pos.y  + size / 4, 1, size, size, it.sprite)
         }
     }
 }

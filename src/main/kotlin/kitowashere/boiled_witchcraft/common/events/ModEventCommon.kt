@@ -2,9 +2,9 @@ package kitowashere.boiled_witchcraft.common.events
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.network.PGEPacket
-import kitowashere.boiled_witchcraft.common.util.caps.Caps
-import kitowashere.boiled_witchcraft.common.util.caps.handlers.glyph.PlayerGlyphEditorHandler
-import kitowashere.boiled_witchcraft.common.util.caps.handlers.glyph.PlayerGlyphEditorHandler.Companion.playerEditorCache
+import kitowashere.boiled_witchcraft.common.capabilities.Caps
+import kitowashere.boiled_witchcraft.common.capabilities.handlers.glyph.PlayerGlyphEditorHandler
+import kitowashere.boiled_witchcraft.common.capabilities.handlers.glyph.PlayerGlyphEditorHandler.Companion.playerEditorCache
 import net.minecraft.world.entity.EntityType
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber

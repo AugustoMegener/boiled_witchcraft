@@ -1,4 +1,4 @@
-package kitowashere.boiled_witchcraft.common.world.glyph
+package kitowashere.boiled_witchcraft.common.world.glyph.type
 
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphData
 

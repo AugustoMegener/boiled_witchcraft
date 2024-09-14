@@ -9,9 +9,9 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 import net.minecraft.network.chat.Component
 
-class ClientGlyphStackTooltip(canvas: ItemCanvasData, glyphStack: GlyphStack?) : ClientTooltipComponent {
+class ClientGlyphStackTooltip(canvas: ItemCanvasData, glyphStack: GlyphStack) : ClientTooltipComponent {
 
-    private val stack = glyphStack ?: GlyphStack()
+    private val stack = glyphStack
 
     private val size = canvas.size
     private val tooltipSize = size * 16

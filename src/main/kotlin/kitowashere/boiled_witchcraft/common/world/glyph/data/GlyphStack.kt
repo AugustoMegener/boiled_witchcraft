@@ -3,17 +3,16 @@ package kitowashere.boiled_witchcraft.common.world.glyph.data
 import com.google.common.collect.ImmutableMap
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
+import kitowashere.boiled_witchcraft.common.registry.GlyphReg
 import kitowashere.boiled_witchcraft.common.world.glyph.NoneGlyph
+import kitowashere.boiled_witchcraft.common.world.glyph.type.Glyph
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtOps
-import net.minecraft.world.item.ItemStack
 import net.neoforged.neoforge.common.util.INBTSerializable
 import org.joml.Vector2i
 import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ValueException
 import java.util.*
-import kotlin.collections.HashMap
 import kotlin.jvm.optionals.getOrNull
 
 class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INBTSerializable<CompoundTag> {
@@ -22,6 +21,8 @@ class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INB
     var data = glyph.newData();  private set
 
     var innerStack = innerStack; private set
+
+    val size get(): Int = glyph.sizes[data.size]
 
     private var glyphStacks = HashMap<Vector2i, GlyphStack>()
     val children: Map<Vector2i, GlyphStack> get() = ImmutableMap.copyOf(glyphStacks)
@@ -85,7 +86,7 @@ class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INB
         val codec: Codec<GlyphStack> = Codec.recursive("glyph_stack") { c ->
             RecordCodecBuilder.create {
                 it.group(
-                    Glyph.codec.fieldOf("glyph").forGetter(GlyphStack::glyph),
+                    GlyphReg.codec.fieldOf("glyph").forGetter(GlyphStack::glyph),
                     GlyphData.codec.fieldOf("data").forGetter(GlyphStack::data),
                     c.optionalFieldOf("inner_stack").forGetter { g -> Optional.ofNullable(g.innerStack) },
                     inPosCodec.listOf().fieldOf("stacks").forGetter

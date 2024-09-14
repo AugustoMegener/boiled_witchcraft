@@ -1,9 +1,7 @@
 package kitowashere.boiled_witchcraft
 
-import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.attachRegistry
-import kitowashere.boiled_witchcraft.common.registry.DataComponentRegistry.dataComponentRegistry
-import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry.glyphRegistry
-import kitowashere.boiled_witchcraft.common.registry.ItemRegistry.itemRegistry
+import kitowashere.boiled_witchcraft.common.registry.*
+import kitowashere.boiled_witchcraft.common.registry.GlyphReg.glyphRegistry
 import net.neoforged.fml.common.Mod
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -16,6 +14,12 @@ object BoiledWitchcraft {
     val logger: Logger = LogManager.getLogger(ID)
 
     init {
-        listOf(glyphRegistry, attachRegistry, itemRegistry, dataComponentRegistry).forEach { it.register(MOD_BUS) }
+        EditorRendererBuilderRegistry
+        glyphRegistry
+
+        listOf(ItemRegistry, GlyphRegistry, DataComponentRegistry, AttachRegistry)
+            .map { it.register }.forEach { it.register(MOD_BUS) }
+
+
     }
 }

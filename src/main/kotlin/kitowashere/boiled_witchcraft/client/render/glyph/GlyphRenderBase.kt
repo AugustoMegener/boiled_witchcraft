@@ -31,7 +31,7 @@ abstract class GlyphRenderBase {
     }
 
     private fun putStackSprites(stack: GlyphStack, pos: Vector2i = Vector2i()) {
-        spriteList.add(GlyphSprite(stack.sprite, stack.data.size, pos))
+        spriteList.add(GlyphSprite(stack.sprite, stack.glyph.sizes.getOrElse(stack.data.size) { 0 }, pos))
 
         glyphStack.children.forEach {
             val child = it.value
