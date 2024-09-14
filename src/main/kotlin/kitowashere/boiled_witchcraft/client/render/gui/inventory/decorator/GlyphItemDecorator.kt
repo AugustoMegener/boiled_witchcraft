@@ -12,7 +12,9 @@ import net.minecraft.resources.ResourceLocation.parse
 import net.minecraft.world.item.ItemStack
 import net.neoforged.neoforge.client.IItemDecorator
 
-class GlyphItemDecorator : IItemDecorator {
+object GlyphItemDecorator : IItemDecorator {
+
+    private val texture: ResourceLocation = parse(("$ID:textures/item/decorator/glyphed.png"))
     private var shouldRender = HashMap<ItemStack, Boolean>()
 
     override fun render(guiGraphics: GuiGraphics, font: Font, stack: ItemStack, xOffset: Int, yOffset: Int): Boolean {
@@ -26,6 +28,4 @@ class GlyphItemDecorator : IItemDecorator {
                           ?.let    { shouldRender[stack] = it; return true            }
         return false
     }
-
-    companion object { val texture: ResourceLocation = parse(("$ID:textures/item/decorator/glyphed.png")) }
 }

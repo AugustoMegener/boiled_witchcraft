@@ -14,17 +14,15 @@ object NeoForgedEventClient {
 
     @SubscribeEvent
     fun onClientTick(event: ClientTickEvent.Post) {
-        val player = Minecraft.getInstance().player
+        val player = Minecraft.getInstance().player ?: return
 
-        if (player != null) {
-            for (i in Keymapping.inputsData) {
-                val data = i.value
+        for (i in Keymapping.inputsData) {
+            val data = i.value
 
-                if (i.key.consumeClick() && data.isEnabledInput?.let { it(player) } == true) {
-                    data.clientActionInput?.let { it(player) }
-                    data.syncPacketInput  ?.let { it(player) }
-                }
-            }
+            if (i.key.consumeClick() && data.isEnabledInput?.let { it(player) } == true) return
+
+            data.clientActionInput?.let { it(player) }
+            data.syncPacketInput  ?.let { it(player) }
         }
     }
 }

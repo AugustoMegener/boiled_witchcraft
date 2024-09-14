@@ -7,6 +7,7 @@ import kitowashere.boiled_witchcraft.client.keymapping.WrapKeys
 import kitowashere.boiled_witchcraft.client.render.atlas.GlyphAtlas
 import kitowashere.boiled_witchcraft.client.render.gui.inventory.decorator.GlyphItemDecorator
 import kitowashere.boiled_witchcraft.client.render.gui.overlay.GlyphEditorOverlay
+import kitowashere.boiled_witchcraft.client.render.gui.overlay.ItemGlyphDisplayOverlay
 import net.minecraft.core.registries.BuiltInRegistries
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
@@ -28,7 +29,7 @@ object EventBusClient {
 
     @SubscribeEvent
     fun onRegisterItemDecorations(event: RegisterItemDecorationsEvent) {
-        BuiltInRegistries.ITEM.forEach { event.register(it, GlyphItemDecorator()) }
+        BuiltInRegistries.ITEM.forEach { event.register(it, GlyphItemDecorator) }
     }
 
     @SubscribeEvent
@@ -45,6 +46,6 @@ object EventBusClient {
     @SubscribeEvent
     fun onRegisterGuiLayers(event: RegisterGuiLayersEvent) {
         event.registerAboveAll(loc("$ID:glyph_editor"), GlyphEditorOverlay)
-
+        event.registerAboveAll(loc("$ID:glyph_editor"), ItemGlyphDisplayOverlay)
     }
 }
