@@ -1,9 +1,12 @@
 package kitowashere.boiled_witchcraft.common.util
 
-interface Wrapable {
-    var wrappedIndex: Int
+import kitowashere.boiled_witchcraft.common.util.WrapWay.Companion.plus
+import kotlin.math.max
+import kotlin.math.min
 
-    fun wrap(way: WrapWay) {
-        wrappedIndex += way.value
-    }
+interface Wrapable {
+    var wrappedIndex : Int
+    val     maxIndex : Int
+
+    fun wrap(way: WrapWay) { wrappedIndex = max(0, min(maxIndex, maxIndex + way)) }
 }

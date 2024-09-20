@@ -8,7 +8,6 @@ import kitowashere.boiled_witchcraft.common.registry.AttachRegistry.glyphStack
 import kitowashere.boiled_witchcraft.common.world.glyph.GlyphCategory.Companion.primaries
 import kitowashere.boiled_witchcraft.common.world.glyph.GlyphCategory.Companion.structurals
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
-import kitowashere.boiled_witchcraft.common.world.glyph.data.editor.GlyphEditor
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Player
 

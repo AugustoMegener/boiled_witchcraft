@@ -22,8 +22,7 @@ object GlyphUtil {
             if (value != null && value.data.size > glyphCanvas!!.size)
                 throw ValueException("Canvas is too small for GlyphStack")
 
-            if (glyphStack != null)
-                set(glyphStackData, value ?: GlyphStack.empty)
+            if (glyphStack != null) set(glyphStackData, value ?: GlyphStack.empty)
         }
 
     val Player.canWriteGlyphOn get() = InteractionHand.entries.associateWith {
@@ -31,6 +30,4 @@ object GlyphUtil {
         getItemInHand(it)         .run { mohs != null && glyphCanvas == null                        } }
                                   .run { entries.find   { it.value                                  }
                                          ?.key  .takeIf { it != entries.find { i -> !i.value }?.key } }
-
-
 }

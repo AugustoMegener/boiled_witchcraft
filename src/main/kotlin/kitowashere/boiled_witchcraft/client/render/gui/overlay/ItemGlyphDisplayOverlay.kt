@@ -29,13 +29,11 @@ object ItemGlyphDisplayOverlay : Layer {
             tooltips [it] = items[it].tooltip }
 
 
-
         tooltips[0]?.run {
-            renderImage(font, gui.guiWidth() - paddingX - getWidth(font), gui.guiHeight() - paddingY - height, gui)
-        }
+            renderImage(font, gui.guiWidth() - paddingX - getWidth(font), gui.guiHeight() - paddingY - height, gui) }
+
         tooltips[1]?.run {
-            renderImage(font, paddingX, gui.guiHeight() - paddingY - height, gui)
-        }
+            renderImage(font, paddingX, gui.guiHeight() - paddingY - height, gui) }
     }
 
     private val ItemStack.tooltip get() =
