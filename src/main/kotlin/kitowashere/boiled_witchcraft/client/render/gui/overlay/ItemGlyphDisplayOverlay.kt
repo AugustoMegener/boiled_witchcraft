@@ -24,12 +24,18 @@ object ItemGlyphDisplayOverlay : Layer {
 
     override fun render(gui: GuiGraphics, delta: DeltaTracker) {
 
-        repeat(2) { if (lastItems[it] == items[it]) return
+        repeat(2) { if (lastItems[it] == items[it]) return@repeat
             lastItems[it] = items[it]
             tooltips [it] = items[it].tooltip }
 
-        tooltips[0]?.renderImage(font, gui.guiWidth() - paddingX, gui.guiHeight() - paddingY, gui)
-        tooltips[1]?.renderImage(font, paddingX, gui.guiHeight() - paddingY, gui)
+
+
+        tooltips[0]?.run {
+            renderImage(font, gui.guiWidth() - paddingX - getWidth(font), gui.guiHeight() - paddingY - height, gui)
+        }
+        tooltips[1]?.run {
+            renderImage(font, paddingX, gui.guiHeight() - paddingY - height, gui)
+        }
     }
 
     private val ItemStack.tooltip get() =

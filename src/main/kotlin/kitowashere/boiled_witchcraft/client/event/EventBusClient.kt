@@ -46,6 +46,6 @@ object EventBusClient {
     @SubscribeEvent
     fun onRegisterGuiLayers(event: RegisterGuiLayersEvent) {
         event.registerAboveAll(loc("$ID:glyph_editor"), GlyphEditorOverlay)
-        event.registerAboveAll(loc("$ID:glyph_editor"), ItemGlyphDisplayOverlay)
+        event.registerAboveAll(loc("$ID:item_glyph_display"), ItemGlyphDisplayOverlay)
     }
 }
