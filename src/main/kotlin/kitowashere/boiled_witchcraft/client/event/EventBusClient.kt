@@ -12,10 +12,12 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
+import net.neoforged.neoforge.common.NeoForge.EVENT_BUS
 import net.minecraft.resources.ResourceLocation.parse as loc
 
 
@@ -47,5 +49,9 @@ object EventBusClient {
     fun onRegisterGuiLayers(event: RegisterGuiLayersEvent) {
         event.registerAboveAll(loc("$ID:glyph_editor"), GlyphEditorOverlay)
         event.registerAboveAll(loc("$ID:item_glyph_display"), ItemGlyphDisplayOverlay)
+    }
+
+    fun onFMLClientSetup(event: FMLClientSetupEvent) {
+        EVENT_BUS.register(RegisterSelectorRendererEvent)
     }
 }

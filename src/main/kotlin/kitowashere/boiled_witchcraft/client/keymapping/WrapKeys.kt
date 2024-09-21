@@ -18,7 +18,7 @@ object WrapKeys : KeyRegister() {
     private fun getEditor(isEditor: Boolean, way: WrapWay): Keymapping.KeyMapBuilder.() -> Unit = {
         isEnabled { it.canWriteGlyphOn != null }
 
-        clientAction { with(it.glyphEditor.editor) { (if (isEditor) ::edit else ::wrap)(way) } }
+        clientAction { with(it.glyphEditor.editor) { (if (isEditor) value::wrap else ::wrap)(way) } }
 
         syncPacket { _ -> PGEPacket(way, isEditor) }
     }

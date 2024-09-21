@@ -1,8 +1,10 @@
 package kitowashere.boiled_witchcraft
 
+import kitowashere.boiled_witchcraft.client.event.RegisterSelectorRendererEvent
 import kitowashere.boiled_witchcraft.common.registry.*
 import kitowashere.boiled_witchcraft.common.registry.GlyphReg.glyphRegistry
 import net.neoforged.fml.common.Mod
+import net.neoforged.neoforge.common.NeoForge.EVENT_BUS
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
@@ -20,6 +22,6 @@ object BoiledWitchcraft {
         listOf(ItemRegistry, GlyphRegistry, DataComponentRegistry, AttachRegistry)
             .map { it.register }.forEach { it.register(MOD_BUS) }
 
-
+        EVENT_BUS.post(RegisterSelectorRendererEvent)
     }
 }

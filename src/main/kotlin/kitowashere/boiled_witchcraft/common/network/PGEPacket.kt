@@ -1,8 +1,8 @@
 package kitowashere.boiled_witchcraft.common.network
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
-import kitowashere.boiled_witchcraft.common.util.WrapWay
 import kitowashere.boiled_witchcraft.common.capabilities.Caps.Entity.glyphEditor
+import kitowashere.boiled_witchcraft.common.util.WrapWay
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
@@ -23,7 +23,7 @@ data class PGEPacket(val way: WrapWay, val editing: Boolean) : CustomPacketPaylo
         )
 
         override fun handle(packet: PGEPacket, ctx: IPayloadContext) {
-            ctx.player().glyphEditor.editor.run { if (packet.editing) ::edit else ::wrap } (packet.way)
+            ctx.player().glyphEditor.editor.run { if (packet.editing) value::wrap else ::wrap } (packet.way)
         }
     }
 

@@ -7,7 +7,7 @@ import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.resources.ResourceLocation.parse
 
-data class GlyphCategory(val location: ResourceLocation) {
+class GlyphCategory(val location: ResourceLocation) {
     private val glyphs = ArrayList<Glyph>()
 
     val content by lazy { glyphs.toTypedArray() }
@@ -15,10 +15,14 @@ data class GlyphCategory(val location: ResourceLocation) {
     val name: MutableComponent = Component.translatable(location.toLanguageKey("glyph.group"))
     val size get() = glyphs.size
 
+
     operator fun get(i: Int): Glyph = glyphs[i]
     operator fun contains(i: Glyph?) = i != null && i in glyphs
 
     companion object {
+        private val categoriesList = listOf<GlyphCategory>()
+        val categories by lazy { categoriesList.toTypedArray() }
+
         val primaries   = GlyphCategory(parse(("$ID:primaries")))
         val structurals = GlyphCategory(parse(("$ID:structurals")))
 
