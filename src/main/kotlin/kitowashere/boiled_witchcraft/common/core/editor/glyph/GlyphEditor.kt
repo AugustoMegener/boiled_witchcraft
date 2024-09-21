@@ -4,15 +4,19 @@ import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.client.core.glyph.Util.translatableName
 import kitowashere.boiled_witchcraft.common.core.Selector
 import kitowashere.boiled_witchcraft.common.core.editor.Editor
+import kitowashere.boiled_witchcraft.common.util.KotlinUtil.Delegation
 import kitowashere.boiled_witchcraft.common.world.glyph.GlyphCategory
 import kitowashere.boiled_witchcraft.common.world.glyph.GlyphCategory.Companion.categories
+import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
 import kitowashere.boiled_witchcraft.common.world.glyph.data.field.DataField
 import kitowashere.boiled_witchcraft.common.world.glyph.type.Glyph
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
+import kotlin.reflect.KMutableProperty
 import net.minecraft.resources.ResourceLocation.parse as loc
 
-class GlyphEditor : Editor(loc("$ID:glyph_editor")) {
+class GlyphEditor(glyphDelegation: Delegation<GlyphStack>) : Editor(loc("$ID:glyph_editor")) {
+    constructor(glyphProperty: KMutableProperty<GlyphStack>) : this(Delegation(glyphProperty))
 
     val categorySelect = CategorySelect()
     val    glyphSelect = GlyphSelect()
@@ -21,12 +25,11 @@ class GlyphEditor : Editor(loc("$ID:glyph_editor")) {
         get() = selectors[3] as DataField<*>
         set(value) { selectors[3] = value }
 
-    var glyphStack = glyphSelect.value.newInstance()
+    var glyphStack by glyphDelegation
 
     override val selectors = arrayListOf(categorySelect, glyphSelect, fieldSelect, fieldSelect.value)
 
     override val valueComponent: MutableComponent = Component.empty()
-
 
     inner class CategorySelect : Selector<GlyphCategory>(loc("$ID:category_selector")) {
         override val maxIndex = categories.lastIndex

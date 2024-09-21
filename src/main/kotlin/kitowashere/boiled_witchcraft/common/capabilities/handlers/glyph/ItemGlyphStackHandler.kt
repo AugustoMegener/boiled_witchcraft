@@ -4,7 +4,7 @@ import kitowashere.boiled_witchcraft.common.registry.DataComponentRegistry.glyph
 import kitowashere.boiled_witchcraft.common.world.glyph.data.GlyphStack
 import net.minecraft.world.item.ItemStack
 
-class ItemGlyphStackHandler(val itemStack: ItemStack) : GlyphStackHandler {
+class ItemGlyphStackHandler(private val itemStack: ItemStack) : GlyphStackHandler {
 
     override var stack: GlyphStack
         get() = itemStack.getOrDefault(glyphStackData, GlyphStack.empty)
