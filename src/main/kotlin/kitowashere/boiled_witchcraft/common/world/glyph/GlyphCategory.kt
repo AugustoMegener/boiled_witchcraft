@@ -1,5 +1,6 @@
 package kitowashere.boiled_witchcraft.common.world.glyph
 
+import com.google.common.collect.ImmutableList
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
 import kitowashere.boiled_witchcraft.common.world.glyph.type.Glyph
 import net.minecraft.network.chat.Component
@@ -10,7 +11,7 @@ import net.minecraft.resources.ResourceLocation.parse
 class GlyphCategory(val location: ResourceLocation) {
     private val glyphs = ArrayList<Glyph>()
 
-    val content by lazy { glyphs.toTypedArray() }
+    val content: List<Glyph> by lazy { ImmutableList.copyOf(glyphs) }
 
     val name: MutableComponent = Component.translatable(location.toLanguageKey("glyph.group"))
     val size get() = glyphs.size

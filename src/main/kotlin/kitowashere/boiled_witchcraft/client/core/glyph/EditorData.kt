@@ -1,12 +1,12 @@
 package kitowashere.boiled_witchcraft.client.core.glyph
 
 import kitowashere.boiled_witchcraft.client.core.glyph.EditorData.SectionRenderer
-import kitowashere.boiled_witchcraft.common.capabilities.handlers.glyph.GlyphEditorHandler
+import kitowashere.boiled_witchcraft.common.core.editor.glyph.GlyphEditor
 import net.minecraft.client.DeltaTracker
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 
-typealias EditorRendererBuilder = GlyphEditorHandler.() -> SectionRenderer
+typealias EditorRendererBuilder = GlyphEditor.() -> SectionRenderer
 
 object EditorData {
 

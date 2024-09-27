@@ -1,5 +1,6 @@
-package kitowashere.boiled_witchcraft.common.util
+package kitowashere.boiled_witchcraft.common.core
 
+import kitowashere.boiled_witchcraft.common.util.WrapWay
 import kitowashere.boiled_witchcraft.common.util.WrapWay.Companion.plus
 import kotlin.math.max
 import kotlin.math.min

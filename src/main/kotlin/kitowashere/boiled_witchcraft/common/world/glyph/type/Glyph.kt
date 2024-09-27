@@ -15,7 +15,7 @@ abstract class Glyph(val sizes: Array<Int>) {
     open fun getSignal(data: GlyphData) = HashMap<Vector2i, Boolean>()
     open fun isHollow(data: GlyphData) = false
 
-    fun newInstance() = GlyphStack(this)
+    fun newStack() = GlyphStack(this)
 
     companion object {
         val placeholder = FireGlyph

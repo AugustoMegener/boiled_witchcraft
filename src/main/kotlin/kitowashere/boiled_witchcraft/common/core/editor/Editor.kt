@@ -1,18 +1,24 @@
 package kitowashere.boiled_witchcraft.common.core.editor
 
-import kitowashere.boiled_witchcraft.common.core.Selector
+import kitowashere.boiled_witchcraft.common.core.Select
+import kitowashere.boiled_witchcraft.common.util.WrapWay
+import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
 
-abstract class Editor(location: ResourceLocation) : Selector<Selector<*>>(location) {
+abstract class Editor<R> : Select<Editor<R>.EditorSelect<*>>() {
+    abstract var result: R
 
-    abstract val selectors : List<Selector<*>>
+    abstract inner class EditorSelect<T> : Select<T>() {
+        abstract val location: ResourceLocation
 
-    final override val maxIndex get() = selectors.size
+        abstract val  nameComponent: MutableComponent
+        abstract val valueComponent: MutableComponent
 
-    override fun valueFromIndex(i: Int) = selectors[i]
+        final override fun wrap(way: WrapWay) {
+            super.wrap(way)
+            result = newResult(result)
+        }
 
-    fun encode() : IntArray = intArrayOf(wrappedIndex) + selectors.map { it.wrappedIndex }
-
-    fun parse(idxs: IntArray)
-        { wrappedIndex = idxs[0]; idxs.drop(0).zip(selectors).forEach { it.second.wrappedIndex = it.first } }
+        abstract fun newResult(old: R) : R
+    }
 }

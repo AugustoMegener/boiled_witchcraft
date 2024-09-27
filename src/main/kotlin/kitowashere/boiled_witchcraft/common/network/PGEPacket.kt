@@ -23,7 +23,7 @@ data class PGEPacket(val way: WrapWay, val editing: Boolean) : CustomPacketPaylo
         )
 
         override fun handle(packet: PGEPacket, ctx: IPayloadContext) {
-            ctx.player().glyphEditor.editor.run { if (packet.editing) value::wrap else ::wrap } (packet.way)
+            ctx.player().glyphEditor.run { if (packet.editing) value::wrap else ::wrap } (packet.way)
         }
     }
 

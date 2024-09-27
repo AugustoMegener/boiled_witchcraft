@@ -37,11 +37,11 @@ object NeoForgedEventClient {
                     { gui, _, font, x, y ->
                         var yPos = y
 
-                        for (i in editor.categorySelect) {
+                        for (i in categorySelect) {
                             var xPos = x
 
                             gui.drawString(
-                                font, i.name, x, yPos, if (i == editor.categorySelect.value) 0xeba434 else 0xffffff)
+                                font, i.name, x, yPos, if (i == categorySelect.value) 0xeba434 else 0xffffff)
                             yPos += font.lineHeight + 2
                             for (ii in i.content) {
                                 val size = 8
@@ -55,7 +55,7 @@ object NeoForgedEventClient {
                         }
 
                     },
-                    { f -> (f.lineHeight + 12) * (editor.categorySelect.maxIndex + 1) }
+                    { f -> (f.lineHeight + 12) * (categorySelect.maxIndex + 1) }
                 )
             },
             loc("$ID:glyph_selector") to {
@@ -63,11 +63,10 @@ object NeoForgedEventClient {
                     { gui, _, _, x, y ->
                         var xPos = x
 
-                        for (i in editor.glyphSelect) {
-                            val stack = editor.glyphStack
+                        for (i in glyphSelect) {
                             val size = 16
 
-                            gui.blit(xPos, y + if (stack.glyph == i) 0 else 10, 0, size, size, i.getSprite(i.sizes[0]))
+                            gui.blit(xPos, y + if (result.glyph == i) 0 else 10, 0, size, size, i.getSprite(i.sizes[0]))
 
                             xPos += size + 2
                         }
@@ -80,11 +79,10 @@ object NeoForgedEventClient {
 
                 EditorData.SectionRenderer(
                     { gui, _, font, x, y ->
-                        val stack = editor.glyphStack
-                        val size = stack.size
+                        val size = result.size
 
                         gui.drawCenteredString(font, "${size}:${size}", x + (size * 16) / 2, y, 0xffffff)
-                        gui.blit(x, y + font.lineHeight + 2, 0, size * 16, size * 16, stack.sprite)
+                        gui.blit(x, y + font.lineHeight + 2, 0, size * 16, size * 16, result.sprite)
 
                         height = font.lineHeight + 2 + size * 16
                     },

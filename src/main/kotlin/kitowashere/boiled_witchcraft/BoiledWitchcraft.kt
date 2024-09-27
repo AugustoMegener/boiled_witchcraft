@@ -1,8 +1,11 @@
 package kitowashere.boiled_witchcraft
 
 import kitowashere.boiled_witchcraft.client.event.RegisterSelectorRendererEvent
-import kitowashere.boiled_witchcraft.common.registry.*
+import kitowashere.boiled_witchcraft.common.registry.AttachRegistry
+import kitowashere.boiled_witchcraft.common.registry.DataComponentRegistry
 import kitowashere.boiled_witchcraft.common.registry.GlyphReg.glyphRegistry
+import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry
+import kitowashere.boiled_witchcraft.common.registry.ItemRegistry
 import net.neoforged.fml.common.Mod
 import net.neoforged.neoforge.common.NeoForge.EVENT_BUS
 import org.apache.logging.log4j.LogManager
@@ -16,7 +19,6 @@ object BoiledWitchcraft {
     val logger: Logger = LogManager.getLogger(ID)
 
     init {
-        EditorRendererBuilderRegistry
         glyphRegistry
 
         listOf(ItemRegistry, GlyphRegistry, DataComponentRegistry, AttachRegistry)
