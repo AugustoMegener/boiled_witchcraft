@@ -1,23 +1,18 @@
 package kitowashere.boiled_witchcraft.client.event
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
-import kitowashere.boiled_witchcraft.client.keymapping.Keymapping
 import kitowashere.boiled_witchcraft.client.keymapping.Keymapping.keyMappings
-import kitowashere.boiled_witchcraft.client.keymapping.WrapKeys
 import kitowashere.boiled_witchcraft.client.render.atlas.GlyphAtlas
 import kitowashere.boiled_witchcraft.client.render.gui.inventory.decorator.GlyphItemDecorator
-import kitowashere.boiled_witchcraft.client.render.gui.overlay.GlyphEditorOverlay
 import kitowashere.boiled_witchcraft.client.render.gui.overlay.ItemGlyphDisplayOverlay
 import net.minecraft.core.registries.BuiltInRegistries
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
-import net.neoforged.neoforge.common.NeoForge.EVENT_BUS
 import net.minecraft.resources.ResourceLocation.parse as loc
 
 
@@ -36,7 +31,7 @@ object EventBusClient {
 
     @SubscribeEvent
     fun onRegisterKeyMappings(event: RegisterKeyMappingsEvent) {
-        listOf(WrapKeys).forEach { it.keyBuilder(Keymapping) }
+        /*listOf().forEach { it.keyBuilder(Keymapping) }*/
         keyMappings.forEach { event.register(it) }
     }
 
@@ -47,11 +42,6 @@ object EventBusClient {
 
     @SubscribeEvent
     fun onRegisterGuiLayers(event: RegisterGuiLayersEvent) {
-        event.registerAboveAll(loc("$ID:glyph_editor"), GlyphEditorOverlay)
         event.registerAboveAll(loc("$ID:item_glyph_display"), ItemGlyphDisplayOverlay)
-    }
-
-    fun onFMLClientSetup(event: FMLClientSetupEvent) {
-        EVENT_BUS.register(RegisterSelectorRendererEvent)
     }
 }
