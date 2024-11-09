@@ -8,8 +8,7 @@ class GuiGlyphRender(glyphStack: GlyphStack) : GlyphRenderBase() {
     init { super.glyphStack = glyphStack }
 
 
-    fun render(guiGraphics: GuiGraphics, x: Int, y: Int)
-    {
+    fun render(guiGraphics: GuiGraphics, x: Int, y: Int) {
         sprites.forEach {
             val pos = it.pos
             val size = it.size * 16

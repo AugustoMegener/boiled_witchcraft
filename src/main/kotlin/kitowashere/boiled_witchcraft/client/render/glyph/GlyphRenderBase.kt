@@ -21,6 +21,8 @@ abstract class GlyphRenderBase {
     private fun updateSprites() {
         spriteList.clear()
 
+        if (glyphStack.isEmpty) return
+
         putStackSprites(glyphStack)
         glyphStack.innerStack?.let { val margin = it.data.size / 2
                                      putStackSprites(it, Vector2i(margin)) }
@@ -31,6 +33,8 @@ abstract class GlyphRenderBase {
     }
 
     private fun putStackSprites(stack: GlyphStack, pos: Vector2i = Vector2i()) {
+        if (stack.isEmpty) return
+
         spriteList.add(GlyphSprite(stack.sprite, stack.glyph.sizes.getOrElse(stack.data.size) { 0 }, pos))
 
         glyphStack.children.forEach {

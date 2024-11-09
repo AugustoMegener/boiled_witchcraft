@@ -6,4 +6,6 @@ import net.minecraft.world.InteractionHand.OFF_HAND
 
 object GameUtil {
     val InteractionHand.opposite get() = if (this == MAIN_HAND) OFF_HAND else MAIN_HAND
+
+
 }

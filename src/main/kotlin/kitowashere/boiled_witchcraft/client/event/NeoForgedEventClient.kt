@@ -13,7 +13,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent
 object NeoForgedEventClient {
 
     @SubscribeEvent
-    fun onClientTick(event: ClientTickEvent.Post) {
+    fun ClientTickEvent.Post.onClientTick() {
         val player = Minecraft.getInstance().player ?: return
 
         for (i in Keymapping.inputsData) {

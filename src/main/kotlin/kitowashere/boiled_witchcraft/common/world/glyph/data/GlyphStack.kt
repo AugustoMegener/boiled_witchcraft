@@ -8,12 +8,12 @@ import kitowashere.boiled_witchcraft.common.world.glyph.NoneGlyph
 import kitowashere.boiled_witchcraft.common.world.glyph.type.Glyph
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.NbtOps
 import net.neoforged.neoforge.common.util.INBTSerializable
 import org.joml.Vector2i
 import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ValueException
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
+import net.minecraft.nbt.NbtOps.INSTANCE as nbtOps
 
 class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INBTSerializable<CompoundTag> {
 
@@ -48,10 +48,10 @@ class GlyphStack(glyph: Glyph = NoneGlyph, innerStack: GlyphStack? = null) : INB
     }
 
     override fun serializeNBT(provider: HolderLookup.Provider) =
-        codec.encode(this, provider.createSerializationContext(NbtOps.INSTANCE), CompoundTag()).result().get() as CompoundTag
+        codec.encodeStart(nbtOps, this).result().get() as CompoundTag
 
     override fun deserializeNBT(provider: HolderLookup.Provider, nbt: CompoundTag) {
-        (codec.parse(provider.createSerializationContext(NbtOps.INSTANCE), nbt).result().getOrNull() ?: return).also {
+        (codec.parse(nbtOps, nbt).result().getOrNull() ?: return).also {
             glyph       = it.glyph
             data        = it.data
             innerStack  = it.innerStack

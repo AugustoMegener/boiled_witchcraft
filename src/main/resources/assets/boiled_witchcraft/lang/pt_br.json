@@ -16,5 +16,7 @@
   "glyph.group.boiled_witchcraft.primaries": "Primários",
   "glyph.group.boiled_witchcraft.structurals": "Estruturais",
 
-  "tooltip.boiled_witchcraft.glyphable": "Glifável!"
+  "tooltip.boiled_witchcraft.glyphable": "Glifável!",
+
+  "container.boiled_witchcraft.glyph_desk": "Escrivaninha Glifica"
 }

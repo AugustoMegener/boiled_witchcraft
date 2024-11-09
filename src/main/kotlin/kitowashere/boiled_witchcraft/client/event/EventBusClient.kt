@@ -1,18 +1,17 @@
 package kitowashere.boiled_witchcraft.client.event
 
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.ID
+import kitowashere.boiled_witchcraft.client.gui.screens.inventory.GlyphDeskScreen
 import kitowashere.boiled_witchcraft.client.keymapping.Keymapping.keyMappings
 import kitowashere.boiled_witchcraft.client.render.atlas.GlyphAtlas
 import kitowashere.boiled_witchcraft.client.render.gui.inventory.decorator.GlyphItemDecorator
 import kitowashere.boiled_witchcraft.client.render.gui.overlay.ItemGlyphDisplayOverlay
+import kitowashere.boiled_witchcraft.common.registry.MenuTypeRegistry.glyphDeskMenuType
 import net.minecraft.core.registries.BuiltInRegistries
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent
-import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
+import net.neoforged.neoforge.client.event.*
 import net.minecraft.resources.ResourceLocation.parse as loc
 
 
@@ -25,23 +24,28 @@ object EventBusClient {
 //    }
 
     @SubscribeEvent
-    fun onRegisterItemDecorations(event: RegisterItemDecorationsEvent) {
-        BuiltInRegistries.ITEM.forEach { event.register(it, GlyphItemDecorator) }
+    fun RegisterMenuScreensEvent.onRegisterMenuScreen() {
+        register(glyphDeskMenuType, ::GlyphDeskScreen)
     }
 
     @SubscribeEvent
-    fun onRegisterKeyMappings(event: RegisterKeyMappingsEvent) {
+    fun RegisterItemDecorationsEvent.onRegisterItemDecorations() {
+        BuiltInRegistries.ITEM.forEach { register(it, GlyphItemDecorator) }
+    }
+
+    @SubscribeEvent
+    fun RegisterKeyMappingsEvent.onRegisterKeyMappings() {
         /*listOf().forEach { it.keyBuilder(Keymapping) }*/
-        keyMappings.forEach { event.register(it) }
+        keyMappings.forEach { register(it) }
     }
 
     @SubscribeEvent
-    fun onRegisterClientReloadListeners(event: RegisterClientReloadListenersEvent) {
-        event.registerReloadListener(GlyphAtlas)
+    fun RegisterClientReloadListenersEvent.onRegisterClientReloadListeners() {
+        registerReloadListener(GlyphAtlas)
     }
 
     @SubscribeEvent
-    fun onRegisterGuiLayers(event: RegisterGuiLayersEvent) {
-        event.registerAboveAll(loc("$ID:item_glyph_display"), ItemGlyphDisplayOverlay)
+    fun RegisterGuiLayersEvent.onRegisterGuiLayers() {
+        registerAboveAll(loc("$ID:item_glyph_display"), ItemGlyphDisplayOverlay)
     }
 }

@@ -16,5 +16,7 @@
   "editor.stages.boiled_witchcraft.value":    "Value",
 
   "glyph.group.boiled_witchcraft.primaries":    "Primaries",
-  "glyph.group.boiled_witchcraft.structurals":  "Structurals"
+  "glyph.group.boiled_witchcraft.structurals":  "Structurals",
+
+  "container.boiled_witchcraft.glyph_desk": "Glyph Desk"
 }

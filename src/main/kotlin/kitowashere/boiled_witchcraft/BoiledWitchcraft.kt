@@ -1,10 +1,7 @@
 package kitowashere.boiled_witchcraft
 
-import kitowashere.boiled_witchcraft.common.registry.AttachRegistry
-import kitowashere.boiled_witchcraft.common.registry.DataComponentRegistry
+import kitowashere.boiled_witchcraft.common.registry.*
 import kitowashere.boiled_witchcraft.common.registry.GlyphReg.glyphRegistry
-import kitowashere.boiled_witchcraft.common.registry.GlyphRegistry
-import kitowashere.boiled_witchcraft.common.registry.ItemRegistry
 import net.neoforged.fml.common.Mod
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -19,7 +16,8 @@ object BoiledWitchcraft {
     init {
         glyphRegistry
 
-        listOf(ItemRegistry, GlyphRegistry, DataComponentRegistry, AttachRegistry)
+        listOf(ItemRegistry, BlockRegistry, GlyphRegistry, DataComponentRegistry, AttachRegistry,
+               BlockEntityTypeRegistry, MenuTypeRegistry)
             .map { it.register }.forEach { it.register(MOD_BUS) }
     }
 }
