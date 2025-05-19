@@ -25,3 +25,4 @@ runs/*
 *.log
 *.log
 *.gz
+java_pid10052.hprof
