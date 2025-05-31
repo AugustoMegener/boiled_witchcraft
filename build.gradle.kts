@@ -2,8 +2,10 @@ plugins {
     idea
     `maven-publish`
     id("net.neoforged.gradle.userdev") version "7.0.165"
-    id("org.jetbrains.kotlin.jvm") version "2.0.0"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
+    id("org.jetbrains.kotlin.jvm") version "2.1.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0"
+
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
 }
 
 version = project.extra["mod_version"]!!
@@ -62,13 +64,18 @@ repositories {
         url = uri("https://thedarkcolour.github.io/KotlinForForge/")
 
     }
-    maven { url = uri("https://jitpack.io") }
+    maven {
+        name = "Kore"
+        url = uri("https://augustomegener.github.io/Kore/")
+    }
 }
 
 dependencies {
     implementation("net.neoforged:neoforge:${project.extra["neo_version"]}")
     implementation("thedarkcolour:kotlinforforge-neoforge:5.3.0")
-    implementation("com.github.AugustoMegener:Kore:NF-1.21.1-0.1.0")
+
+    implementation("augustomegener:Kore:0.1.0c")
+    ksp("augustomegener.kore:ksp:0.1.0")
 }
 
 tasks.withType<ProcessResources>().configureEach {

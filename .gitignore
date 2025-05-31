@@ -26,3 +26,4 @@ runs/*
 *.log
 *.gz
 java_pid10052.hprof
+.env

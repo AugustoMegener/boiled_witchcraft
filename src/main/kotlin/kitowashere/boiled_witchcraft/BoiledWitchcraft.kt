@@ -1,23 +1,11 @@
 package kitowashere.boiled_witchcraft
 
-import kitowashere.boiled_witchcraft.common.registry.*
-import kitowashere.boiled_witchcraft.common.registry.GlyphReg.glyphRegistry
-import net.neoforged.fml.common.Mod
-import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
-import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
+import io.kito.kore.KMod
+import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.kit.RegisterGlyphEditorOptionKitEvent
+import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 
-@Mod(BoiledWitchcraft.ID)
-object BoiledWitchcraft {
-    const val ID = "boiled_witchcraft"
 
-    val logger: Logger = LogManager.getLogger(ID)
+@KMod
+fun init() {
 
-    init {
-        glyphRegistry
-
-        listOf(ItemRegistry, BlockRegistry, GlyphRegistry, DataComponentRegistry, AttachRegistry,
-               BlockEntityTypeRegistry, MenuTypeRegistry)
-            .map { it.register }.forEach { it.register(MOD_BUS) }
-    }
 }

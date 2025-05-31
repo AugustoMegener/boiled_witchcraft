@@ -8,16 +8,22 @@ loaderVersion="${loader_version_range}"
 license='${mod_license}'
 
 [[mods]]
-modId="${mod_id}"
-version="${mod_version}"
-displayName="${mod_name}"
-credits="Thanks to thedarkcolour and all the contributors for making Kotlin for Forge"
-authors="${mod_authors}"
-description='''${mod_description}'''
+    modId="${mod_id}"
+    version="${mod_version}"
+    displayName="${mod_name}"
+    credits="Thanks to thedarkcolour and all the contributors for making Kotlin for Forge"
+    authors="${mod_authors}"
+    description='''${mod_description}'''
 [[dependencies."${mod_id}"]]
     modId="neoforge"
     type='required'
     versionRange="${neo_version_range}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies."${mod_id}"]]
+    modId="kore"
+    type='required'
+    versionRange="[0.1.0,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies."${mod_id}"]]
