@@ -4,11 +4,11 @@ import io.kito.kore.common.reflect.Scan
 import io.kito.kore.common.registry.SimpleRegister
 import kitowashere.boiled_witchcraft.ID
 import kitowashere.boiled_witchcraft.common.registry.Registries.glyphRegistry
-import kitowashere.boiled_witchcraft.common.world.glyph.EmptyGlyph
 import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
 import kitowashere.boiled_witchcraft.common.world.glyph.Glyph.Companion.glyphCodec
+import kitowashere.boiled_witchcraft.common.world.glyph.GlyphStack
+import kitowashere.boiled_witchcraft.common.world.glyph.author.PlayerGlyphAuthor.Companion.editorUser
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.GlyphEditor
-import kitowashere.boiled_witchcraft.common.world.glyph.editor.user.PlayerEditorUser.Companion.editorUser
 import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.NeoForgeRegistries
@@ -23,13 +23,22 @@ object DataAttachTypes : SimpleRegister<AttachmentType<*>>(ID, NeoForgeRegistrie
 
     var Player.unlockedGlyphs: List<Glyph<*>>
         set(value) { setData(unlokcedGlyphs, value) }
-        get() = if (isCreative) glyphRegistry.toList().filter { it != EmptyGlyph } else getData(unlokcedGlyphs)
+        get() =
+            if (isCreative) glyphRegistry.distinct().filter { it.isPrimary } else getData(unlokcedGlyphs)
 
-    val glyphEditorAttach: AttachmentType<GlyphEditor?> by "glyph_editor" {
-        AttachmentType.builder<GlyphEditor?> { -> null }.serialize(GlyphEditor.codec).build()
+    val playerGlyphEditorAttach by "player_glyph_editor" {
+        AttachmentType.serializable { it -> GlyphEditor((it as Player).editorUser) }.build()
     }
 
     var Player.glyphEditor: GlyphEditor
-        set(value) { setData(glyphEditorAttach, value) }
-        get() = getData(glyphEditorAttach) ?: run { GlyphEditor(editorUser).also { setData(glyphEditorAttach, it) } }
+        set(value) { setData(playerGlyphEditorAttach, value) }
+        get() = getData(playerGlyphEditorAttach)
+
+    val glyphCompositionsAttach by "glyph_compositions" {
+        AttachmentType.builder { -> listOf<GlyphStack>() }.serialize(GlyphStack.codec.listOf()).build()
+    }
+
+    var Player.glyphCompositions
+        get() = getData(glyphCompositionsAttach)
+        set(value) { setData(glyphCompositionsAttach, value) }
 }

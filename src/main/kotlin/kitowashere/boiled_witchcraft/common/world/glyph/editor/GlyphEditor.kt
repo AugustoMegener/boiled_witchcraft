@@ -1,30 +1,56 @@
 package kitowashere.boiled_witchcraft.common.world.glyph.editor
 
 import io.kito.kore.common.data.Save
-import io.kito.kore.common.data.codec.KCodecSerializer
+import io.kito.kore.common.data.nbt.KNBTSerializable
+import io.kito.kore.util.UNCHECKED_CAST
+import kitowashere.boiled_witchcraft.common.data.glyph.GlyphData
+import kitowashere.boiled_witchcraft.common.world.glyph.GlyphLike
 import kitowashere.boiled_witchcraft.common.world.glyph.GlyphStack
+import kitowashere.boiled_witchcraft.common.world.glyph.author.GlyphAuthor
+import kitowashere.boiled_witchcraft.common.world.glyph.editor.input.EditorInput
+import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.kit.EditorOptionKit
+import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.kit.EditorOptionKitType.Companion.newFrom
+import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.kit.GlyphToEditKind
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.kit.RegisterGlyphEditorOptionKitEvent.Companion.glyphEditorOptionKits
-import kitowashere.boiled_witchcraft.common.world.glyph.editor.user.EditorUser
+import kotlin.reflect.KClass
+import kotlin.reflect.full.isSubclassOf
 
-class GlyphEditor(val user: EditorUser) : Selector {
+class GlyphEditor(val user: GlyphAuthor) : Selector, KNBTSerializable {
 
     @Save
     override var index = 0
 
-    override val range get() = 0..user.avaliableGlyphs.size
+    private val allGlyphs: List<GlyphLike> get() = user.avaliableGlyphs + user.compositions
 
-    @Save
-    var stack = GlyphStack.empty
+    override val range get() = 0..<(user.avaliableGlyphs.size+user.compositions.size)
+
+    var stack = user.avaliableGlyphs.getOrNull(index)?.asStack() ?: GlyphStack.empty
          private set(value) {
              field = value
-             options = glyphEditorOptionKits[stack.glyph]!!.supplier()
+             options = glyphEditorOptionKits[stack.glyph]!!.newFrom(kindOfIndex(index))
          }
 
-    var options = glyphEditorOptionKits[stack.glyph]!!.supplier(); private set
+    @Save
+    var options = glyphEditorOptionKits[stack.glyph]!!.newFrom(kindOfIndex(index)); private set
 
     override fun update() {
-        stack = user.avaliableGlyphs[index].stack()
+        stack = allGlyphs[index].asStack()
     }
 
-    companion object : KCodecSerializer<GlyphEditor>(GlyphEditor::class)
+    @Suppress(UNCHECKED_CAST)
+    fun useOption(input: EditorInput) {
+        (options as EditorOptionKit<GlyphData>).selected.use(user, input, stack.data, stack)
+    }
+
+    fun acceptsInputOf(clazz: KClass<out EditorInput>) = clazz.isSubclassOf(options.selected.inputClazz)
+
+    fun kindOfIndex(i: Int) =
+        if (i in 0..<user.avaliableGlyphs.size) GlyphToEditKind.SOURCE else GlyphToEditKind.COMPOSITION
+
+    fun compose() {
+        if (!stack.glyph.isPrimary) throw IllegalStateException("Cant compose a non primary glyph")
+        user.addComposition(stack)
+        index = range.max()
+        update()
+    }
 }

@@ -9,11 +9,13 @@ import org.joml.Vector2i
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
-class GlyphStack(val data: GlyphData) {
+class GlyphStack(val data: GlyphData) : GlyphLike {
 
     constructor(glyph: Glyph<*>) : this(glyph.createData())
 
-    val glyph get() = data.type
+    override val glyph = data.type
+
+    override fun asStack() = this
 
     var inner: GlyphStack? = null; private set
 
@@ -28,6 +30,7 @@ class GlyphStack(val data: GlyphData) {
 
     fun inscribe(stack: GlyphStack) {
         if (!canInscribe(stack)) throw IllegalStateException("Can't inscribe $stack on $this")
+        inner = stack
     }
 
     @Suppress(UNCHECKED_CAST)

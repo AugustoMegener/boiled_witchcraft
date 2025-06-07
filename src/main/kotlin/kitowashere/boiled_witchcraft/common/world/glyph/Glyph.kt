@@ -10,20 +10,28 @@ import kitowashere.boiled_witchcraft.common.registry.Registries.glyphRegistry
 import kitowashere.boiled_witchcraft.common.registry.Registries.haveGlyphRegistry
 import org.joml.Vector2i
 
-abstract class Glyph<T : GlyphData>(val sizes: List<Int>) {
+abstract class Glyph<T : GlyphData>(val sizes: List<Int>) : GlyphLike {
+
+    override val glyph = this
+
+    open val isLinkable = false
+
+    open val isPrimary = false
+
+    open val copyTextureFrom = this
 
     abstract fun createData(): T
 
     abstract fun dataCodec(): MapCodec<T>
 
-    abstract fun isHollow(data: T): Boolean
+    open fun isHollow(data: T) = false
 
-    abstract fun canLinkOn(pos: Vector2i, data: T): Boolean
+    open fun canLinkOn(pos: Vector2i, data: T) = false
 
     @Suppress(UNCHECKED_CAST)
     fun cast(data: GlyphData) = data as T
 
-    fun stack() = GlyphStack(this)
+    override fun asStack() = GlyphStack(this)
 
     override fun toString() = if (haveGlyphRegistry) glyphRegistry.getKey(this).toString() else "glyph"
 

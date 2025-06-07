@@ -14,10 +14,10 @@ import thedarkcolour.kotlinforforge.neoforge.forge.getValue
 object EditorOptionKitTypes : SimpleRegister<EditorOptionKitType<*>>(ID, editorOptionKitTypeRegistryKey) {
 
     val simpleOpitonKit by "simple_option_kit" {
-        EditorOptionKitType<SimpleOptionKit<*>> { SimpleOptionKit<GlyphData>() }
+        EditorOptionKitType { SimpleOptionKit<GlyphData>(it) }
     }
 
     val pillarOpitonKit by "pillar_option_kit" {
-        EditorOptionKitType<PillarOptionKit<*>> { PillarOptionKit<GlyphData>() }
+        EditorOptionKitType { PillarOptionKit<GlyphData>(it) }
     }
 }

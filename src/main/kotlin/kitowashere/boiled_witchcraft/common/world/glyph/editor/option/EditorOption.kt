@@ -2,18 +2,22 @@ package kitowashere.boiled_witchcraft.common.world.glyph.editor.option
 
 import io.kito.kore.util.UNCHECKED_CAST
 import kitowashere.boiled_witchcraft.common.data.glyph.GlyphData
+import kitowashere.boiled_witchcraft.common.world.glyph.GlyphStack
+import kitowashere.boiled_witchcraft.common.world.glyph.author.GlyphAuthor
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.input.EditorInput
-import kitowashere.boiled_witchcraft.common.world.glyph.editor.user.EditorUser
+import net.minecraft.network.chat.Component
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
 
-abstract class EditorOption<T: GlyphData, I: EditorInput>(private val clazz: KClass<I>,
+abstract class EditorOption<T: GlyphData, I: EditorInput>(val inputClazz: KClass<I>,
                                                           val type: EditorOptionType<out EditorOption<T, I>>)
 {
+    abstract val title: Component
+
     @Suppress(UNCHECKED_CAST)
-    fun use(editorUser: EditorUser, input: EditorInput, data: T){
-        if (input::class.isSubclassOf(clazz)) onUsed(editorUser, input as I, data)
+    fun use(glyphAuthor: GlyphAuthor, input: EditorInput, data: T, stack: GlyphStack){
+        if (input::class.isSubclassOf(inputClazz)) onUsed(glyphAuthor, input as I, data, stack)
     }
 
-    protected abstract fun onUsed(editorUser: EditorUser, input: I, data: T)
+    protected abstract fun onUsed(glyphAuthor: GlyphAuthor, input: I, data: T, stack: GlyphStack)
 }

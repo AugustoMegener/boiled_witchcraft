@@ -11,16 +11,16 @@ import kitowashere.boiled_witchcraft.common.network.VERSION
 import kitowashere.boiled_witchcraft.common.registry.DataAttachTypes.glyphEditor
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
-class SelectGlyphPacket(@Send val input: Int) : Packet(SelectGlyphPacket) {
+class SelectOptionPacket(@Send val input: Int) : Packet(SelectOptionPacket) {
     override fun invoke(ctx: IPayloadContext?) {
         val player = (ctx?.player() ?: minecraftClient.player!!)
-        val editor = player.glyphEditor
+        val options = player.glyphEditor.options
 
         ctx.main {
-            when { input < 0 -> editor.next(); input > 0 -> editor.prev() }
+            when { input > 0 -> options.next(); input < 0 -> options.prev() }
         }
     }
 
     @RegisterPacket(VERSION, PacketTarget.SERVER)
-    companion object : PacketType<SelectGlyphPacket>(local("select_glyph"), SelectGlyphPacket::class)
+    companion object : PacketType<SelectOptionPacket>(local("select_option"), SelectOptionPacket::class)
 }

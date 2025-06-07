@@ -9,18 +9,23 @@ import io.kito.kore.util.minecraft.minecraftClient
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.local
 import kitowashere.boiled_witchcraft.common.network.VERSION
 import kitowashere.boiled_witchcraft.common.registry.DataAttachTypes.glyphEditor
+import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.kit.GlyphToEditKind
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
-class SelectGlyphPacket(@Send val input: Int) : Packet(SelectGlyphPacket) {
+class ComposeGlyphPacket : Packet(ComposeGlyphPacket) {
+
+    @Send
+    val data = false
+
     override fun invoke(ctx: IPayloadContext?) {
         val player = (ctx?.player() ?: minecraftClient.player!!)
         val editor = player.glyphEditor
 
         ctx.main {
-            when { input < 0 -> editor.next(); input > 0 -> editor.prev() }
+            if (editor.options.glyphToEditKind == GlyphToEditKind.SOURCE) editor.compose()
         }
     }
 
     @RegisterPacket(VERSION, PacketTarget.SERVER)
-    companion object : PacketType<SelectGlyphPacket>(local("select_glyph"), SelectGlyphPacket::class)
+    companion object : PacketType<ComposeGlyphPacket>(local("compose_glyph"), ComposeGlyphPacket::class)
 }

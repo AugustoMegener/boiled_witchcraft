@@ -4,6 +4,7 @@ import io.kito.kore.common.event.KSubscribe
 import io.kito.kore.common.reflect.Scan
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.local
 import kitowashere.boiled_witchcraft.common.world.glyph.Glyph
+import kitowashere.boiled_witchcraft.common.world.glyph.author.GlyphAuthorType
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.EditorOptionType
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.kit.EditorOptionKitType
 import net.minecraft.core.Registry
@@ -23,11 +24,16 @@ object Registries {
     val editorOptionKitTypeRegistryKey: ResourceKey<Registry<EditorOptionKitType<*>>> =
         createRegistryKey(local("editor_option_type"))
 
+    val glyphAuthorTypeRegistryKey: ResourceKey<Registry<GlyphAuthorType<*>>> =
+        createRegistryKey(local("glyph_author_type"))
+
     lateinit var               glyphRegistry: Registry<Glyph<*>>                private set
 
     lateinit var    editorOptionTypeRegistry: Registry<EditorOptionType<*>>     private set
 
     lateinit var editorOptionKitTypeRegistry: Registry<EditorOptionKitType<*>>  private set
+
+    lateinit var     glyphAuthorTypeRegistry: Registry<GlyphAuthorType<*>>  private set
 
 
     val haveGlyphRegistry get() = ::glyphRegistry.isInitialized
@@ -37,5 +43,6 @@ object Registries {
         glyphRegistry = create(RegistryBuilder(glyphRegistryKey))
         editorOptionTypeRegistry = create(RegistryBuilder(editorOptionTypeRegistryKey))
         editorOptionKitTypeRegistry = create(RegistryBuilder(editorOptionKitTypeRegistryKey))
+        glyphAuthorTypeRegistry = create(RegistryBuilder(glyphAuthorTypeRegistryKey))
     }
 }
