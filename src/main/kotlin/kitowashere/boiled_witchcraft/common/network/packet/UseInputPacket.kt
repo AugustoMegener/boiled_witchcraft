@@ -9,17 +9,18 @@ import io.kito.kore.util.minecraft.minecraftClient
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.local
 import kitowashere.boiled_witchcraft.common.network.VERSION
 import kitowashere.boiled_witchcraft.common.registry.DataAttachTypes.glyphEditor
+import kitowashere.boiled_witchcraft.common.world.glyph.editor.input.UseInput
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
-class SelectGlyphPacket(@Send val input: Int) : Packet(SelectGlyphPacket) {
-    override fun invoke(ctx: IPayloadContext?) {
-        val editor = (ctx?.player() ?: minecraftClient.player!!).glyphEditor
+class UseInputPacket : Packet(UseInputPacket) {
 
-        ctx.main {
-            when { input < 0 -> editor.next(); input > 0 -> editor.prev() }
-        }
+    @Send
+    val data = false
+
+    override fun invoke(ctx: IPayloadContext?) {
+        ctx.main { (ctx?.player() ?: minecraftClient.player!!).glyphEditor.useOption(UseInput) }
     }
 
     @RegisterPacket(VERSION, PacketTarget.SERVER)
-    companion object : PacketType<SelectGlyphPacket>(local("select_glyph"), SelectGlyphPacket::class)
+    companion object : PacketType<UseInputPacket>(local("use_input"), UseInputPacket::class)
 }

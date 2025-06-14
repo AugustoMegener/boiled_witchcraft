@@ -13,6 +13,9 @@ abstract class EditorOptionWidget<T : GlyphData>() {
     protected abstract fun getWidgetWidth(option: EditorOption<T, *>, data: T): Int
     protected abstract fun getWidgetHeight(option: EditorOption<T, *>, data: T): Int
 
+    open fun getTitle(option: EditorOption<T, *>, isEditing: Boolean) =
+        option.title.copy().let { if (isEditing) it.withStyle(ChatFormatting.UNDERLINE) else it }
+
     fun getWidth(option: EditorOption<T, *>, data: T) =
         max(minecraftClient.font.width(option.title), getWidgetWidth(option, data))
 
@@ -21,7 +24,7 @@ abstract class EditorOptionWidget<T : GlyphData>() {
 
     fun render(option: EditorOption<T, *>, data: T, isEditing: Boolean, x: Int, y: Int, gui: GuiGraphics, delta: DeltaTracker) {
 
-        gui.drawString(minecraftClient.font, option.title.copy().let { if (isEditing) it.withStyle(ChatFormatting.UNDERLINE) else it }, x, y, 0xffffff)
+        gui.drawString(minecraftClient.font, getTitle(option, isEditing), x, y, 0xffffff)
 
         renderWidget(option, data, isEditing, x, y + minecraftClient.font.lineHeight * 2, gui, delta)
     }

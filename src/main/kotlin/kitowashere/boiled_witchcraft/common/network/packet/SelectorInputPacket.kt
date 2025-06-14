@@ -14,11 +14,9 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 
 class SelectorInputPacket(@Send val input: Int) : Packet(SelectorInputPacket) {
     override fun invoke(ctx: IPayloadContext?) {
-        val player = (ctx?.player() ?: minecraftClient.player!!)
-        val editor = player.glyphEditor
 
         ctx.main {
-            editor.useOption(SelectorInput.of(input))
+            (ctx?.player() ?: minecraftClient.player!!).glyphEditor.useOption(SelectorInput.of(input))
         }
     }
 

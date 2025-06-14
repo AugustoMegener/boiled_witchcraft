@@ -24,6 +24,8 @@ class GlyphEditor(val user: GlyphAuthor) : Selector, KNBTSerializable {
 
     override val range get() = 0..<(user.avaliableGlyphs.size+user.compositions.size)
 
+    private val sourceRange get() = 0..<user.avaliableGlyphs.size
+
     var stack = user.avaliableGlyphs.getOrNull(index)?.asStack() ?: GlyphStack.empty
          private set(value) {
              field = value
@@ -39,18 +41,29 @@ class GlyphEditor(val user: GlyphAuthor) : Selector, KNBTSerializable {
 
     @Suppress(UNCHECKED_CAST)
     fun useOption(input: EditorInput) {
-        (options as EditorOptionKit<GlyphData>).selected.use(user, input, stack.data, stack)
+        (options as EditorOptionKit<GlyphData>).selected.use(this, user, input, stack.data, stack)
     }
 
     fun acceptsInputOf(clazz: KClass<out EditorInput>) = clazz.isSubclassOf(options.selected.inputClazz)
 
     fun kindOfIndex(i: Int) =
-        if (i in 0..<user.avaliableGlyphs.size) GlyphToEditKind.SOURCE else GlyphToEditKind.COMPOSITION
+        if (i in sourceRange) GlyphToEditKind.SOURCE else GlyphToEditKind.COMPOSITION
 
     fun compose() {
-        if (!stack.glyph.isPrimary) throw IllegalStateException("Cant compose a non primary glyph")
+        if (!stack.glyph.isPrimary && !stack.glyph.isLinkable)
+            throw IllegalStateException("Cant compose a non linkable or non primary glyph")
+
         user.addComposition(stack)
         index = range.max()
+        update()
+    }
+
+    fun removeComposition() {
+        if (kindOfIndex(index) == GlyphToEditKind.SOURCE)
+            throw IllegalStateException("not a composition on index $index")
+
+        user.removeComposition(index - user.avaliableGlyphs.size)
+        index -= 1
         update()
     }
 }

@@ -10,12 +10,10 @@ import kitowashere.boiled_witchcraft.BoiledWitchcraft.keyCategoryLocale
 import kitowashere.boiled_witchcraft.BoiledWitchcraft.keyLocale
 import kitowashere.boiled_witchcraft.ID
 import kitowashere.boiled_witchcraft.client.ClientData.isEditingGlyph
-import kitowashere.boiled_witchcraft.common.network.packet.ComposeGlyphPacket
-import kitowashere.boiled_witchcraft.common.network.packet.SelectGlyphPacket
-import kitowashere.boiled_witchcraft.common.network.packet.SelectOptionPacket
-import kitowashere.boiled_witchcraft.common.network.packet.SelectorInputPacket
+import kitowashere.boiled_witchcraft.common.network.packet.*
 import kitowashere.boiled_witchcraft.common.registry.DataAttachTypes.glyphEditor
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.input.SelectorInput
+import kitowashere.boiled_witchcraft.common.world.glyph.editor.input.UseInput
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.kit.GlyphToEditKind
 import net.minecraft.client.KeyMapping
 
@@ -62,6 +60,13 @@ object Inputs {
         KeyMapping(keyLocale("select_prev"), keySysMain, InputConstants.KEY_LEFT, keyCategoryLocale(ID))
     } syncs { SelectorInputPacket(-1) } justWhen {
         isEditingGlyph && minecraftClient.player?.glyphEditor?.acceptsInputOf(SelectorInput::class) == true
+    }
+
+    @RegisterInput
+    val useInput by InputRegistry {
+        KeyMapping(keyLocale("use_input"), keySysMain, InputConstants.KEY_RETURN, keyCategoryLocale(ID))
+    } syncs ::UseInputPacket justWhen {
+        isEditingGlyph && minecraftClient.player?.glyphEditor?.acceptsInputOf(UseInput::class) == true
     }
 
     @RegisterInput

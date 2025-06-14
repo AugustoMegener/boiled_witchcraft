@@ -18,23 +18,30 @@ import java.util.*
 @JvmInline
 value class PlayerGlyphAuthor(@Save val uuid: UUID) : GlyphAuthor {
 
-    val player get() = ServerLifecycleHooks.getCurrentServer()?.playerList?.getPlayer(uuid)
+    val player get() =
+        ServerLifecycleHooks.getCurrentServer()?.playerList?.getPlayer(uuid) ?:
+        minecraftClient.player.takeIf { it!!.uuid == uuid }
 
     override val type get() = playerGlyphAuthor
 
     override val compositions get() = player?.glyphCompositions ?: listOf()
 
     override val avaliableGlyphs get() = player?.unlockedGlyphs ?: listOf()
-    override val level: Level get() = player?.level() ?: minecraftClient.level!!
+    override val level: Level? get() = player?.level()
 
     override fun addComposition(stack: GlyphStack) {
-        if (player == null) return
+        if (player == null) throw IllegalStateException("Invalid or inacessible player author")
+
+
         player!!.glyphCompositions += stack
     }
 
     override fun removeComposition(idx: Int) {
-        if (player == null) return
+        if (player == null) throw IllegalStateException("Invalid or inacessible player author")
+        if (idx !in compositions.indices) throw IllegalStateException("Index out of range")
+
         player!!.glyphCompositions = player!!.glyphCompositions.filterIndexed { i, _ -> i != idx }
+        player!!.glyphCompositions
     }
 
     @Scan

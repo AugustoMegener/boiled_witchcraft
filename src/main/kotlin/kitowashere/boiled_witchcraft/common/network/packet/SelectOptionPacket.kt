@@ -13,8 +13,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 
 class SelectOptionPacket(@Send val input: Int) : Packet(SelectOptionPacket) {
     override fun invoke(ctx: IPayloadContext?) {
-        val player = (ctx?.player() ?: minecraftClient.player!!)
-        val options = player.glyphEditor.options
+        val options = (ctx?.player() ?: minecraftClient.player!!).glyphEditor.options
 
         ctx.main {
             when { input > 0 -> options.next(); input < 0 -> options.prev() }

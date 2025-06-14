@@ -13,7 +13,7 @@ interface GlyphAuthor {
     val compositions: List<GlyphStack>
 
     val avaliableGlyphs: List<Glyph<*>>
-    val level: Level
+    val level: Level?
 
     fun addComposition(stack: GlyphStack)
     fun removeComposition(idx: Int)

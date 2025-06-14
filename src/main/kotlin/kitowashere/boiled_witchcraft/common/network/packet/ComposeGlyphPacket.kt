@@ -18,8 +18,7 @@ class ComposeGlyphPacket : Packet(ComposeGlyphPacket) {
     val data = false
 
     override fun invoke(ctx: IPayloadContext?) {
-        val player = (ctx?.player() ?: minecraftClient.player!!)
-        val editor = player.glyphEditor
+        val editor = (ctx?.player() ?: minecraftClient.player!!).glyphEditor
 
         ctx.main {
             if (editor.options.glyphToEditKind == GlyphToEditKind.SOURCE) editor.compose()

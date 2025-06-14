@@ -14,8 +14,10 @@ import kitowashere.boiled_witchcraft.common.data.glyph.GlyphData
 import kitowashere.boiled_witchcraft.common.registry.DataAttachTypes.glyphEditor
 import kitowashere.boiled_witchcraft.common.registry.Registries.glyphRegistry
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.EditorOption
+import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.kit.GlyphToEditKind
 import net.minecraft.client.DeltaTracker
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.network.chat.Component.literal
 import net.minecraft.network.chat.Component.translatable
 import kotlin.math.max
 
@@ -36,6 +38,10 @@ object GlyphEditorOverlay {
         var x = xStart
 
         val glyphName = translatable("glyph.${glyphRegistry.getKey(stack.glyph)!!.toLanguageKey()}")
+            .let { when (editor.options.glyphToEditKind) {
+                GlyphToEditKind.SOURCE -> it
+                GlyphToEditKind.COMPOSITION -> literal("[").append(it).append("]")
+            } }
 
         drawString(minecraftClient.font, glyphName, x, y, 0xffffff)
 
