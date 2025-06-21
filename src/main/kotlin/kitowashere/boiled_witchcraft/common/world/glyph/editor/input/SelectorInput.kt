@@ -8,9 +8,9 @@ sealed class SelectorInput(val value: Int) : EditorInput {
     companion object {
         fun of(value: Int) =
             when {
-                value > 0 -> Next;
-                value < 0 -> Prev;
-                else -> throw IllegalStateException("Invaliz zero value for selector input")
+                value > 0 -> Next
+                value < 0 -> Prev
+                else -> throw IllegalStateException("Invalid zero value for selector input")
             }
     }
 }

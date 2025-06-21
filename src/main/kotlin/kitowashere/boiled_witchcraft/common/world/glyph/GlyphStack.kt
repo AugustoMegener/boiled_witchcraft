@@ -3,6 +3,7 @@ package kitowashere.boiled_witchcraft.common.world.glyph
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import io.kito.kore.util.UNCHECKED_CAST
+import io.kito.kore.util.minecraft.jsonOps
 import kitowashere.boiled_witchcraft.common.data.glyph.GlyphData
 import kitowashere.boiled_witchcraft.common.world.glyph.Glyph.Companion.glyphCodec
 import org.joml.Vector2i
@@ -15,11 +16,15 @@ class GlyphStack(val data: GlyphData) : GlyphLike {
 
     override val glyph = data.type
 
+    val isEmpty = glyph == EmptyGlyph
+
     override fun asStack() = this
 
     var inner: GlyphStack? = null; private set
 
-    private var linked: HashMap<Vector2i, GlyphStack> = hashMapOf(); private set
+    private var linked: HashMap<Vector2i, GlyphStack> = hashMapOf();
+
+    val children get() = HashMap(linked)
 
     @Suppress(UNCHECKED_CAST)
     val isHollow get() = (glyph as Glyph<GlyphData>).isHollow(data)
@@ -42,6 +47,12 @@ class GlyphStack(val data: GlyphData) : GlyphLike {
         if (!isValidPos(pos)) throw IllegalStateException("Can't link $stack on invalid $pos pos")
         linked[pos] = stack
     }
+
+    fun copy() : GlyphStack =
+        GlyphStack(dataCodec.decode(jsonOps, dataCodec.encodeStart(jsonOps, data).orThrow).orThrow.first).also {
+            it.inner = inner?.copy()
+            it.linked = hashMapOf(*linked.map { (k, i) -> k to i.copy() }.toTypedArray())
+        }
 
     override fun toString() = "$glyph[$data] -> { inner=$inner; linked=$linked;  }"
 

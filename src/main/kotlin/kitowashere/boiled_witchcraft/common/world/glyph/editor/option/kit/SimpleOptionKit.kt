@@ -6,6 +6,6 @@ import kitowashere.boiled_witchcraft.common.registry.EditorOptionTypes.sizeOptio
 open class SimpleOptionKit<T : GlyphData>(glyphToEditKind: GlyphToEditKind) : EditorOptionKit<T>(glyphToEditKind) {
 
     override fun initOptions() {
-        addOption(sizeOption)
+        if (glyphToEditKind == GlyphToEditKind.SOURCE) addOption(sizeOption)
     }
 }

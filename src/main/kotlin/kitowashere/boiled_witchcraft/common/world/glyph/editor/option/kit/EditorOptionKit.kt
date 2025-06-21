@@ -4,7 +4,9 @@ import io.kito.kore.common.data.Save
 import io.kito.kore.common.data.nbt.KNBTSerializable
 import io.kito.kore.util.UNCHECKED_CAST
 import kitowashere.boiled_witchcraft.common.data.glyph.GlyphData
+import kitowashere.boiled_witchcraft.common.registry.EditorOptionTypes.copyOption
 import kitowashere.boiled_witchcraft.common.registry.EditorOptionTypes.deleteOption
+import kitowashere.boiled_witchcraft.common.registry.EditorOptionTypes.placeGlyphOption
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.Selector
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.EditorOption
 import kitowashere.boiled_witchcraft.common.world.glyph.editor.option.EditorOptionType
@@ -33,6 +35,11 @@ abstract class EditorOptionKit<T : GlyphData>(val glyphToEditKind: GlyphToEditKi
 
     private fun setupOptions() {
         initOptions()
-        if (glyphToEditKind == GlyphToEditKind.COMPOSITION) addOption(deleteOption)
+        addOption(copyOption)
+
+        if (glyphToEditKind == GlyphToEditKind.COMPOSITION) {
+            addOption(placeGlyphOption)
+            addOption(deleteOption)
+        }
     }
 }

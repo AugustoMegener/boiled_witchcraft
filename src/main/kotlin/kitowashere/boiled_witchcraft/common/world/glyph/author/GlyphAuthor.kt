@@ -11,6 +11,7 @@ interface GlyphAuthor {
     val type: GlyphAuthorType<*>
 
     val compositions: List<GlyphStack>
+    var clipBoard: GlyphStack
 
     val avaliableGlyphs: List<Glyph<*>>
     val level: Level?

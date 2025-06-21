@@ -17,7 +17,7 @@ import thedarkcolour.kotlinforforge.neoforge.forge.getValue
 @Scan
 object DataAttachTypes : SimpleRegister<AttachmentType<*>>(ID, NeoForgeRegistries.ATTACHMENT_TYPES) {
 
-    val unlokcedGlyphs by "unlocked_glyphs" {
+    val unlokcedGlyphs: AttachmentType<List<Glyph<*>>> by "unlocked_glyphs" {
         AttachmentType.builder { -> listOf<Glyph<*>>() }.serialize(glyphCodec().listOf()).build()
     }
 
@@ -26,7 +26,7 @@ object DataAttachTypes : SimpleRegister<AttachmentType<*>>(ID, NeoForgeRegistrie
         get() =
             if (isCreative) glyphRegistry.distinct().filter { it.isPrimary } else getData(unlokcedGlyphs)
 
-    val playerGlyphEditorAttach by "player_glyph_editor" {
+    val playerGlyphEditorAttach: AttachmentType<GlyphEditor> by "player_glyph_editor" {
         AttachmentType.serializable { it -> GlyphEditor((it as Player).editorUser) }.build()
     }
 
@@ -34,11 +34,19 @@ object DataAttachTypes : SimpleRegister<AttachmentType<*>>(ID, NeoForgeRegistrie
         set(value) { setData(playerGlyphEditorAttach, value) }
         get() = getData(playerGlyphEditorAttach)
 
-    val glyphCompositionsAttach by "glyph_compositions" {
+    val glyphCompositionsAttach: AttachmentType<List<GlyphStack>> by "glyph_compositions" {
         AttachmentType.builder { -> listOf<GlyphStack>() }.serialize(GlyphStack.codec.listOf()).build()
     }
 
-    var Player.glyphCompositions
-        get() = getData(glyphCompositionsAttach)
+    var Player.glyphCompositions: List<GlyphStack>
+        get() =  getData(glyphCompositionsAttach)
         set(value) { setData(glyphCompositionsAttach, value) }
+
+    val glyphClipboardAttach: AttachmentType<GlyphStack> by "glyph_clipboard" {
+        AttachmentType.builder { -> GlyphStack.empty }.serialize(GlyphStack.codec).build()
+    }
+
+    var Player.glyphClipboard: GlyphStack
+        get() = getData(glyphClipboardAttach)
+        set(value) { setData(glyphClipboardAttach, value) }
 }

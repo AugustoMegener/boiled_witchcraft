@@ -4,27 +4,32 @@ import io.kito.kore.common.data.Save
 import io.kito.kore.common.data.codec.CodecSource
 import io.kito.kore.common.data.codec.KMapCodecSerializer
 import io.kito.kore.common.reflect.Scan
-import io.kito.kore.util.minecraft.minecraftClient
+import kitowashere.boiled_witchcraft.common.registry.DataAttachTypes.glyphClipboard
 import kitowashere.boiled_witchcraft.common.registry.DataAttachTypes.glyphCompositions
 import kitowashere.boiled_witchcraft.common.registry.DataAttachTypes.unlockedGlyphs
 import kitowashere.boiled_witchcraft.common.registry.GlyphAuthorTypeTypes.playerGlyphAuthor
 import kitowashere.boiled_witchcraft.common.world.glyph.GlyphStack
+import net.minecraft.client.Minecraft
 import net.minecraft.core.UUIDUtil
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.server.ServerLifecycleHooks
 import java.util.*
 
-@JvmInline
-value class PlayerGlyphAuthor(@Save val uuid: UUID) : GlyphAuthor {
 
-    val player get() =
-        ServerLifecycleHooks.getCurrentServer()?.playerList?.getPlayer(uuid) ?:
-        minecraftClient.player.takeIf { it!!.uuid == uuid }
+class PlayerGlyphAuthor(@Save val uuid: UUID) : GlyphAuthor {
+
+    val player =
+        Minecraft.getInstance().player?.takeIf { it.uuid == uuid } ?:
+        ServerLifecycleHooks.getCurrentServer()?.playerList?.getPlayer(uuid)
 
     override val type get() = playerGlyphAuthor
 
     override val compositions get() = player?.glyphCompositions ?: listOf()
+
+    override var clipBoard: GlyphStack
+        get() = player?.glyphClipboard ?: GlyphStack.empty
+        set(value) { player?.glyphClipboard = value }
 
     override val avaliableGlyphs get() = player?.unlockedGlyphs ?: listOf()
     override val level: Level? get() = player?.level()
@@ -32,16 +37,14 @@ value class PlayerGlyphAuthor(@Save val uuid: UUID) : GlyphAuthor {
     override fun addComposition(stack: GlyphStack) {
         if (player == null) throw IllegalStateException("Invalid or inacessible player author")
 
-
-        player!!.glyphCompositions += stack
+        player.glyphCompositions += stack
     }
 
     override fun removeComposition(idx: Int) {
         if (player == null) throw IllegalStateException("Invalid or inacessible player author")
         if (idx !in compositions.indices) throw IllegalStateException("Index out of range")
 
-        player!!.glyphCompositions = player!!.glyphCompositions.filterIndexed { i, _ -> i != idx }
-        player!!.glyphCompositions
+        player.glyphCompositions = player.glyphCompositions.filterIndexed { i, _ -> i != idx }
     }
 
     @Scan

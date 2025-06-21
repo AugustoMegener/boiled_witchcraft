@@ -21,7 +21,8 @@ class ComposeGlyphPacket : Packet(ComposeGlyphPacket) {
         val editor = (ctx?.player() ?: minecraftClient.player!!).glyphEditor
 
         ctx.main {
-            if (editor.options.glyphToEditKind == GlyphToEditKind.SOURCE) editor.compose()
+            if (editor.options.glyphToEditKind == GlyphToEditKind.SOURCE && editor.stack.glyph.isLinkable)
+                editor.compose()
         }
     }
 

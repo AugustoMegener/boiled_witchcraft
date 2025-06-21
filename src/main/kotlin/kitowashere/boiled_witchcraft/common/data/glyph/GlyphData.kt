@@ -10,6 +10,7 @@ open class GlyphData(@Save var type: Glyph<*>) {
     @Save
     var size = type.sizes.min()
 
+
     @Scan
     companion object : KMapCodecSerializer<GlyphData>(GlyphData::class)
 }

@@ -12,7 +12,9 @@ object EditorOptionTypes : SimpleRegister<EditorOptionType<*>>(ID, editorOptionT
 
     val   debugEndOption by "debug_end_option" { EditorOptionType(::DebugEndOption) }
 
-    val   deleteOption by   "delete_option" { EditorOptionType(  ::DeleteOption) }
-    val     sizeOption by     "size_option" { EditorOptionType(  ::SizeOption) }
-    val   heightOption by   "height_option" { EditorOptionType(::HeightOption) }
+    val     deleteOption by      "delete_option" { EditorOptionType(    ::DeleteOption) }
+    val       copyOption by        "copy_option" { EditorOptionType(      ::CopyOption) }
+    val placeGlyphOption by "place_glyph_option" { EditorOptionType(::PlaceGlyphOption) }
+    val       sizeOption by        "size_option" { EditorOptionType(      ::SizeOption) }
+    val     heightOption by      "height_option" { EditorOptionType(    ::HeightOption) }
 }

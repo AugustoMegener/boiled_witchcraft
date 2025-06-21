@@ -5,4 +5,6 @@ interface GlyphLike {
     val glyph: Glyph<*>
 
     fun asStack(): GlyphStack
+
+
 }
