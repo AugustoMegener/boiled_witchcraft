@@ -17,6 +17,7 @@ object RingGlyph : Glyph<GlyphData>(listOf(2, 3, 4, 5)) {
     override fun createData() = GlyphData(this)
 
     override fun dataCodec() = GlyphData.mapCodec
+    override fun dataStreamCodec() = GlyphData.streamCodec
 
     override fun canLinkOn(pos: Vector2i, data: GlyphData): Boolean {
         val (x, y) = pos.x to pos.y

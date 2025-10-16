@@ -13,6 +13,7 @@ object FireGlyph : PillarGlyph<PillarGlyphData>(listOf(1, 2, 3)) {
     override fun createData() = PillarGlyphData(this)
 
     override fun dataCodec() = PillarGlyphData.mapCodec
+    override fun dataStreamCodec() = PillarGlyphData.streamCodec
 
     override fun maxHeight(user: GlyphAuthor, data: PillarGlyphData) = 5
 }

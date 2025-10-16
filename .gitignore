@@ -28,3 +28,4 @@ runs/*
 java_pid10052.hprof
 .env
 *.hprof
+.kotlin/sessions/kotlin-compiler-12580942981619124279.salive

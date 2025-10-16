@@ -74,7 +74,7 @@ dependencies {
     implementation("net.neoforged:neoforge:${project.extra["neo_version"]}")
     implementation("thedarkcolour:kotlinforforge-neoforge:5.3.0")
 
-    implementation("augustomegener:Kore:0.1.0c")
+    implementation("augustomegener:Kore:0.1.3g")
     ksp("augustomegener.kore:ksp:0.1.0")
 }
 

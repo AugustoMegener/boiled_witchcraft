@@ -90,7 +90,7 @@ object Inputs {
 
         if (isEditingGlyph && player.glyphEditor.acceptsInputOf(GlyphPlacementInput::class) && useInput.consumeClick())
         {
-            minecraftClient.setScreen(GlyphPlacingScreen)
+            minecraftClient.setScreen(GlyphPlacingScreen())
         }
     }
 }

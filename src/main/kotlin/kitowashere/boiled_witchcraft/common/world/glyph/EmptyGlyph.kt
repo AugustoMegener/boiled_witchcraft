@@ -10,4 +10,5 @@ object EmptyGlyph : Glyph<GlyphData>(listOf(1)) {
     override fun createData() = GlyphData(this)
 
     override fun dataCodec() = GlyphData.mapCodec
+    override fun dataStreamCodec() = GlyphData.streamCodec
 }

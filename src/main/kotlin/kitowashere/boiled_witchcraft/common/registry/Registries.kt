@@ -40,9 +40,9 @@ object Registries {
 
     @KSubscribe
     fun NewRegistryEvent.createNewRegistry() {
-        glyphRegistry = create(RegistryBuilder(glyphRegistryKey))
-        editorOptionTypeRegistry = create(RegistryBuilder(editorOptionTypeRegistryKey))
-        editorOptionKitTypeRegistry = create(RegistryBuilder(editorOptionKitTypeRegistryKey))
-        glyphAuthorTypeRegistry = create(RegistryBuilder(glyphAuthorTypeRegistryKey))
+        glyphRegistry = create(RegistryBuilder(glyphRegistryKey).sync(true))
+        editorOptionTypeRegistry = create(RegistryBuilder(editorOptionTypeRegistryKey).sync(true))
+        editorOptionKitTypeRegistry = create(RegistryBuilder(editorOptionKitTypeRegistryKey).sync(true))
+        glyphAuthorTypeRegistry = create(RegistryBuilder(glyphAuthorTypeRegistryKey).sync(true))
     }
 }

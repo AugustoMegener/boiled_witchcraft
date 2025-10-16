@@ -9,7 +9,7 @@ import kitowashere.boiled_witchcraft.common.world.glyph.author.PlayerGlyphAuthor
 import thedarkcolour.kotlinforforge.neoforge.forge.getValue
 
 @Scan
-object GlyphAuthorTypeTypes : SimpleRegister<GlyphAuthorType<*>>(ID, glyphAuthorTypeRegistryKey) {
+object GlyphAuthorTypes : SimpleRegister<GlyphAuthorType<*>>(ID, glyphAuthorTypeRegistryKey) {
 
     val playerGlyphAuthor by "player_glyph_author" { GlyphAuthorType(PlayerGlyphAuthor.mapCodec) }
 }

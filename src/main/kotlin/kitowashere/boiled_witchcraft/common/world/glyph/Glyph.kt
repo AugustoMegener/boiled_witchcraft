@@ -3,11 +3,16 @@ package kitowashere.boiled_witchcraft.common.world.glyph
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import io.kito.kore.common.data.codec.CodecSource
+import io.kito.kore.common.data.codec.stream.StreamCodecSource
 import io.kito.kore.common.reflect.Scan
 import io.kito.kore.util.UNCHECKED_CAST
 import kitowashere.boiled_witchcraft.common.data.glyph.GlyphData
 import kitowashere.boiled_witchcraft.common.registry.Registries.glyphRegistry
+import kitowashere.boiled_witchcraft.common.registry.Registries.glyphRegistryKey
 import kitowashere.boiled_witchcraft.common.registry.Registries.haveGlyphRegistry
+import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.network.codec.StreamCodec
 import org.joml.Vector2i
 
 abstract class Glyph<T : GlyphData>(val sizes: List<Int>) : GlyphLike {
@@ -23,6 +28,7 @@ abstract class Glyph<T : GlyphData>(val sizes: List<Int>) : GlyphLike {
     abstract fun createData(): T
 
     abstract fun dataCodec(): MapCodec<T>
+    abstract fun dataStreamCodec(): StreamCodec<RegistryFriendlyByteBuf, T>
 
     open fun isHollow(data: T) = false
 
@@ -40,7 +46,13 @@ abstract class Glyph<T : GlyphData>(val sizes: List<Int>) : GlyphLike {
         @CodecSource
         fun glyphCodec(): Codec<Glyph<*>> = glyphRegistry.byNameCodec()
 
+        @StreamCodecSource
+        fun glyphStreamCodec(): StreamCodec<RegistryFriendlyByteBuf, Glyph<*>> = ByteBufCodecs.registry(glyphRegistryKey)
+
         @CodecSource
         fun glyphStackCodec() = GlyphStack.codec
+
+        @StreamCodecSource
+        fun glyphStackStreamCodec() = GlyphStack.streamCodec
     }
 }

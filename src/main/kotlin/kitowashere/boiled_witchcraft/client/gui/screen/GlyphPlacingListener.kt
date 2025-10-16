@@ -11,6 +11,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import org.joml.Vector2i
+import kotlin.math.ceil
 
 object GlyphPlacingListener : GuiEventListener, NarratableEntry, Renderable {
 
@@ -41,9 +42,12 @@ object GlyphPlacingListener : GuiEventListener, NarratableEntry, Renderable {
             repeat(glyph.size) { y ->
                 val vec = Vector2i(x, y)
 
+                val a = (glyphX + x * glyphSize) + 6..(glyphX + x * glyphSize + glyphSize) - 6
+                val b = (glyphY + y * glyphSize) + 6..(glyphY + y * glyphSize + glyphSize) - 6
+
                 if (glyph.isValidPos(vec) &&
-                    mouseX.toInt() in (glyphX + x * glyphSize) + 6..(glyphX + x * glyphSize * 2) - 6 &&
-                    mouseY.toInt() in (glyphY + y * glyphSize) + 6..(glyphY + y * glyphSize * 2) - 6)
+                    ceil(mouseX).toInt() in a &&
+                    ceil(mouseY).toInt() in b)
                 {
                     GlyphLinkingInputPacket(vec).sync()
                     return true
